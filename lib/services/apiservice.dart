@@ -64,6 +64,7 @@ class ApiService {
         if (_res["status"] == 1) {
           log("Log in success");
           authController.user = _res["data"];
+
           Get.to(ReviewDetail());
           //  Get.to(HomePage());
           showSnakbar("Welcome !", "Login Successful");
