@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:travel/ui/home/homePage.dart';
 
 import '../../helper/snackbar.dart';
+import '../../services/apiservice.dart';
 
 class PlanForMe extends StatefulWidget {
   @override
@@ -11,12 +12,12 @@ class PlanForMe extends StatefulWidget {
 
 class _PlanForMeState extends State<PlanForMe> {
   final _formKey = GlobalKey<FormState>();
-  late String name;
-  late String destination;
-  late String type;
+  // late String name;
+  // late String destination;
+  // late String type;
   DateTime? fromDate;
   DateTime? toDate;
-  late int guests;
+  // late int guests;
   TextEditingController nameCtrl = new TextEditingController();
   TextEditingController destinationCtrl = new TextEditingController();
   TextEditingController typeCtrl = new TextEditingController();
@@ -53,11 +54,11 @@ class _PlanForMeState extends State<PlanForMe> {
           Container(
             child: ListView(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Details",
+                      "Package Details",
                       style: TextStyle(
                           fontSize: 24,
                           color: Colors.teal,
@@ -154,10 +155,16 @@ class _PlanForMeState extends State<PlanForMe> {
                               onPressed: () {
                                 if (validate()) {
                                   // _formKey.currentState!.save();
-
+                                  ApiService().requestPackage(
+                                      //  nameCtrl.text,
+                                      destinationCtrl.text,
+                                      typeCtrl.text,
+                                      fromDate.toString(),
+                                      toDate.toString(),
+                                      guestCtrl.text);
                                   Get.to(() => HomePage());
-                                  showSnakbar("Congratulation",
-                                      "Your Designed package has been sent to admin");
+                                  // showSnakbar("Congratulation",
+                                  //     "Your Designed package has been sent to admin");
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //   SnackBar(
                                   //       content: Text(
@@ -182,10 +189,10 @@ class _PlanForMeState extends State<PlanForMe> {
   }
 
   bool validate() {
-    if (nameCtrl.text.isEmpty) {
-      showSnakbar("Error", "Please Enter Name");
-      return false;
-    }
+    // if (nameCtrl.text.isEmpty) {
+    //   showSnakbar("Error", "Please Enter Name");
+    //   return false;
+    // }
     if (destinationCtrl.text.isEmpty) {
       showSnakbar("Error", "Please Enter Destination");
       return false;

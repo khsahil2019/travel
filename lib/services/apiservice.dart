@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/ui/bestDeal/bestdealPage.dart';
 import 'package:travel/ui/home/homePage.dart';
 import 'dart:io';
 
@@ -14,6 +15,7 @@ import '../helper/show_loading.dart';
 import '../helper/snackbar.dart';
 import '../register/login.dart';
 import '../ui/bookingReviewPage/bookingReviewScreen.dart';
+import '../ui/bookingReviewPage/confirmation.dart';
 
 class ApiService {
   final baseUrl = "cruxtech.in";
@@ -22,6 +24,8 @@ class ApiService {
     'Accept': 'application/json',
   };
 
+  List<BestDeals> results = [];
+  String fetchUrl = "https://cruxtech.in/api/Deals.php";
   // Future<Response> logout(String accessToken) async {
   //   try {
   //     Response response = await _dio.get(
@@ -65,7 +69,7 @@ class ApiService {
           log("Log in success");
           authController.user = _res["data"];
 
-          Get.to(ReviewDetail());
+          Get.to(BookingConfirmationScreen());
           //  Get.to(HomePage());
           showSnakbar("Welcome !", "Login Successful");
         } else {
@@ -222,6 +226,7 @@ class ApiService {
     }
   }
 
+  // Future<List<dynamic>> deals(String? query) async {
   Future<List<dynamic>> deals() async {
     //showLoading();
     var client = http.Client();
@@ -235,6 +240,9 @@ class ApiService {
       log("status code" + response.statusCode.toString());
       if (response.statusCode == 200) {
         dismissLoadingWidget();
+        // if ( query!=null) {
+        //     results = results.where((element) => element.)
+        //   }
         if (_res["status"] == 1) {
           return _res['data'];
         } else {
@@ -321,6 +329,132 @@ class ApiService {
       // showToastMessage(e.toString(), Icons.error);
       log("error catch: " + e.toString());
       return {};
+    }
+  }
+
+  Future<List<dynamic>> destinationWedding() async {
+    //showLoading();
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl, 'api/wedding.php');
+    log("uri: " + uri.toString());
+
+    try {
+      var response = await client.post(uri, headers: _header, body: null);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      // log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          return _res['data'];
+        } else {
+          return [];
+        }
+      }
+
+      return [];
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage("No Internet Connection", Icons.error);
+      log("no internet catch: " + e.toString());
+      return [];
+    } catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return [];
+    }
+  }
+
+  Future<Map> privacyPolicy() async {
+    //showLoading();
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl, 'api/privacy.php');
+    log("uri: " + uri.toString());
+
+    try {
+      var response = await client.post(uri, headers: _header, body: null);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      // log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          return _res['data'];
+        } else {
+          return {};
+        }
+      }
+
+      return {};
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage("No Internet Connection", Icons.error);
+      log("no internet catch: " + e.toString());
+      return {};
+    } catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return {};
+    }
+  }
+
+  Future<Map?> requestPackage(String destination, String type, String fromDate,
+      String toDate, String noOfGuest) async {
+    showLoading();
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl, 'api/packagerequest.php');
+    log("uri: " + uri.toString());
+
+    try {
+      var _body = json.encode({
+        //  'name': name,
+        'location': destination,
+        'type': type,
+        'fromdate': fromDate,
+        'todate': toDate,
+        'person': noOfGuest,
+      });
+      log("body: " + _body);
+      var response = await client.post(uri, headers: _header, body: _body);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          log("Package send successFully");
+          showSnakbar("Congratulation !", "Package Detail Send Successfully");
+          //  authController.fulldata = _res["data"];
+          Get.offAll(HomePage());
+
+          //    authController.user = _res["data"];
+          // Get.offAll(logIn(
+          //     authController.user.toString(), authController.user.toString()));
+        } else {
+          dismissLoadingWidget();
+          log("package not created");
+          showSnakbar("Try Again !", "Something went Wrong");
+        }
+      }
+
+      // showBottomToast("Error", error.msg.toString());
+      // showToastMessage(error.msg, Icons.error);
+
+      // log("error: " + error.msg.toString());
+      // return userdata;
+      return null;
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage("No Internet Connection", Icons.error);
+      log("no internet catch: " + e.toString());
+      return null;
+    } catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return null;
     }
   }
 }

@@ -13,23 +13,37 @@ class AuthController extends GetxController {
   static AuthController instance = Get.find();
   Map? user;
   List<dynamic> exoticplaceList = [];
+  List<dynamic> destinationWeddingList = [];
   List<dynamic> dealsList = [];
   Map? indexPageList;
   Map? logoList;
+  Map? privacyList;
 // Map? fulldata;
   @override
   void onInit() {
     // TODO: implement onInit
+    getPrivacy();
     getExoticpalce();
     getIndexPage();
+    getDestinationWeeding();
     getDeals();
     getlogo();
     super.onInit();
     log("AuthController onInit");
   }
 
+  getPrivacy() {
+    ApiService().privacyPolicy().then((value) => privacyList = value);
+  }
+
   getExoticpalce() {
     ApiService().exoticLocation().then((value) => exoticplaceList = value);
+  }
+
+  getDestinationWeeding() {
+    ApiService()
+        .destinationWedding()
+        .then((value) => destinationWeddingList = value);
   }
 
   getDeals() {

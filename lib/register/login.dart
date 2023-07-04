@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 // import 'forgetpass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:travel/register/signup.dart';
 
 import '../services/apiservice.dart';
 
@@ -149,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   primary: Colors.teal, //background color of button
                 ),
                 onPressed: () {
-                  //  Get.to(SignupPage());
+                  Get.to(SignupPage());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

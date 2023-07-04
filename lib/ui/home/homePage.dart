@@ -7,6 +7,8 @@ import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/authController.dart';
 
@@ -17,6 +19,11 @@ import '../bestDeal/bestdealDetail.dart';
 import '../bestDeal/bestdealPage.dart';
 import '../designPackage/planForMe.dart';
 import '../exoticLocation/exoticLocationDetail.dart';
+import '../exoticLocation/exoticLocationPage.dart';
+import '../policy/privacyPolicy.dart';
+import '../serach/serach.dart';
+import '../weddingDestination/weddingDestiDetail.dart';
+import '../weddingDestination/weddingdestiPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage() : super();
@@ -25,16 +32,71 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+int selectedId = 2;
+
 class _HomePageState extends State<HomePage> {
   bool isPlan = false;
+  int index = 0;
+  double _value = 0;
+  final double _min = 500;
+  final double _max = 50000;
+
+  Future<void>? _launched;
+  String? _phone = '';
+  bool _hasCallSupport = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Check for phone call support.
+    canLaunchUrl(Uri(scheme: 'tel', path: '123')).then((bool result) {
+      setState(() {
+        _hasCallSupport = result;
+      });
+    });
+  }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  Future<void> _launchInWebViewOrVC(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.inAppWebView,
+      webViewConfiguration: const WebViewConfiguration(
+          headers: <String, String>{'my_header_key': 'my_header_value'}),
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   Widget build(BuildContext context) {
+    final Uri toLaunch = Uri(
+        scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
-    log("Exotic place :" + authController.exoticplaceList.toString());
-    log("index : " + authController.indexPageList.toString());
-    log("Deals : " + authController.dealsList.toString());
-    log("logo : " + authController.logoList.toString());
+    // log("Exotic place :" + authController.exoticplaceList.toString());
+    // log("index : " + authController.indexPageList.toString());
+    // log("Deals : " + authController.dealsList.toString());
+    // log("logo : " + authController.logoList.toString());
+    // log("DestinationWedding : " +
+    //     authController.destinationWeddingList.toString());
+    // log("privacy " + authController.privacyList.toString());
+
     // ignore: unused_local_variable
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
@@ -66,12 +128,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                // authController.getExoticpalce();
-                //authController.getIndexPage();
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => SearchScreen()),
-                // );
+                showSearch(context: context, delegate: searchPackage());
               },
             ),
             GestureDetector(
@@ -102,26 +159,32 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: width * .35,
-                              child: Text(authController.indexPageList!["p2"]
-                                  .toString()),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: width * .6,
-                              child: Text(
-                                authController.indexPageList!["p3"].toString(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            )
-                          ],
-                        ),
+                        // Column(
+                        //   children: [
+                        //     SizedBox(
+                        //       width: width * .35,
+                        //       child: Text(authController.indexPageList!["p2"]
+                        //           .toString()),
+                        //     ),
+                        //     const SizedBox(
+                        //       height: 20,
+                        //     ),
+                        //     SizedBox(
+                        //       width: width * .6,
+                        //       child: Text(
+                        //         authController.indexPageList!["p3"].toString(),
+                        //         textAlign: TextAlign.center,
+                        //         style: const TextStyle(fontSize: 12),
+                        //       ),
+                        //     )
+                        //   ],flutter pub global activate rename
+                        // ),
+                        Image.network(
+                            "https://cruxtech.in/admin/uploadss/Untitled-5.png",
+                            // "https://cruxtech.in/admin/index_images/" +
+                            //     authController.indexPageList!["pimg"],
+                            height: 150,
+                            width: 150),
                         Image.network(
                             "https://cruxtech.in/admin/index_images/" +
                                 authController.indexPageList!["pimg"],
@@ -141,42 +204,32 @@ class _HomePageState extends State<HomePage> {
                     //Text(authController.exoticplaceList.length.toString()),
                     // Text(authController.indexPageList!.length.toString()),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            // setState(() {
-                            //   isPlan = !isPlan;
-                            // });
-                            Get.to(PlanForMe());
-                            // _openPopup(context);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => PlanForMe()),
-                            // );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.orange),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                authController.indexPageList!["p4"].toString(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        //  Text("Get Price")
+                        authController.indexPageList!["p4"] == null
+                            ? GestureDetector(
+                                onTap: () {
+                                  Get.to(PlanForMe());
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.orange),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      authController.indexPageList!["p4"]
+                                          .toString(),
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
                       ],
                     ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
-                    // isPlan == true ?Column(children: [
 
-                    // ],):SizedBox(),
                     const SizedBox(
                       height: 30,
                     ),
@@ -230,134 +283,255 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: search(width),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => const HotelRooms()),
-                            // );
-                          },
-                          child: Column(
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const HotelRooms()),
+                              // );
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://cruxtech.in/admin/index_images/" +
+                                        authController.indexPageList!["icon5"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh5"]
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(toLaunch);
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                authController.indexPageList!["Icon6"] != null
+                                    ? Image.network(
+                                        //  "https://cruxtech.in/admin/index_images/Untitled%20design.png",
+                                        "https://cruxtech.in/admin/index_images/" +
+                                            authController
+                                                .indexPageList!["Icon6"],
+                                        height: 100,
+                                        width: 90)
+                                    : Image.network(
+                                        "https://cruxtech.in/admin/index_images/Untitled%20design.png",
+                                        // "https://cruxtech.in/admin/index_images/" +
+                                        //     authController
+                                        //         .indexPageList!["Icon6"],
+                                        height: 100,
+                                        width: 90),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                authController.indexPageList!["iconh6"] != null
+                                    ? Text(
+                                        authController.indexPageList!["iconh6"]
+                                            .toString(),
+                                        // "Train",
+                                        style: const TextStyle(
+                                            color: Colors.teal,
+                                            fontWeight: FontWeight.bold))
+                                    : SizedBox(),
+                              ],
+                            ),
+                          ),
+                          Column(
                             children: [
                               Image.network(
                                   "https://cruxtech.in/admin/index_images/" +
-                                      authController.indexPageList!["icon5"],
+                                      authController.indexPageList!["icon4"],
                                   height: 100,
                                   width: 100),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                  authController.indexPageList!["iconh5"]
+                                  authController.indexPageList!["iconh4"]
                                       .toString(),
-                                  style: const TextStyle())
+                                  style: const TextStyle(
+                                      color: Colors.teal,
+                                      fontWeight: FontWeight.bold))
                             ],
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Image.network(
-                                "https://cruxtech.in/admin/index_images/" +
-                                    authController.indexPageList!["icon4"],
-                                height: 100,
-                                width: 100),
-                            const SizedBox(
-                              height: 10,
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => BestDeals());
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://cruxtech.in/admin/index_images/" +
+                                        authController.indexPageList!["icon1"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh1"]
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
                             ),
-                            Text(
-                                authController.indexPageList!["iconh4"]
-                                    .toString(),
-                                style: const TextStyle())
-                          ],
-                        ),
-                      ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ExoticLocationScreen()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://cruxtech.in/admin/index_images/" +
+                                        authController.indexPageList!["icon2"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh2"]
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => WeddingDestinationScreen());
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://cruxtech.in/admin/index_images/" +
+                                        authController.indexPageList!["icon3"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh3"]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => BestDeals());
-                          },
-                          child: Column(
-                            children: [
-                              Image.network(
-                                  "https://cruxtech.in/admin/index_images/" +
-                                      authController.indexPageList!["icon1"],
-                                  height: 100,
-                                  width: 100),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                  authController.indexPageList!["iconh1"]
-                                      .toString(),
-                                  style: const TextStyle())
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => const ExoticPlace()),
-                            // );
-                          },
-                          child: Column(
-                            children: [
-                              Image.network(
-                                  "https://cruxtech.in/admin/index_images/" +
-                                      authController.indexPageList!["icon2"],
-                                  height: 100,
-                                  width: 100),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                  authController.indexPageList!["iconh2"]
-                                      .toString(),
-                                  style: const TextStyle())
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) =>
-                            //           const DestinationWedding()),
-                            // );
-                          },
-                          child: Column(
-                            children: [
-                              Image.network(
-                                  "https://cruxtech.in/admin/index_images/" +
-                                      authController.indexPageList!["icon3"],
-                                  height: 100,
-                                  width: 100),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                  authController.indexPageList!["iconh3"]
-                                      .toString(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Get.to(() => BestDeals());
+                    //       },
+                    //       child: Column(
+                    //         children: [
+                    //           Image.network(
+                    //               "https://cruxtech.in/admin/index_images/" +
+                    //                   authController.indexPageList!["icon1"],
+                    //               height: 100,
+                    //               width: 100),
+                    //           const SizedBox(
+                    //             height: 10,
+                    //           ),
+                    //           Text(
+                    //               authController.indexPageList!["iconh1"]
+                    //                   .toString(),
+                    //               style: const TextStyle())
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => ExoticLocationScreen()),
+                    //         );
+                    //       },
+                    //       child: Column(
+                    //         children: [
+                    //           Image.network(
+                    //               "https://cruxtech.in/admin/index_images/" +
+                    //                   authController.indexPageList!["icon2"],
+                    //               height: 100,
+                    //               width: 100),
+                    //           const SizedBox(
+                    //             height: 10,
+                    //           ),
+                    //           Text(
+                    //               authController.indexPageList!["iconh2"]
+                    //                   .toString(),
+                    //               style: const TextStyle())
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Get.to(() => WeddingDestinationScreen());
+                    //       },
+                    //       child: Column(
+                    //         children: [
+                    //           Image.network(
+                    //               "https://cruxtech.in/admin/index_images/" +
+                    //                   authController.indexPageList!["icon3"],
+                    //               height: 100,
+                    //               width: 100),
+                    //           const SizedBox(
+                    //             height: 15,
+                    //           ),
+                    //           Text(
+                    //               authController.indexPageList!["iconh3"]
+                    //                   .toString(),
+                    //               textAlign: TextAlign.center,
+                    //               style: const TextStyle())
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
 
                     const SizedBox(
                       height: 30,
@@ -489,52 +663,42 @@ class _HomePageState extends State<HomePage> {
                                                 x["PackageImage"],
                                             height: 130,
                                             width: width * .7),
-                                        //  Image.asset(
-                                        //     "assets/img/beach.jpg",
-                                        //     height: 130,
-                                        //     width: width * .7)
                                       ),
                                     ),
 
                                     Padding(
                                       padding: const EdgeInsets.only(left: 15),
-                                      child: Row(
-                                          // mainAxisAlignment:
-                                          //     MainAxisAlignment.spaceAround,
-                                          children: [
-                                            SizedBox(
-                                              width: width * .52,
+                                      child: Row(children: [
+                                        SizedBox(
+                                          width: width * .52,
+                                          child: Text(
+                                            x["PackageType"],
+                                            style: const TextStyle(
+                                                color: Colors.teal),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.orange,
+                                                borderRadius:
+                                                    BorderRadius.circular(18),
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 0.1)),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0),
                                               child: Text(
-                                                x["PackageType"],
-                                                style: const TextStyle(
-                                                    color: Colors.teal),
-                                              ),
+                                                  x["discpercent"] + "% off",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white)),
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(3.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.orange,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            18),
-                                                    border: Border.all(
-                                                        color: Colors.black,
-                                                        width: 0.1)),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(4.0),
-                                                  child: Text(
-                                                      x["discpercent"] +
-                                                          "% off",
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white)),
-                                                ),
-                                              ),
-                                            )
-                                          ]),
+                                          ),
+                                        )
+                                      ]),
                                     ),
                                     // SizedBox(
                                     //   height: 5,
@@ -628,7 +792,12 @@ class _HomePageState extends State<HomePage> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: GestureDetector(
                                               onTap: () {
-                                                Get.to(() => BestDealsDetail());
+                                                print(authController.dealsList
+                                                    .indexOf(x));
+                                                Get.to(() => BestDealsDetail(),
+                                                    arguments: authController
+                                                        .dealsList
+                                                        .indexOf(x));
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -784,12 +953,6 @@ class _HomePageState extends State<HomePage> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             )),
-                                        // Icon(
-                                        //   Icons.star,
-                                        //   color: Colors.teal,
-                                        //   size: 12,
-                                        // ),
-                                        // Text("4.5"),
                                       ],
                                     ),
                                     const SizedBox(
@@ -845,8 +1008,16 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              // Get.to(
+                                              //     () => ExoticLocationDetail());
+                                              print(authController
+                                                  .exoticplaceList
+                                                  .indexOf(x));
                                               Get.to(
-                                                  () => ExoticLocationDetail());
+                                                  () => ExoticLocationDetail(),
+                                                  arguments: authController
+                                                      .exoticplaceList
+                                                      .indexOf(x));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -883,7 +1054,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          //Get.to( ()=>const ExoticPlace());
+                          Get.to(() => ExoticLocationScreen());
                         },
                         child: button("See All")),
                     /*Exotic ends*/
@@ -932,32 +1103,175 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
+                    // Text(authController.destinationWeddingList.length
+                    // .toString()),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                       child: Row(
                         children: [
-                          // DestinationBox(width, "desti1.jpg", "Kerala"),
-                          // DestinationBox(width, "desti2.jpeg", "Havelock"),
-                          // DestinationBox(width, "desti3.jpeg", "Rishikesh"),
-                          // DestinationBox(width, "desti4.jpeg", "Goa"),
-                          // GestureDetector(
-                          //     onTap: () {
-                          //       Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 DestinationWedding()),
-                          //       );
-                          //     },
-                          //     child: View(width))
+                          for (var x in authController.destinationWeddingList)
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: width * .45,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.2),
+                                        spreadRadius: 5,
+                                        blurRadius: 5,
+                                        offset: const Offset(
+                                            0, 0), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18)),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              "https://cruxtech.in/admin/packageimage/" +
+                                                  x["PackageImage"],
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        child: Image.network(
+                                            "https://cruxtech.in/admin/packageimage/" +
+                                                x["PackageImage"],
+                                            height: 130,
+                                            width: width * .5),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                            width: width * .35,
+                                            child: Text(
+                                              x['PackageName'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                        // Icon(
+                                        //   Icons.star,
+                                        //   color: Colors.teal,
+                                        //   size: 12,
+                                        // ),
+                                        // Text("4.5"),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      //mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        const Icon(
+                                          Icons.location_on,
+                                          color: Colors.grey,
+                                          size: 14,
+                                        ),
+                                        SizedBox(
+                                            width: width * .35,
+                                            child: Text(
+                                              x['PackageLocation'],
+                                              style:
+                                                  const TextStyle(fontSize: 10),
+                                            )),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'Rs ' +
+                                                  x["PackagePrice"] +
+                                                  '/',
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold),
+                                              children: const <TextSpan>[
+                                                TextSpan(
+                                                    text: 'person',
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.normal)),
+                                              ],
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              print(authController
+                                                  .destinationWeddingList
+                                                  .indexOf(x));
+                                              Get.to(
+                                                  () =>
+                                                      WeddingDestinationDetailScreen(),
+                                                  arguments: authController
+                                                      .destinationWeddingList
+                                                      .indexOf(x));
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  border: Border.all(
+                                                      color: Colors.teal)),
+                                              child: const Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 5,
+                                                    bottom: 5,
+                                                    right: 10,
+                                                    left: 10),
+                                                child: Text(
+                                                  "Book",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
                         ],
                       ),
                     ),
+                    // const SizedBox(
+                    //   height: 30,
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),
-                    button("See All"),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => WeddingDestinationScreen());
+                        },
+                        child: button("See All")),
                     // Divider(
                     //   thickness: 1,
                     // ),
@@ -1200,10 +1514,155 @@ class _HomePageState extends State<HomePage> {
                     //   height: 30,
                     // ),
                     // Image.asset("assets/img/plane.png")
+
+                    SizedBox(
+                      height: 50,
+                    ),
+                    // SingleChildScrollView(
+                    //   scrollDirection: Axis.horizontal,
+                    //   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                    //   child: search(width),
+                    // )
                   ],
                 )
               ])),
         ]));
+  }
+
+  Widget search(double width) {
+    return Container(
+      //  margin: EdgeInsets.all(10),
+      // height: 150,
+      // width: 900,
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Colors.teal,
+        ),
+        borderRadius: BorderRadius.circular(79),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Row(children: [
+          Column(
+            children: [
+              Text(
+                "Destination",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold),
+              ),
+              Container(
+                width: width * .4,
+                child: TextField(
+                  enabled: true,
+                  // controller: destinationCtrl,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter Destination',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal)),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.teal),
+                      ),
+                      enabledBorder: UnderlineInputBorder()),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 20),
+          Container(color: Colors.teal, width: 2, height: 70),
+          SizedBox(width: 20),
+          Column(
+            children: [
+              Text(
+                "No. of Pax",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold),
+              ),
+              Container(
+                width: width * .4,
+                child: TextField(
+                  enabled: true,
+                  // controller: destinationCtrl,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter Destination',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal)),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.teal),
+                      ),
+                      enabledBorder: UnderlineInputBorder()),
+                ),
+              ),
+            ],
+          ),
+          //Divider(),
+          SizedBox(width: 20),
+          Container(color: Colors.teal, width: 2, height: 70),
+          SizedBox(width: 20),
+          Column(
+            children: [
+              Text(
+                "Price Range : 500 to 50,000",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold),
+              ),
+              Container(
+                width: width * .6,
+                child: SfSlider(
+                  activeColor: Colors.orange,
+                  value: _value,
+                  min: _min,
+                  max: _max,
+                  interval: 15000,
+                  showTicks: true,
+                  showLabels: true,
+                  // numberFormat: NumberFormat("\$"),
+                  //  value: _value,
+                  // interval: 100.00,
+                  // showLabels: true,
+                  onChanged: (dynamic newValue) {
+                    setState(() {
+                      _value = newValue;
+                      _value.toInt();
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Rs : ${_value.toInt()}",
+                style: TextStyle(fontSize: 12, color: Colors.orange),
+              ),
+            ],
+          ),
+          SizedBox(width: 20),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.orange),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, right: 30, left: 30),
+                  child: Text(
+                    "Search",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          )
+        ]),
+      ),
+    );
   }
 
   Widget button(String text) {
@@ -1221,378 +1680,379 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget DealBox(double width, String img, String place) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: width * .41,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 5,
-            offset: const Offset(0, 0), // changes position of shadow
-          ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          children: [
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/img/$img'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child:
-                      Image.asset("assets/img/$img", height: 130, width: 130)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: width * .28,
-                    child: Text(
-                      place,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
-                const Icon(
-                  Icons.star,
-                  color: Colors.teal,
-                  size: 12,
-                ),
-                const Text("4.5"),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.location_on,
-                  color: Colors.grey,
-                  size: 14,
-                ),
-                const SizedBox(
-                    //width: width * .28,
-                    child: Text(
-                  "Nuda Penida, Maldives",
-                  style: const TextStyle(fontSize: 10),
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: new TextSpan(
-                      text: '\$110/',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        new TextSpan(
-                            text: 'person',
-                            style: new TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const BestDealsDetail()),
-                      // );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.orange)),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, right: 10, left: 10),
-                        child: Text(
-                          "Book",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget DealBox(double width, String img, String place) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(10.0),
+  //     child: Container(
+  //       width: width * .41,
+  //       decoration: BoxDecoration(boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.2),
+  //           spreadRadius: 5,
+  //           blurRadius: 5,
+  //           offset: const Offset(0, 0), // changes position of shadow
+  //         ),
+  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
+  //       child: Column(
+  //         children: [
+  //           // SizedBox(
+  //           //   height: 20,
+  //           // ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Container(
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(10.0),
+  //                   image: DecorationImage(
+  //                     image: AssetImage('assets/img/$img'),
+  //                     fit: BoxFit.cover,
+  //                   ),
+  //                 ),
+  //                 child:
+  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               SizedBox(
+  //                   width: width * .28,
+  //                   child: Text(
+  //                     place,
+  //                     style: const TextStyle(fontWeight: FontWeight.bold),
+  //                   )),
+  //               const Icon(
+  //                 Icons.star,
+  //                 color: Colors.teal,
+  //                 size: 12,
+  //               ),
+  //               const Text("4.5"),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 10,
+  //           ),
+  //           Row(
+  //             //mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               const SizedBox(
+  //                 width: 5,
+  //               ),
+  //               const Icon(
+  //                 Icons.location_on,
+  //                 color: Colors.grey,
+  //                 size: 14,
+  //               ),
+  //               const SizedBox(
+  //                   //width: width * .28,
+  //                   child: Text(
+  //                 "Nuda Penida, Maldives",
+  //                 style: const TextStyle(fontSize: 10),
+  //               )),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 5,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 RichText(
+  //                   text: new TextSpan(
+  //                     text: '\$110/',
+  //                     style: const TextStyle(
+  //                         color: Colors.black,
+  //                         fontSize: 12,
+  //                         fontWeight: FontWeight.bold),
+  //                     children: <TextSpan>[
+  //                       new TextSpan(
+  //                           text: 'person',
+  //                           style: new TextStyle(
+  //                               fontSize: 10, fontWeight: FontWeight.normal)),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     // Navigator.push(
+  //                     //   context,
+  //                     //   MaterialPageRoute(
+  //                     //       builder: (context) => BestDealsDetail()),
+  //                     // );
+  //                     //  Get.to(() => BestDealsDetail());
+  //                   },
+  //                   child: Container(
+  //                     decoration: BoxDecoration(
+  //                         borderRadius: BorderRadius.circular(20),
+  //                         border: Border.all(color: Colors.orange)),
+  //                     child: const Padding(
+  //                       padding: EdgeInsets.only(
+  //                           top: 5, bottom: 5, right: 10, left: 10),
+  //                       child: Text(
+  //                         "Book",
+  //                         style: TextStyle(fontSize: 12),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget DestinationBox(double width, String img, String place) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: width * .41,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 5,
-            offset: const Offset(0, 0), // changes position of shadow
-          ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          children: [
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/img/$img'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child:
-                      Image.asset("assets/img/$img", height: 130, width: 130)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: width * .28,
-                    child: Text(
-                      place,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
-                const Icon(
-                  Icons.star,
-                  color: Colors.teal,
-                  size: 12,
-                ),
-                const Text("4.5"),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.location_on,
-                  color: Colors.grey,
-                  size: 14,
-                ),
-                const SizedBox(
-                    //width: width * .28,
-                    child: const Text(
-                  "Nuda Penida, Maldives",
-                  style: TextStyle(fontSize: 10),
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: new TextSpan(
-                      text: '\$110/',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        new TextSpan(
-                            text: 'person',
-                            style: new TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           const DestinationWeddingDetail()),
-                      // );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.orange)),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, right: 10, left: 10),
-                        child: Text(
-                          "Book",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget DestinationBox(double width, String img, String place) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(10.0),
+  //     child: Container(
+  //       width: width * .41,
+  //       decoration: BoxDecoration(boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.2),
+  //           spreadRadius: 5,
+  //           blurRadius: 5,
+  //           offset: const Offset(0, 0), // changes position of shadow
+  //         ),
+  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
+  //       child: Column(
+  //         children: [
+  //           // SizedBox(
+  //           //   height: 20,
+  //           // ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Container(
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(10.0),
+  //                   image: DecorationImage(
+  //                     image: AssetImage('assets/img/$img'),
+  //                     fit: BoxFit.cover,
+  //                   ),
+  //                 ),
+  //                 child:
+  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               SizedBox(
+  //                   width: width * .28,
+  //                   child: Text(
+  //                     place,
+  //                     style: const TextStyle(fontWeight: FontWeight.bold),
+  //                   )),
+  //               const Icon(
+  //                 Icons.star,
+  //                 color: Colors.teal,
+  //                 size: 12,
+  //               ),
+  //               const Text("4.5"),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 10,
+  //           ),
+  //           Row(
+  //             //mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               const SizedBox(
+  //                 width: 5,
+  //               ),
+  //               const Icon(
+  //                 Icons.location_on,
+  //                 color: Colors.grey,
+  //                 size: 14,
+  //               ),
+  //               const SizedBox(
+  //                   //width: width * .28,
+  //                   child: const Text(
+  //                 "Nuda Penida, Maldives",
+  //                 style: TextStyle(fontSize: 10),
+  //               )),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 5,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 RichText(
+  //                   text: new TextSpan(
+  //                     text: '\$110/',
+  //                     style: const TextStyle(
+  //                         color: Colors.black,
+  //                         fontSize: 12,
+  //                         fontWeight: FontWeight.bold),
+  //                     children: <TextSpan>[
+  //                       new TextSpan(
+  //                           text: 'person',
+  //                           style: new TextStyle(
+  //                               fontSize: 10, fontWeight: FontWeight.normal)),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     // Navigator.push(
+  //                     //   context,
+  //                     //   MaterialPageRoute(
+  //                     //       builder: (context) =>
+  //                     //           const DestinationWeddingDetail()),
+  //                     // );
+  //                   },
+  //                   child: Container(
+  //                     decoration: BoxDecoration(
+  //                         borderRadius: BorderRadius.circular(20),
+  //                         border: Border.all(color: Colors.orange)),
+  //                     child: const Padding(
+  //                       padding: EdgeInsets.only(
+  //                           top: 5, bottom: 5, right: 10, left: 10),
+  //                       child: Text(
+  //                         "Book",
+  //                         style: TextStyle(fontSize: 12),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget RoomBox(double width, String img, String place, String location) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: width * .41,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 5,
-            offset: const Offset(0, 0), // changes position of shadow
-          ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          children: [
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/img/$img'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child:
-                      Image.asset("assets/img/$img", height: 130, width: 130)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: width * .28,
-                    child: Text(
-                      place,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
-                const Icon(
-                  Icons.star,
-                  color: Colors.teal,
-                  size: 12,
-                ),
-                const Text("4.5"),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.location_on,
-                  color: Colors.grey,
-                  size: 14,
-                ),
-                SizedBox(
-                    //width: width * .28,
-                    child: Text(
-                  location,
-                  style: const TextStyle(fontSize: 10),
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: new TextSpan(
-                      text: '\$110/',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        new TextSpan(
-                            text: 'person',
-                            style: new TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const HotelRoomDetails()),
-                      // );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.orange)),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, right: 10, left: 10),
-                        child: const Text(
-                          "Book",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget RoomBox(double width, String img, String place, String location) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(10.0),
+  //     child: Container(
+  //       width: width * .41,
+  //       decoration: BoxDecoration(boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.2),
+  //           spreadRadius: 5,
+  //           blurRadius: 5,
+  //           offset: const Offset(0, 0), // changes position of shadow
+  //         ),
+  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
+  //       child: Column(
+  //         children: [
+  //           // SizedBox(
+  //           //   height: 20,
+  //           // ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Container(
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(10.0),
+  //                   image: DecorationImage(
+  //                     image: AssetImage('assets/img/$img'),
+  //                     fit: BoxFit.cover,
+  //                   ),
+  //                 ),
+  //                 child:
+  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               SizedBox(
+  //                   width: width * .28,
+  //                   child: Text(
+  //                     place,
+  //                     style: const TextStyle(fontWeight: FontWeight.bold),
+  //                   )),
+  //               const Icon(
+  //                 Icons.star,
+  //                 color: Colors.teal,
+  //                 size: 12,
+  //               ),
+  //               const Text("4.5"),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 10,
+  //           ),
+  //           Row(
+  //             //mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               const SizedBox(
+  //                 width: 5,
+  //               ),
+  //               const Icon(
+  //                 Icons.location_on,
+  //                 color: Colors.grey,
+  //                 size: 14,
+  //               ),
+  //               SizedBox(
+  //                   //width: width * .28,
+  //                   child: Text(
+  //                 location,
+  //                 style: const TextStyle(fontSize: 10),
+  //               )),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 5,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 RichText(
+  //                   text: new TextSpan(
+  //                     text: '\$110/',
+  //                     style: const TextStyle(
+  //                         color: Colors.black,
+  //                         fontSize: 12,
+  //                         fontWeight: FontWeight.bold),
+  //                     children: <TextSpan>[
+  //                       new TextSpan(
+  //                           text: 'person',
+  //                           style: new TextStyle(
+  //                               fontSize: 10, fontWeight: FontWeight.normal)),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     // Navigator.push(
+  //                     //   context,
+  //                     //   MaterialPageRoute(
+  //                     //       builder: (context) => const HotelRoomDetails()),
+  //                     // );
+  //                   },
+  //                   child: Container(
+  //                     decoration: BoxDecoration(
+  //                         borderRadius: BorderRadius.circular(20),
+  //                         border: Border.all(color: Colors.orange)),
+  //                     child: const Padding(
+  //                       padding: EdgeInsets.only(
+  //                           top: 5, bottom: 5, right: 10, left: 10),
+  //                       child: const Text(
+  //                         "Book",
+  //                         style: TextStyle(fontSize: 12),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Widget View(double width) {
   //   return Padding(
@@ -1648,6 +2108,10 @@ class _HomePageState extends State<HomePage> {
 
               //shape: Border.all(color: Colors.black),
               title: Text('Home'),
+              onTap: () {
+                // Get.to(HomePage())!.then((value) => Navigator.pop(context));
+                Navigator.pop(context);
+              },
             ),
             Divider(
               thickness: 1,
@@ -1658,6 +2122,11 @@ class _HomePageState extends State<HomePage> {
 
               //  shape: Border.all(color: Colors.black),
               title: Text('Wedding Destination'),
+              onTap: () {
+                Get.to(WeddingDestinationScreen())!
+                    .then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
             ),
             Divider(
               thickness: 1,
@@ -1669,6 +2138,11 @@ class _HomePageState extends State<HomePage> {
               // shape: Border
               //.all(color: Colors.black),
               title: Text('Exotic Place'),
+              onTap: () {
+                Get.to(ExoticLocationScreen())!
+                    .then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
             ),
             Divider(
               thickness: 1,
@@ -1680,6 +2154,10 @@ class _HomePageState extends State<HomePage> {
               // shape: Border
               //.all(color: Colors.black),
               title: Text('Best Deals'),
+              onTap: () {
+                Get.to(BestDeals())!.then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
             ),
             Divider(
               thickness: 1,
@@ -1712,16 +2190,21 @@ class _HomePageState extends State<HomePage> {
               thickness: 1,
               color: Colors.grey,
             ),
-            ListTile(
-              leading: Icon(Icons.question_answer_outlined),
-              title: Text(
-                "FAQs",
-              ),
-              // subtitle: Text('Item description'),
-              //trailing: Icon(Icons.more_vert),
-              // shape: Border.all(color: Colors.black),
-              // title: Text('FAQ'),
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.question_answer_outlined),
+            //   title: Text(
+            //     "Privacy Policy",
+            //   ),
+            //   onTap: () {
+            //     Get.to(PrivacyPolicy())!
+            //         .then((value) => Navigator.pop(context));
+            //     // Navigator.pop(context);
+            //   },
+            //   // subtitle: Text('Item description'),
+            //   //trailing: Icon(Icons.more_vert),
+            //   // shape: Border.all(color: Colors.black),
+            //   // title: Text('FAQ'),
+            // ),
             Divider(
               thickness: 1,
               color: Colors.grey,
@@ -2011,3 +2494,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// class MySearchDelegate extends MySearchDelegate {
+//   @override
+//   Widget? buildLeading(BuildContext context) => Container();
+//   @override
+// List<Widget>? buildActions(BuildContext context) => Container();
+
+// @override
+// Widget buildResults(BuildContext)
+// }

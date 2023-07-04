@@ -217,7 +217,12 @@ class _ExoticLocationScreenState extends State<ExoticLocationScreen> {
                                                   const EdgeInsets.all(8.0),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Get.to(ExoticLocationDetail(),
+                                                  print(authController
+                                                      .exoticplaceList
+                                                      .indexOf(x));
+                                                  Get.to(
+                                                      () =>
+                                                          ExoticLocationDetail(),
                                                       arguments: authController
                                                           .exoticplaceList
                                                           .indexOf(x));
