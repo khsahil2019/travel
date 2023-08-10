@@ -362,23 +362,32 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Image.network(
-                                  "https://cruxtech.in/admin/index_images/" +
-                                      authController.indexPageList!["icon4"],
-                                  height: 100,
-                                  width: 100),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                  authController.indexPageList!["iconh4"]
-                                      .toString(),
-                                  style: const TextStyle(
-                                      color: Colors.teal,
-                                      fontWeight: FontWeight.bold))
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const HotelRooms()),
+                              // );
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://cruxtech.in/admin/index_images/" +
+                                        authController.indexPageList!["icon4"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh4"]
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -458,80 +467,6 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         Get.to(() => BestDeals());
-                    //       },
-                    //       child: Column(
-                    //         children: [
-                    //           Image.network(
-                    //               "https://cruxtech.in/admin/index_images/" +
-                    //                   authController.indexPageList!["icon1"],
-                    //               height: 100,
-                    //               width: 100),
-                    //           const SizedBox(
-                    //             height: 10,
-                    //           ),
-                    //           Text(
-                    //               authController.indexPageList!["iconh1"]
-                    //                   .toString(),
-                    //               style: const TextStyle())
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) => ExoticLocationScreen()),
-                    //         );
-                    //       },
-                    //       child: Column(
-                    //         children: [
-                    //           Image.network(
-                    //               "https://cruxtech.in/admin/index_images/" +
-                    //                   authController.indexPageList!["icon2"],
-                    //               height: 100,
-                    //               width: 100),
-                    //           const SizedBox(
-                    //             height: 10,
-                    //           ),
-                    //           Text(
-                    //               authController.indexPageList!["iconh2"]
-                    //                   .toString(),
-                    //               style: const TextStyle())
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         Get.to(() => WeddingDestinationScreen());
-                    //       },
-                    //       child: Column(
-                    //         children: [
-                    //           Image.network(
-                    //               "https://cruxtech.in/admin/index_images/" +
-                    //                   authController.indexPageList!["icon3"],
-                    //               height: 100,
-                    //               width: 100),
-                    //           const SizedBox(
-                    //             height: 15,
-                    //           ),
-                    //           Text(
-                    //               authController.indexPageList!["iconh3"]
-                    //                   .toString(),
-                    //               textAlign: TextAlign.center,
-                    //               style: const TextStyle())
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
 
                     const SizedBox(
                       height: 30,
@@ -1325,31 +1260,14 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                       child: Row(
-                        children: [
-                          // DestinationBox(width, "desti1.jpg", "Kerala"),
-                          // DestinationBox(width, "desti2.jpeg", "Havelock"),
-                          // DestinationBox(width, "desti3.jpeg", "Rishikesh"),
-                          // DestinationBox(width, "desti4.jpeg", "Goa"),
-                          // GestureDetector(
-                          //     onTap: () {
-                          //       Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 DestinationWedding()),
-                          //       );
-                          //     },
-                          //     child: View(width))
-                        ],
+                        children: [],
                       ),
                     ),
                     const SizedBox(
                       height: 30,
                     ),
                     button("See All"),
-                    // Divider(
-                    //   thickness: 1,
-                    // ),
+
                     /*End Hotel rooms */
                     /* Flights  */
                     const SizedBox(
@@ -1492,37 +1410,9 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Container(
-                    //       decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(20),
-                    //           color: Colors.orange),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.only(
-                    //             top: 10, bottom: 10, right: 30, left: 30),
-                    //         child: Text(
-                    //           "Flights",
-                    //           style: TextStyle(color: Colors.white),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 30,
-                    // ),
-                    // Image.asset("assets/img/plane.png")
-
                     SizedBox(
                       height: 50,
                     ),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    //   child: search(width),
-                    // )
                   ],
                 )
               ])),
