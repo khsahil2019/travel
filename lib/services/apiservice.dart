@@ -18,14 +18,14 @@ import '../ui/bookingReviewPage/bookingReviewScreen.dart';
 import '../ui/bookingReviewPage/confirmation.dart';
 
 class ApiService {
-  final baseUrl = "cruxtech.in";
+  final baseUrl = "kabiatravels.com";
   final _header = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
   };
 
   List<BestDeals> results = [];
-  String fetchUrl = "https://cruxtech.in/api/Deals.php";
+  String fetchUrl = "https://kabiatravels.com/api/Deals.php";
   // Future<Response> logout(String accessToken) async {
   //   try {
   //     Response response = await _dio.get(

@@ -54,21 +54,21 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://cruxtech.in/admin/packageimage/' +
+                              // 'https://kabiatravels.com/admin/packageimage/' +
                               //     x["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     x["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     x["image"],
                               // 'assets/img/desti2.jpeg',
                               // 'assets/img/desti3.jpeg',
 
-                              'https://cruxtech.in/admin/packageimage/' +
+                              'https://kabiatravels.com/admin/packageimage/' +
                                   authController.dealsList[data]
                                       ["PackageImage"],
-                              'https://cruxtech.in/admin/packageimage/' +
+                              'https://kabiatravels.com/admin/packageimage/' +
                                   authController.dealsList[data]["hotelimage"],
-                              // 'https://cruxtech.in/admin/packageimage/' +
+                              // 'https://kabiatravels.com/admin/packageimage/' +
                               //     authController.dealsList[data]["day1_image"],
                             ]
                                 .map((item) => Container(

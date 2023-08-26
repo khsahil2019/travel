@@ -180,13 +180,13 @@ class _HomePageState extends State<HomePage> {
                         //   ],flutter pub global activate rename
                         // ),
                         Image.network(
-                            "https://cruxtech.in/admin/uploadss/Untitled-5.png",
-                            // "https://cruxtech.in/admin/index_images/" +
+                            "https://kabiatravels.com/admin/uploadss/Untitled-5.png",
+                            // "https://kabiatravels.com/admin/index_images/" +
                             //     authController.indexPageList!["pimg"],
                             height: 150,
                             width: 150),
                         Image.network(
-                            "https://cruxtech.in/admin/index_images/" +
+                            "https://kabiatravels.com/admin/index_images/" +
                                 authController.indexPageList!["pimg"],
                             height: 150,
                             width: 150),
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                       height: 30,
                     ),
                     // Image.network(
-                    //     "https://cruxtech.in/admin/index_images/" +
+                    //     "https://kabiatravels.com/admin/index_images/" +
                     //         authController.indexPageList!["pimg"],
                     //     height: 150,
                     //     width: 150),
@@ -308,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    "https://cruxtech.in/admin/index_images/" +
+                                    "https://kabiatravels.com/admin/index_images/" +
                                         authController.indexPageList!["icon5"],
                                     height: 100,
                                     width: 100),
@@ -334,15 +334,15 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 authController.indexPageList!["Icon6"] != null
                                     ? Image.network(
-                                        //  "https://cruxtech.in/admin/index_images/Untitled%20design.png",
-                                        "https://cruxtech.in/admin/index_images/" +
+                                        //  "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                                        "https://kabiatravels.com/admin/index_images/" +
                                             authController
                                                 .indexPageList!["Icon6"],
                                         height: 100,
                                         width: 90)
                                     : Image.network(
-                                        "https://cruxtech.in/admin/index_images/Untitled%20design.png",
-                                        // "https://cruxtech.in/admin/index_images/" +
+                                        "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                                        // "https://kabiatravels.com/admin/index_images/" +
                                         //     authController
                                         //         .indexPageList!["Icon6"],
                                         height: 100,
@@ -373,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    "https://cruxtech.in/admin/index_images/" +
+                                    "https://kabiatravels.com/admin/index_images/" +
                                         authController.indexPageList!["icon4"],
                                     height: 100,
                                     width: 100),
@@ -396,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    "https://cruxtech.in/admin/index_images/" +
+                                    "https://kabiatravels.com/admin/index_images/" +
                                         authController.indexPageList!["icon1"],
                                     height: 100,
                                     width: 100),
@@ -424,7 +424,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    "https://cruxtech.in/admin/index_images/" +
+                                    "https://kabiatravels.com/admin/index_images/" +
                                         authController.indexPageList!["icon2"],
                                     height: 100,
                                     width: 100),
@@ -447,7 +447,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    "https://cruxtech.in/admin/index_images/" +
+                                    "https://kabiatravels.com/admin/index_images/" +
                                         authController.indexPageList!["icon3"],
                                     height: 100,
                                     width: 100),
@@ -456,6 +456,57 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                     authController.indexPageList!["iconh3"]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => WeddingDestinationScreen());
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://kabiatravels.com/admin/index_images/" +
+                                        authController.indexPageList!["icon7"],
+                                    height: 85,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh7"]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => WeddingDestinationScreen());
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://kabiatravels.com/admin/index_images/" +
+                                        authController.indexPageList!["icon8"],
+                                    height: 85,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh8"]
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
@@ -589,12 +640,12 @@ class _HomePageState extends State<HomePage> {
                                                 BorderRadius.circular(10.0),
                                             image: new DecorationImage(
                                                 image: NetworkImage(
-                                                  "https://cruxtech.in/admin/packageimage/" +
+                                                  "https://kabiatravels.com/admin/packageimage/" +
                                                       x["PackageImage"],
                                                 ),
                                                 fit: BoxFit.cover)),
                                         child: Image.network(
-                                            "https://cruxtech.in/admin/packageimage/" +
+                                            "https://kabiatravels.com/admin/packageimage/" +
                                                 x["PackageImage"],
                                             height: 130,
                                             width: width * .7),
@@ -864,14 +915,14 @@ class _HomePageState extends State<HomePage> {
                                               BorderRadius.circular(10.0),
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                              "https://cruxtech.in/admin/packageimage/" +
+                                              "https://kabiatravels.com/admin/packageimage/" +
                                                   x["PackageImage"],
                                             ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                         child: Image.network(
-                                            "https://cruxtech.in/admin/packageimage/" +
+                                            "https://kabiatravels.com/admin/packageimage/" +
                                                 x["PackageImage"],
                                             height: 130,
                                             width: width * .5),
@@ -1071,14 +1122,14 @@ class _HomePageState extends State<HomePage> {
                                               BorderRadius.circular(10.0),
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                              "https://cruxtech.in/admin/packageimage/" +
+                                              "https://kabiatravels.com/admin/packageimage/" +
                                                   x["PackageImage"],
                                             ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                         child: Image.network(
-                                            "https://cruxtech.in/admin/packageimage/" +
+                                            "https://kabiatravels.com/admin/packageimage/" +
                                                 x["PackageImage"],
                                             height: 130,
                                             width: width * .5),

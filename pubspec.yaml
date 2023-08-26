@@ -49,6 +49,7 @@ dependencies:
   url_launcher: ^6.1.11
   lottie: ^1.1.0
   syncfusion_flutter_sliders: ^22.1.36
+  upi_india: ^3.0.1
 
 dev_dependencies:
   flutter_test:

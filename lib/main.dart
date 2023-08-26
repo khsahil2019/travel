@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeClass.lightTheme,
       initialBinding: AuthBinding(),
-      debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'K T Travel APP'),
     );
   }

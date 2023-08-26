@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel/controller/authController.dart';
+import 'package:travel/ui/bookingReviewPage/payment.dart';
 
 import '../../register/login.dart';
 import 'confirmation.dart';
@@ -109,7 +110,7 @@ class _ReviewDetailState extends State<ReviewDetail> {
                                     color: Colors.amber,
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        "https://cruxtech.in/admin/packageimage/" +
+                                        "https://kabiatravels.com/admin/packageimage/" +
                                             reviewData["PackageImage"],
                                       ),
                                       fit: BoxFit.cover,
@@ -142,18 +143,23 @@ class _ReviewDetailState extends State<ReviewDetail> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          padding: EdgeInsets.all(8),
-                          height: 60,
-                          color: Colors.grey.shade200,
-                          child: Row(
-                            children: [
-                              Icon(Icons.payment),
-                              SizedBox(
-                                width: width * .2,
-                              ),
-                              Text("Payment")
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => PaymentScreen());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            height: 60,
+                            color: Colors.grey.shade200,
+                            child: Row(
+                              children: [
+                                Icon(Icons.payment),
+                                SizedBox(
+                                  width: width * .2,
+                                ),
+                                Text("Payment")
+                              ],
+                            ),
                           ),
                         ),
                         Divider(
