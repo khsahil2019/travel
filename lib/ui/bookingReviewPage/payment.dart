@@ -1,202 +1,202 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:upi_india/upi_india.dart';
+import 'package:phone_pe_pg/phone_pe_pg.dart';
 
 class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({super.key});
+
   @override
-  _PaymentScreenState createState() => _PaymentScreenState();
+  State<PaymentScreen> createState() => _MyAppState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> {
-  Future<UpiResponse>? _transaction;
-  UpiIndia _upiIndia = UpiIndia();
-  List<UpiApp>? apps;
-
-  TextStyle header = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
-
-  TextStyle value = TextStyle(
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-  );
-
+class _MyAppState extends State<PaymentScreen> {
   @override
   void initState() {
-    _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
-      setState(() {
-        apps = value;
-      });
-    }).catchError((e) {
-      apps = [];
-    });
     super.initState();
+    initPlatformState();
   }
 
-  Future<UpiResponse> initiateTransaction(UpiApp app) async {
-    return _upiIndia.startTransaction(
-      app: app,
-      receiverUpiId: "8953131786@ybl",
-      receiverName: 'Nirpen Charwak',
-      transactionRefId: 'TestingUpiIndiaPlugin',
-      transactionNote: 'done by Sahil test Payment',
-      amount: 1.00,
-    );
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    if (!mounted) return;
   }
 
-  Widget displayUpiApps() {
-    if (apps == null)
-      return Center(child: CircularProgressIndicator());
-    else if (apps!.length == 0)
-      return Center(
-        child: Text(
-          "No apps found to handle transaction.",
-          style: header,
-        ),
-      );
-    else
-      return Align(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Wrap(
-            children: apps!.map<Widget>((UpiApp app) {
-              return GestureDetector(
-                onTap: () {
-                  _transaction = initiateTransaction(app);
-                  setState(() {});
-                },
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.memory(
-                        app.icon,
-                        height: 60,
-                        width: 60,
-                      ),
-                      Text(app.name),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      );
-  }
+  PhonePePg pePg = PhonePePg(
+    isUAT: true,
+    saltKey: "099eb0cd-02cf-4e2a-8aca-3e6c6aff0399",
+    saltIndex: "1",
+  );
 
-  String _upiErrorHandler(error) {
-    switch (error) {
-      case UpiIndiaAppNotInstalledException:
-        return 'Requested app not installed on device';
-      case UpiIndiaUserCancelledException:
-        return 'You cancelled the transaction';
-      case UpiIndiaNullResponseException:
-        return 'Requested app didn\'t return any response';
-      case UpiIndiaInvalidParametersException:
-        return 'Requested app cannot handle the transaction';
-      default:
-        return 'An Unknown error has occurred';
+  PaymentRequest _paymentRequest({String? merchantCallBackScheme}) {
+    String generateRandomString(int len) {
+      const chars =
+          'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+      Random rnd = Random();
+      var s = String.fromCharCodes(Iterable.generate(
+          len, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
+      return s;
     }
-  }
 
-  void _checkTxnStatus(String status) {
-    switch (status) {
-      case UpiPaymentStatus.SUCCESS:
-        print('Transaction Successful');
-        break;
-      case UpiPaymentStatus.SUBMITTED:
-        print('Transaction Submitted');
-        break;
-      case UpiPaymentStatus.FAILURE:
-        print('Transaction Failed');
-        break;
-      default:
-        print('Received an Unknown transaction status');
-    }
-  }
-
-  Widget displayTransactionData(title, body) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("$title: ", style: header),
-          Flexible(
-              child: Text(
-            body,
-            style: value,
-          )),
-        ],
-      ),
+    PaymentRequest paymentRequest = PaymentRequest(
+      amount: 100,
+      callbackUrl: "www.google.com",
+      deviceContext: DeviceContext.getDefaultDeviceContext(
+          merchantCallBackScheme: merchantCallBackScheme),
+      merchantId: "PGTESTPAYUAT",
+      merchantTransactionId: generateRandomString(10).toUpperCase(),
+      merchantUserId: generateRandomString(8).toUpperCase(),
+      mobileNumber: "8739093014",
     );
+    return paymentRequest;
   }
+
+  PaymentRequest upipaymentRequest(UpiAppInfo e,
+          {String? merchantCallBackScheme}) =>
+      _paymentRequest(merchantCallBackScheme: merchantCallBackScheme).copyWith(
+          paymentInstrument: UpiIntentPaymentInstrument(
+        targetApp: Platform.isAndroid ? e.packageName! : e.iOSAppName!,
+      ));
+
+  PaymentRequest paypageRequestModel({String? merchantCallBackScheme}) =>
+      _paymentRequest(merchantCallBackScheme: merchantCallBackScheme).copyWith(
+          redirectUrl: "https://crux.center",
+          redirectMode: 'GET',
+          paymentInstrument: PayPagePaymentInstrument());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('UPI'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: displayUpiApps(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Payment Screen'),
           ),
-          Expanded(
-            child: FutureBuilder(
-              future: _transaction,
-              builder:
-                  (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        _upiErrorHandler(snapshot.error.runtimeType),
-                        style: header,
-                      ), // Print's text message on screen
-                    );
-                  }
-
-                  // If we have data then definitely we will have UpiResponse.
-                  // It cannot be null
-                  UpiResponse _upiResponse = snapshot.data!;
-
-                  // Data in UpiResponse can be null. Check before printing
-                  String txnId = _upiResponse.transactionId ?? 'N/A';
-                  String resCode = _upiResponse.responseCode ?? 'N/A';
-                  String txnRef = _upiResponse.transactionRefId ?? 'N/A';
-                  String status = _upiResponse.status ?? 'N/A';
-                  String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
-                  _checkTxnStatus(status);
-
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        displayTransactionData('Transaction Id', txnId),
-                        displayTransactionData('Response Code', resCode),
-                        displayTransactionData('Reference Id', txnRef),
-                        displayTransactionData('Status', status.toUpperCase()),
-                        displayTransactionData('Approval No', approvalRef),
-                      ],
-                    ),
-                  );
-                } else
-                  return Center(
-                    child: Text('Complete your transaction'),
-                  );
-              },
-            ),
-          )
-        ],
-      ),
+          body: FutureBuilder<List<UpiAppInfo>?>(
+            future: PhonePePg.getUpiApps(iOSUpiApps: [
+              UpiAppInfo(
+                appName: "PhonePe",
+                packageName: "ppe",
+                appIcon: Uint8List(0),
+                iOSAppName: "PHONEPE",
+                iOSAppScheme: 'ppe',
+              ),
+              UpiAppInfo(
+                appName: "Google Pay",
+                packageName: "gpay",
+                appIcon: Uint8List(0),
+                iOSAppName: "GPAY",
+                iOSAppScheme: 'gpay',
+              ),
+              UpiAppInfo(
+                appName: "Paytm",
+                packageName: "paytmmp",
+                appIcon: Uint8List(0),
+                iOSAppName: "PAYTM",
+                iOSAppScheme: 'paytmmp',
+              ),
+              UpiAppInfo(
+                  appName: "PhonePe Simulator",
+                  packageName: "ppemerchantsdkv1",
+                  appIcon: Uint8List(0),
+                  iOSAppScheme: 'ppemerchantsdkv1',
+                  iOSAppName: "PHONEPE"),
+              UpiAppInfo(
+                appName: "PhonePe Simulator",
+                packageName: "ppemerchantsdkv2",
+                appIcon: Uint8List(0),
+                iOSAppScheme: 'ppemerchantsdkv2',
+                iOSAppName: "PHONEPE",
+              ),
+              UpiAppInfo(
+                appName: "PhonePe Simulator",
+                packageName: "ppemerchantsdkv3",
+                iOSAppScheme: 'ppemerchantsdkv3',
+                appIcon: Uint8List(0),
+                iOSAppName: "PHONEPE",
+              ),
+            ]),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
+                return ListView(children: [
+                  ...snapshot.data!
+                      .map(
+                        (e) => ListTile(
+                          onTap: () async {
+                            pePg
+                                .startUpiTransaction(
+                                    paymentRequest: upipaymentRequest(e))
+                                .then((response) {
+                              if (response.status == UpiPaymentStatus.success) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text("Transaction Successful")));
+                              } else if (response.status ==
+                                  UpiPaymentStatus.pending) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Transaction Pending")));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Transaction Failed")));
+                              }
+                            }).catchError((e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Transaction Failed")));
+                            });
+                          },
+                          leading: Image.memory(
+                            e.appIcon,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.error);
+                            },
+                          ),
+                          title: Text(e.appName),
+                          subtitle: Text(e.packageName ?? e.iOSAppName!),
+                        ),
+                      )
+                      .toList(),
+                  ListTile(
+                    title: const Text("Card/Net Banking"),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => pePg.startPayPageTransaction(
+                                    onPaymentComplete:
+                                        (paymentResponse, paymentError) {
+                                      Navigator.pop(context);
+                                      if (paymentResponse != null &&
+                                          paymentResponse.code ==
+                                              PaymentStatus.success) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Transaction Successful")));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Transaction Failed")));
+                                      }
+                                    },
+                                    paymentRequest: paypageRequestModel(),
+                                  )));
+                    },
+                  )
+                ]);
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )),
     );
   }
 }
