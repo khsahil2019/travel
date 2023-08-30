@@ -25,6 +25,12 @@ class _LoginScreenState extends State<LoginScreen> {
     GetStorage().write('remember_me', true);
   }
 
+  List socialIconList = [
+    "assets/img/facebook_logo.png",
+    "assets/img/google_logo.png",
+    "assets/img/twitter_logo.png"
+  ];
+
   @override
   Widget build(BuildContext context) {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -161,6 +167,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                    3,
+                    (index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 35,
+                            child: Image.asset(
+                              socialIconList[index],
+                              width: 40,
+                            ),
+                          ),
+                        )),
+              )
             ],
           ),
         ),

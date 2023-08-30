@@ -85,8 +85,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    final Uri toLaunch = Uri(
+    final Uri train = Uri(
         scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
+    final Uri flight =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+    final Uri hotel =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+    final Uri visa =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php/');
+    final Uri webcheck =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
+    final Uri bus =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
     // log("Exotic place :" + authController.exoticplaceList.toString());
@@ -297,8 +307,12 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          //flight//
                           GestureDetector(
                             onTap: () {
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(flight);
+                              });
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(
@@ -324,10 +338,12 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+
+                          //train
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _launched = _launchInWebViewOrVC(toLaunch);
+                                _launched = _launchInWebViewOrVC(train);
                               });
                             },
                             child: Column(
@@ -362,8 +378,12 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          //hotel
                           GestureDetector(
                             onTap: () {
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(hotel);
+                              });
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(
@@ -412,6 +432,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          //Exotic
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -440,6 +461,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          //wedding
                           GestureDetector(
                             onTap: () {
                               Get.to(() => WeddingDestinationScreen());
@@ -464,9 +486,12 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          //bus
                           GestureDetector(
                             onTap: () {
-                              Get.to(() => WeddingDestinationScreen());
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(bus);
+                              });
                             },
                             child: Column(
                               children: [
@@ -491,9 +516,12 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: 10,
                           ),
+                          //visa
                           GestureDetector(
                             onTap: () {
-                              Get.to(() => WeddingDestinationScreen());
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(visa);
+                              });
                             },
                             child: Column(
                               children: [
@@ -507,6 +535,36 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                     authController.indexPageList!["iconh8"]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          //web-checkin
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(webcheck);
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://kabiatravels.com/admin/index_images/" +
+                                        authController.indexPageList!["icon9"],
+                                    height: 85,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh9"]
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
@@ -1460,6 +1518,24 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(
                       height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(authController.indexPageList!["p1"],
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.orange)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Contact No. " + authController.indexPageList!["p2"],
+                          style: TextStyle(fontSize: 14, color: Colors.teal),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 50,
