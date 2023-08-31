@@ -52,14 +52,14 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://cruxtech.in/admin/packageimage/' +
+                              // 'https://kabiatravels.com/admin/packageimage/' +
                               //     authController.exoticplaceList[data]["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     authController.exoticplaceList[data]["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     authController.exoticplaceList[data]["image"],
 
-                              'https://cruxtech.in/admin/packageimage/' +
+                              'https://kabiatravels.com/admin/packageimage/' +
                                   authController.exoticplaceList[data]
                                       ["PackageImage"],
                             ]

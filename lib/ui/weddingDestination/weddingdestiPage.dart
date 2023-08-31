@@ -82,14 +82,14 @@ class _WeddingDestinationScreenState extends State<WeddingDestinationScreen> {
                                                 BorderRadius.circular(10.0),
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                "https://cruxtech.in/admin/packageimage/" +
+                                                "https://kabiatravels.com/admin/packageimage/" +
                                                     x["PackageImage"],
                                               ),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
                                           child: Image.network(
-                                              "https://cruxtech.in/admin/packageimage/" +
+                                              "https://kabiatravels.com/admin/packageimage/" +
                                                   x["PackageImage"],
                                               height: 150,
                                               width: width * .9),

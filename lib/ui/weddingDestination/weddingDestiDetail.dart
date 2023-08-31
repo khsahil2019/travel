@@ -55,13 +55,13 @@ class _WeddingDestinationDetailScreenState
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://cruxtech.in/admin/packageimage/' +
+                              // 'https://kabiatravels.com/admin/packageimage/' +
                               //     authController.destinationWeddingList[data]["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     authController.destinationWeddingList[data]["image"],
-                              // // 'https://cruxtech.in/admin/packageimage/' +
+                              // // 'https://kabiatravels.com/admin/packageimage/' +
                               // //     authController.destinationWeddingList[data]["image"],
-                              'https://cruxtech.in/admin/packageimage/' +
+                              'https://kabiatravels.com/admin/packageimage/' +
                                   authController.destinationWeddingList[data]
                                       ["PackageImage"],
                             ]

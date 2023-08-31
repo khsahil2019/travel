@@ -67,12 +67,12 @@ class searchPackage extends SearchDelegate {
                             borderRadius: BorderRadius.circular(10.0),
                             image: new DecorationImage(
                                 image: NetworkImage(
-                                  "https://cruxtech.in/admin/packageimage/" +
+                                  "https://kabiatravels.com/admin/packageimage/" +
                                       x["PackageImage"],
                                 ),
                                 fit: BoxFit.cover)),
                         child: Image.network(
-                            "https://cruxtech.in/admin/packageimage/" +
+                            "https://kabiatravels.com/admin/packageimage/" +
                                 x["PackageImage"],
                             height: 130,
                             width: width * .7),
@@ -247,14 +247,14 @@ class searchPackage extends SearchDelegate {
                           borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
                             image: NetworkImage(
-                              "https://cruxtech.in/admin/packageimage/" +
+                              "https://kabiatravels.com/admin/packageimage/" +
                                   x["PackageImage"],
                             ),
                             fit: BoxFit.cover,
                           ),
                         ),
                         child: Image.network(
-                            "https://cruxtech.in/admin/packageimage/" +
+                            "https://kabiatravels.com/admin/packageimage/" +
                                 x["PackageImage"],
                             height: 150,
                             width: width * .9),
@@ -422,14 +422,14 @@ class searchPackage extends SearchDelegate {
                           borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
                             image: NetworkImage(
-                              "https://cruxtech.in/admin/packageimage/" +
+                              "https://kabiatravels.com/admin/packageimage/" +
                                   x["PackageImage"],
                             ),
                             fit: BoxFit.cover,
                           ),
                         ),
                         child: Image.network(
-                            "https://cruxtech.in/admin/packageimage/" +
+                            "https://kabiatravels.com/admin/packageimage/" +
                                 x["PackageImage"],
                             height: 150,
                             width: width * .9),

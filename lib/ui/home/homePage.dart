@@ -169,30 +169,13 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Column(
-                        //   children: [
-                        //     SizedBox(
-                        //       width: width * .35,
-                        //       child: Text(authController.indexPageList!["p2"]
-                        //           .toString()),
-                        //     ),
-                        //     const SizedBox(
-                        //       height: 20,
-                        //     ),
-                        //     SizedBox(
-                        //       width: width * .6,
-                        //       child: Text(
-                        //         authController.indexPageList!["p3"].toString(),
-                        //         textAlign: TextAlign.center,
-                        //         style: const TextStyle(fontSize: 12),
-                        //       ),
-                        //     )
-                        //   ],flutter pub global activate rename
-                        // ),
+                        // Image.network(
+                        //     "https://kabiatravels.com/admin/uploadss/Untitled-5.png",
+                        //     height: 150,
+                        //     width: 150),
                         Image.network(
-                            "https://kabiatravels.com/admin/uploadss/Untitled-5.png",
-                            // "https://kabiatravels.com/admin/index_images/" +
-                            //     authController.indexPageList!["pimg"],
+                            "https://kabiatravels.com/admin/uploadss/" +
+                                authController.logoList!["logo"],
                             height: 150,
                             width: 150),
                         Image.network(
@@ -596,7 +579,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                           children: [
                             SizedBox(
-                              width: width * .6,
+                              width: width * .58,
                               child: Text(
                                 authController.indexPageList!["iconp2"]
                                     .toString(),
@@ -611,7 +594,7 @@ class _HomePageState extends State<HomePage> {
                               height: 20,
                             ),
                             SizedBox(
-                              width: width * .6,
+                              width: width * .55,
                               child: Text(
                                 authController.indexPageList!["iconp3"]
                                     .toString(),
@@ -1521,9 +1504,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        Text(authController.indexPageList!["p1"],
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.orange)),
+                        Expanded(
+                          child: Text(authController.indexPageList!["p1"],
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.orange)),
+                        ),
                       ],
                     ),
                     SizedBox(
