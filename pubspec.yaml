@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+4
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.0.1 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -46,12 +46,12 @@ dependencies:
   oktoast: ^3.3.1
   flutter_spinkit: ^5.2.0
   shared_preferences: ^2.0.17
-  phone_pe_pg: ^0.0.2
+  # phone_pe_pg: ^0.0.2
   get_storage: ^2.1.1
   url_launcher: ^6.1.11
   lottie: ^1.1.0
   syncfusion_flutter_sliders: ^22.1.36
-  upi_india: ^3.0.1
+  # upi_india: ^3.0.1
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   http: ^0.13.6
@@ -60,6 +60,7 @@ dependencies:
   firebase_messaging: ^14.6.1
   firebase_dynamic_links: ^5.3.3
   flutter_email_sender: ^6.0.1
+  phone_pe_pg: ^0.0.5
 
 dev_dependencies:
   flutter_test:
