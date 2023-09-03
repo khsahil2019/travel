@@ -8,6 +8,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../controller/authController.dart';
 import '../../register/login.dart';
 import '../bookingReviewPage/bookingReviewScreen.dart';
+import '../home/enquiry/enquiryEmail.dart';
 
 class BestDealsDetail extends StatefulWidget {
   BestDealsDetail() : super();
@@ -877,10 +878,10 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           GestureDetector(
                             onTap: () {
                               //Get.to(() => ReviewDetail());
-                              print(authController.dealsList[data]);
-                              Get.to(() => ReviewDetail(),
-                                  arguments: authController.dealsList[data]);
-
+                              // print(authController.dealsList[data]);
+                              // Get.to(() => ReviewDetail(),
+                              //     arguments: authController.dealsList[data]);
+                              Get.to(() => EmailSender());
                               //  _openPopup(context);
                               // Navigator.push(
                               //   context,
@@ -898,7 +899,7 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Enquire now',
                                   style: TextStyle(
                                     color: Colors.teal,
                                     fontSize: 18.0,

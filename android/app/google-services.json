@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "611687718416",
+    "project_id": "travel-db843",
+    "storage_bucket": "travel-db843.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611687718416:android:5b703b1749538d17d63495",
+        "android_client_info": {
+          "package_name": "com.kabia.travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611687718416-aths03fapf7o4cacv2703aapv1s1tk5v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kabia.travel",
+            "certificate_hash": "232d36e5c85300ec4e3b03596ce15871ae6572f0"
+          }
+        },
+        {
+          "client_id": "611687718416-13a3vupfk3vj4e4shkgn46q4jheo56c6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3q4ba01YbMQJHx6Or42DMjC1cIENJVIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611687718416-13a3vupfk3vj4e4shkgn46q4jheo56c6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

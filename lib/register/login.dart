@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:travel/register/signup.dart';
 
+import '../controller/authController.dart';
 import '../services/apiservice.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -171,14 +172,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                     3,
-                    (index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 35,
-                            child: Image.asset(
-                              socialIconList[index],
-                              width: 40,
+                    (index) => GestureDetector(
+                          onTap: () {
+                            if (index == 1) {
+                              authController.signInWithGoogle();
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 35,
+                              child: Image.asset(
+                                socialIconList[index],
+                                width: 40,
+                              ),
                             ),
                           ),
                         )),

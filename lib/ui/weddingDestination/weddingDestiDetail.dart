@@ -8,6 +8,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../controller/authController.dart';
 import '../../register/login.dart';
 import '../bookingReviewPage/bookingReviewScreen.dart';
+import '../home/enquiry/enquiryEmail.dart';
 
 class WeddingDestinationDetailScreen extends StatefulWidget {
   const WeddingDestinationDetailScreen() : super();
@@ -908,11 +909,12 @@ class _WeddingDestinationDetailScreenState
                           ),
                           GestureDetector(
                             onTap: () {
-                              print(
-                                  authController.destinationWeddingList[data]);
-                              Get.to(() => ReviewDetail(),
-                                  arguments: authController
-                                      .destinationWeddingList[data]);
+                              // print(
+                              //     authController.destinationWeddingList[data]);
+                              // Get.to(() => ReviewDetail(),
+                              //     arguments: authController
+                              //         .destinationWeddingList[data]);
+                              Get.to(() => EmailSender());
                               // Get.to(() => LoginScreen());
                               //  _openPopup(context);
                               // Navigator.push(
@@ -931,7 +933,7 @@ class _WeddingDestinationDetailScreenState
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Enquire now',
                                   style: TextStyle(
                                     color: Colors.teal,
                                     fontSize: 18.0,

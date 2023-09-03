@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:travel/ui/home/enquiry/enquiryEmail.dart';
 
 import '../../controller/authController.dart';
 import '../../register/login.dart';
@@ -897,11 +898,11 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print(authController.exoticplaceList[data]);
-                              Get.to(() => ReviewDetail(),
-                                  arguments:
-                                      authController.exoticplaceList[data]);
-                              // Get.to(() => LoginScreen());
+                              // print(authController.exoticplaceList[data]);
+                              // Get.to(() => ReviewDetail(),
+                              //     arguments:
+                              //         authController.exoticplaceList[data]);
+                              Get.to(() => EmailSender());
                               //  _openPopup(context);
                               // Navigator.push(
                               //   context,
@@ -919,7 +920,7 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Enquire now',
                                   style: TextStyle(
                                     color: Colors.teal,
                                     fontSize: 18.0,

@@ -5,8 +5,15 @@ import 'package:travel/ui/splash/splashScreen.dart';
 
 import 'controller/allbindings.dart';
 import 'helper/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(const MyApp());
+// void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  print("object");
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -1,16 +1,21 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helper/show_loading.dart';
+import '../helper/toast.dart';
 import '../services/apiservice.dart';
 
 AuthController authController = AuthController.instance;
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
+
   Map? user;
   List<dynamic> exoticplaceList = [];
   List<dynamic> destinationWeddingList = [];
@@ -67,18 +72,103 @@ class AuthController extends GetxController {
 //         prefs.setString('userId', _passwordController.text);
 //       },
 //     );
+
+//   void signInWithGoogle() async {
+//     showLoading();
+//     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+//     try {
+//       final GoogleSignInAuthentication? googleAuth =
+//           await googleUser?.authentication;
+//       if (googleAuth != null) {
+//         //  final credential = GoogleAuthProvider.credential(
+//         //       accessToken: googleAuth.accessToken,
+//         //       idToken: googleAuth.idToken,
+//         //     );
+//       }
+//     } catch (e) {}
+//   }
+// }
+
+// void signInWithGoogle() async {
+//   GoogleSignIn _googleSignIn = GoogleSignIn();
+//   try {
+//     showLoading();
+//     var account = await _googleSignIn.signIn();
+//     if (account != null) {
+//       var googleKey = await account.authentication;
+//       var credential = GoogleAuthProvider.credential(
+//         accessToken: googleKey.accessToken,
+//         idToken: googleKey.idToken,
+//       );
+
+//       await auth.signInWithCredential(credential).then((value) {
+//         dismissLoadingWidget();
+//         showToastMessage("Signed In Successfully.");
+//       }).onError((e, stackTrace) {
+//         log("Error: $e");
+//         dismissLoadingWidget();
+//         if (e is FirebaseAuthException) {
+//           showToastMessage(e.message!);
+//         } else {
+//           showToastMessage(e.toString());
+//         }
+//       });
+//     }
+//   } catch (error) {
+//     dismissLoadingWidget();
+//     log("Catch Error: $error");
+//     showToastMessage(error.toString());
+//   }
+
   void signInWithGoogle() async {
-    showLoading();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    try {
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-      if (googleAuth != null) {
-        //  final credential = GoogleAuthProvider.credential(
-        //       accessToken: googleAuth.accessToken,
-        //       idToken: googleAuth.idToken,
-        //     );
+    if (kIsWeb) {
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithPopup(authProvider);
+      } catch (e) {
+        log("Error: $e");
+        if (e is FirebaseAuthException) {
+          showToastMessage(e.message!);
+        } else {
+          showToastMessage(e.toString());
+        }
       }
-    } catch (e) {}
+    } else {
+      GoogleSignIn _googleSignIn = GoogleSignIn();
+      try {
+        showLoading();
+        var account = await _googleSignIn.signIn();
+        if (account != null) {
+          var googleKey = await account.authentication;
+          var credential = GoogleAuthProvider.credential(
+            accessToken: googleKey.accessToken,
+            idToken: googleKey.idToken,
+          );
+          await auth.signInWithCredential(credential).then((value) {
+            dismissLoadingWidget();
+            showToastMessage("Signed In Successfully.");
+          }).onError((e, stackTrace) {
+            log("Error: $e");
+            dismissLoadingWidget();
+            if (e is FirebaseAuthException) {
+              showToastMessage(e.message!);
+            } else {
+              showToastMessage(e.toString());
+            }
+          });
+        }
+      } catch (error) {
+        dismissLoadingWidget();
+        log("Catch Error: $error");
+        showToastMessage(error.toString());
+      }
+    }
+  }
+
+  void logOut() {
+    GoogleSignIn _googleSignIn = GoogleSignIn();
+    _googleSignIn.disconnect();
+    auth.signOut();
   }
 }
