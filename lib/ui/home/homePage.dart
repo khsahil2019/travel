@@ -46,24 +46,6 @@ class _HomePageState extends State<HomePage> {
   bool _hasCallSupport = false;
 
   @override
-  void initState() {
-    super.initState();
-    // Check for phone call support.
-    canLaunchUrl(Uri(scheme: 'tel', path: '123')).then((bool result) {
-      setState(() {
-        _hasCallSupport = result;
-      });
-    });
-  }
-
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
-
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
       url,
@@ -100,15 +82,16 @@ class _HomePageState extends State<HomePage> {
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
     // log("Exotic place :" + authController.exoticplaceList.toString());
-    // log("index : " + authController.indexPageList.toString());
-    // log("Deals : " + authController.dealsList.toString());
-    // log("logo : " + authController.logoList.toString());
-    // log("DestinationWedding : " +
-    //     authController.destinationWeddingList.toString());
+    log("index : " + authController.indexPageList.toString());
+    log("Deals : " + authController.dealsList.toString());
+    log("logo : " + authController.logoList.toString());
+    log("DestinationWedding : " +
+        authController.destinationWeddingList.toString());
     // log("privacy " + authController.privacyList.toString());
 
     // ignore: unused_local_variable
     double width = MediaQuery.of(context).size.width - 40;
+    // var x = authController.dealsList.length.toInt();
     return Scaffold(
         drawer: DrawerBox(width),
         appBar: AppBar(
@@ -169,10 +152,6 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Image.network(
-                        //     "https://kabiatravels.com/admin/uploadss/Untitled-5.png",
-                        //     height: 150,
-                        //     width: 150),
                         Image.network(
                             "https://kabiatravels.com/admin/uploadss/" +
                                 authController.logoList!["logo"],
@@ -188,14 +167,6 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    // Image.network(
-                    //     "https://kabiatravels.com/admin/index_images/" +
-                    //         authController.indexPageList!["pimg"],
-                    //     height: 150,
-                    //     width: 150),
-                    // Text(authController.exoticplaceList[0].toString()),
-                    //Text(authController.exoticplaceList.length.toString()),
-                    // Text(authController.indexPageList!.length.toString()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -234,45 +205,6 @@ class _HomePageState extends State<HomePage> {
                           style: const TextStyle(color: Colors.teal),
                         )),
 
-                    // RichText(
-                    //   textAlign: TextAlign.center,
-                    //   text: new TextSpan(
-                    //     text: 'We ',
-                    //     style: TextStyle(color: Colors.black),
-                    //     children: <TextSpan>[
-                    //       new TextSpan(
-                    //           text: 'always ',
-                    //           style: new TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: Colors.orange)),
-                    //       new TextSpan(
-                    //           text: 'focus on best ',
-                    //           style: new TextStyle(
-                    //               // fontWeight: FontWeight.bold,
-                    //               color: Colors.black)),
-                    //       new TextSpan(
-                    //           text: 'Benefits ',
-                    //           style: new TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: Colors.teal)),
-                    //       new TextSpan(
-                    //           text: 'as\n well as ',
-                    //           style: new TextStyle(
-                    //               //  fontWeight: FontWeight.bold,
-                    //               color: Colors.black)),
-                    //       new TextSpan(
-                    //           text: 'Professional ',
-                    //           style: new TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: Colors.teal)),
-                    //       new TextSpan(
-                    //           text: 'service',
-                    //           style: new TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: Colors.orange)),
-                    //     ],
-                    //   ),
-                    // ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -651,7 +583,7 @@ class _HomePageState extends State<HomePage> {
                     SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(children: [
-                          for (var x in authController.dealsList)
+                          for (var x in authController.dealsList.reversed)
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Container(
@@ -857,24 +789,10 @@ class _HomePageState extends State<HomePage> {
                             )
                         ])),
 
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    //   child: Row(
-                    //     children: [
-                    //       Trip(width, "beach.jpg", "City Adventure trip",
-                    //           "Paris France"),
-                    //       Trip(width, "exotic1.png", "HoneyMoon Trip",
-                    //           "Thialand"),
-                    //     ],
-                    //   ),
-                    // ),
                     const SizedBox(
                       height: 50,
                     ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
+
                     GestureDetector(
                         onTap: () {
                           Get.to(() => BestDeals());
@@ -924,16 +842,18 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
+//Exotic start
 
+//Exotic ends
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          for (var x in authController.exoticplaceList)
+                          for (var x in authController.exoticplaceList.reversed)
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Container(
-                                width: width * .45,
+                                width: width * .8,
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -966,7 +886,7 @@ class _HomePageState extends State<HomePage> {
                                             "https://kabiatravels.com/admin/packageimage/" +
                                                 x["PackageImage"],
                                             height: 130,
-                                            width: width * .5),
+                                            width: width * .7),
                                       ),
                                     ),
                                     Row(
@@ -1136,11 +1056,12 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          for (var x in authController.destinationWeddingList)
+                          for (var x
+                              in authController.destinationWeddingList.reversed)
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Container(
-                                width: width * .45,
+                                width: width * .8,
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -1173,7 +1094,7 @@ class _HomePageState extends State<HomePage> {
                                             "https://kabiatravels.com/admin/packageimage/" +
                                                 x["PackageImage"],
                                             height: 130,
-                                            width: width * .5),
+                                            width: width * .7),
                                       ),
                                     ),
                                     Row(
@@ -1307,113 +1228,12 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => DestinationWedding()),
-                            // );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, bottom: 10, right: 30, left: 30),
-                            child: Text(
-                              authController.indexPageList!["iconh4"]
-                                  .toString(),
-                              style: const TextStyle(
-                                  color: Colors.orange,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: width * .8,
-                          child: Text(
-                            authController.indexPageList!["p1"].toString(),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                      child: Row(
-                        children: [],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    button("See All"),
 
-                    /*End Hotel rooms */
-                    /* Flights  */
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => DestinationWedding()),
-                            // );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, bottom: 10, right: 30, left: 30),
-                            child: Text(
-                              authController.indexPageList!["iconh5"]
-                                  .toString(),
-                              style: const TextStyle(
-                                  color: Colors.orange,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: width * .8,
-                          child: const Text(
-                            "KT is one of the most popular Travel agency for who want to explore the wold with adventure",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(
                       height: 30,
                     ),
                     Image.asset("assets/img/plane.png"),
-                    // Divider(
-                    //   thickness: 1,
-                    // ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    button("See All"),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -1525,6 +1345,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 50,
                     ),
+                    //comment
                   ],
                 )
               ])),
@@ -1682,412 +1503,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget DealBox(double width, String img, String place) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(10.0),
-  //     child: Container(
-  //       width: width * .41,
-  //       decoration: BoxDecoration(boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.grey.withOpacity(0.2),
-  //           spreadRadius: 5,
-  //           blurRadius: 5,
-  //           offset: const Offset(0, 0), // changes position of shadow
-  //         ),
-  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-  //       child: Column(
-  //         children: [
-  //           // SizedBox(
-  //           //   height: 20,
-  //           // ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(10.0),
-  //                   image: DecorationImage(
-  //                     image: AssetImage('assets/img/$img'),
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //                 child:
-  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
-  //           ),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               SizedBox(
-  //                   width: width * .28,
-  //                   child: Text(
-  //                     place,
-  //                     style: const TextStyle(fontWeight: FontWeight.bold),
-  //                   )),
-  //               const Icon(
-  //                 Icons.star,
-  //                 color: Colors.teal,
-  //                 size: 12,
-  //               ),
-  //               const Text("4.5"),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Row(
-  //             //mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               const SizedBox(
-  //                 width: 5,
-  //               ),
-  //               const Icon(
-  //                 Icons.location_on,
-  //                 color: Colors.grey,
-  //                 size: 14,
-  //               ),
-  //               const SizedBox(
-  //                   //width: width * .28,
-  //                   child: Text(
-  //                 "Nuda Penida, Maldives",
-  //                 style: const TextStyle(fontSize: 10),
-  //               )),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 5,
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 RichText(
-  //                   text: new TextSpan(
-  //                     text: '\$110/',
-  //                     style: const TextStyle(
-  //                         color: Colors.black,
-  //                         fontSize: 12,
-  //                         fontWeight: FontWeight.bold),
-  //                     children: <TextSpan>[
-  //                       new TextSpan(
-  //                           text: 'person',
-  //                           style: new TextStyle(
-  //                               fontSize: 10, fontWeight: FontWeight.normal)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 GestureDetector(
-  //                   onTap: () {
-  //                     // Navigator.push(
-  //                     //   context,
-  //                     //   MaterialPageRoute(
-  //                     //       builder: (context) => BestDealsDetail()),
-  //                     // );
-  //                     //  Get.to(() => BestDealsDetail());
-  //                   },
-  //                   child: Container(
-  //                     decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(20),
-  //                         border: Border.all(color: Colors.orange)),
-  //                     child: const Padding(
-  //                       padding: EdgeInsets.only(
-  //                           top: 5, bottom: 5, right: 10, left: 10),
-  //                       child: Text(
-  //                         "Book",
-  //                         style: TextStyle(fontSize: 12),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget DestinationBox(double width, String img, String place) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(10.0),
-  //     child: Container(
-  //       width: width * .41,
-  //       decoration: BoxDecoration(boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.grey.withOpacity(0.2),
-  //           spreadRadius: 5,
-  //           blurRadius: 5,
-  //           offset: const Offset(0, 0), // changes position of shadow
-  //         ),
-  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-  //       child: Column(
-  //         children: [
-  //           // SizedBox(
-  //           //   height: 20,
-  //           // ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(10.0),
-  //                   image: DecorationImage(
-  //                     image: AssetImage('assets/img/$img'),
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //                 child:
-  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
-  //           ),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               SizedBox(
-  //                   width: width * .28,
-  //                   child: Text(
-  //                     place,
-  //                     style: const TextStyle(fontWeight: FontWeight.bold),
-  //                   )),
-  //               const Icon(
-  //                 Icons.star,
-  //                 color: Colors.teal,
-  //                 size: 12,
-  //               ),
-  //               const Text("4.5"),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Row(
-  //             //mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               const SizedBox(
-  //                 width: 5,
-  //               ),
-  //               const Icon(
-  //                 Icons.location_on,
-  //                 color: Colors.grey,
-  //                 size: 14,
-  //               ),
-  //               const SizedBox(
-  //                   //width: width * .28,
-  //                   child: const Text(
-  //                 "Nuda Penida, Maldives",
-  //                 style: TextStyle(fontSize: 10),
-  //               )),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 5,
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 RichText(
-  //                   text: new TextSpan(
-  //                     text: '\$110/',
-  //                     style: const TextStyle(
-  //                         color: Colors.black,
-  //                         fontSize: 12,
-  //                         fontWeight: FontWeight.bold),
-  //                     children: <TextSpan>[
-  //                       new TextSpan(
-  //                           text: 'person',
-  //                           style: new TextStyle(
-  //                               fontSize: 10, fontWeight: FontWeight.normal)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 GestureDetector(
-  //                   onTap: () {
-  //                     // Navigator.push(
-  //                     //   context,
-  //                     //   MaterialPageRoute(
-  //                     //       builder: (context) =>
-  //                     //           const DestinationWeddingDetail()),
-  //                     // );
-  //                   },
-  //                   child: Container(
-  //                     decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(20),
-  //                         border: Border.all(color: Colors.orange)),
-  //                     child: const Padding(
-  //                       padding: EdgeInsets.only(
-  //                           top: 5, bottom: 5, right: 10, left: 10),
-  //                       child: Text(
-  //                         "Book",
-  //                         style: TextStyle(fontSize: 12),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget RoomBox(double width, String img, String place, String location) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(10.0),
-  //     child: Container(
-  //       width: width * .41,
-  //       decoration: BoxDecoration(boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.grey.withOpacity(0.2),
-  //           spreadRadius: 5,
-  //           blurRadius: 5,
-  //           offset: const Offset(0, 0), // changes position of shadow
-  //         ),
-  //       ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-  //       child: Column(
-  //         children: [
-  //           // SizedBox(
-  //           //   height: 20,
-  //           // ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(10.0),
-  //                   image: DecorationImage(
-  //                     image: AssetImage('assets/img/$img'),
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //                 child:
-  //                     Image.asset("assets/img/$img", height: 130, width: 130)),
-  //           ),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               SizedBox(
-  //                   width: width * .28,
-  //                   child: Text(
-  //                     place,
-  //                     style: const TextStyle(fontWeight: FontWeight.bold),
-  //                   )),
-  //               const Icon(
-  //                 Icons.star,
-  //                 color: Colors.teal,
-  //                 size: 12,
-  //               ),
-  //               const Text("4.5"),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Row(
-  //             //mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               const SizedBox(
-  //                 width: 5,
-  //               ),
-  //               const Icon(
-  //                 Icons.location_on,
-  //                 color: Colors.grey,
-  //                 size: 14,
-  //               ),
-  //               SizedBox(
-  //                   //width: width * .28,
-  //                   child: Text(
-  //                 location,
-  //                 style: const TextStyle(fontSize: 10),
-  //               )),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 5,
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 RichText(
-  //                   text: new TextSpan(
-  //                     text: '\$110/',
-  //                     style: const TextStyle(
-  //                         color: Colors.black,
-  //                         fontSize: 12,
-  //                         fontWeight: FontWeight.bold),
-  //                     children: <TextSpan>[
-  //                       new TextSpan(
-  //                           text: 'person',
-  //                           style: new TextStyle(
-  //                               fontSize: 10, fontWeight: FontWeight.normal)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 GestureDetector(
-  //                   onTap: () {
-  //                     // Navigator.push(
-  //                     //   context,
-  //                     //   MaterialPageRoute(
-  //                     //       builder: (context) => const HotelRoomDetails()),
-  //                     // );
-  //                   },
-  //                   child: Container(
-  //                     decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(20),
-  //                         border: Border.all(color: Colors.orange)),
-  //                     child: const Padding(
-  //                       padding: EdgeInsets.only(
-  //                           top: 5, bottom: 5, right: 10, left: 10),
-  //                       child: const Text(
-  //                         "Book",
-  //                         style: TextStyle(fontSize: 12),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget View(double width) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(10.0),
-  //     child: Container(
-  //       width: width * .41,
-  //       // height: ,
-  //       decoration: BoxDecoration(
-  //           border: Border.all(color: Colors.black),
-  //           color: Colors.white,
-  //           borderRadius: BorderRadius.circular(18)),
-  //       child: Column(
-  //         children: [
-  //           // SizedBox(
-  //           //   height: 20,
-  //           // ),
-  //           Container(
-  //               decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 borderRadius: BorderRadius.circular(8),
-  //               ),
-  //               child: Padding(
-  //                 padding: const EdgeInsets.only(
-  //                     left: 20, right: 20, top: 100, bottom: 100),
-  //                 child: Text("See all",
-  //                     style:
-  //                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-  //               )),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
   Widget DrawerBox(double width) {
     return Container(
       width: width * .7,

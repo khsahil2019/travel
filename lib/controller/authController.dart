@@ -27,12 +27,13 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    getDeals();
+    getlogo();
     getPrivacy();
     getExoticpalce();
     getIndexPage();
     getDestinationWeeding();
-    getDeals();
-    getlogo();
+
     super.onInit();
     log("AuthController onInit");
   }

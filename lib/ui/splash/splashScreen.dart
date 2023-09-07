@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel/services/apiservice.dart';
 
 import '../../controller/authController.dart';
 import '../home/homePage.dart';
@@ -16,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void initState() {
+    // ApiService().logo();
     super.initState();
 
     // Wait for 3 seconds and then navigate to the next screen
