@@ -29,7 +29,7 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('User Details Form'),
+          title: Text('Enquiry Form'),
           content: SingleChildScrollView(
             child: FormBuilder(
               key: _formKey,
