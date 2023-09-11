@@ -1580,33 +1580,33 @@ class _HomePageState extends State<HomePage> {
               thickness: 1,
               color: Colors.grey,
             ),
-            ListTile(
-              leading: Icon(Icons.hotel),
+            // ListTile(
+            //   leading: Icon(Icons.hotel),
 
-              // shape: Border.all(color: Colors.black),
-              title: Text('Hotels'),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AboutUs()),
-                // );
-                // Navigator.pop(context);
-              },
-            ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
-            ListTile(
-              leading: Icon(Icons.flight),
+            //   // shape: Border.all(color: Colors.black),
+            //   title: Text('Hotels'),
+            //   onTap: () {
+            //     // Navigator.push(
+            //     //   context,
+            //     //   MaterialPageRoute(builder: (context) => AboutUs()),
+            //     // );
+            //     // Navigator.pop(context);
+            //   },
+            // ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.flight),
 
-              // shape: Border.all(color: Colors.black),
-              title: Text('Flights'),
-            ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
+            //   // shape: Border.all(color: Colors.black),
+            //   title: Text('Flights'),
+            // ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
             // ListTile(
             //   leading: Icon(Icons.question_answer_outlined),
             //   title: Text(
@@ -1622,10 +1622,10 @@ class _HomePageState extends State<HomePage> {
             //   // shape: Border.all(color: Colors.black),
             //   // title: Text('FAQ'),
             // ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
             SizedBox(
               height: 10,
             ),

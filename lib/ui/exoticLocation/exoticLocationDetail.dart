@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,6 +10,7 @@ import 'package:travel/ui/home/enquiry/enquiryEmail.dart';
 import '../../controller/authController.dart';
 import '../../register/login.dart';
 import '../bookingReviewPage/bookingReviewScreen.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class ExoticLocationDetail extends StatefulWidget {
   const ExoticLocationDetail() : super();
@@ -20,6 +22,87 @@ class ExoticLocationDetail extends StatefulWidget {
 class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
   bool isInclude = false;
   var data = Get.arguments;
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
+  void _showFormDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('User Details Form'),
+          content: SingleChildScrollView(
+            child: FormBuilder(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  FormBuilderTextField(
+                    name: 'email',
+                    decoration: InputDecoration(labelText: 'Email'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    name: 'mobile',
+                    decoration: InputDecoration(labelText: 'Mobile Number'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    maxLines: 4,
+                    autocorrect: true,
+                    name: 'comments',
+                    decoration: InputDecoration(labelText: 'Comments'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.saveAndValidate()) {
+                  final formData = _formKey.currentState!.value;
+
+                  try {
+                    // Save user data to Firestore
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .add(formData);
+
+                    // Show a confirmation message to the user
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Data saved successfully!'),
+                      ),
+                    );
+
+                    // Close the dialog
+                    Navigator.of(context).pop();
+                  } catch (error) {
+                    print('Error saving data: $error');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Data saved Unsuccessfully!'),
+                    ));
+                  }
+                }
+              },
+              child: Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,14 +168,20 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                authController.exoticplaceList[data]
-                                        ["PackageName"]
-                                    .toString(),
-                                style: TextStyle(
-                                    fontFamily: "Sail",
-                                    fontSize: 28,
-                                    color: Colors.teal),
+                              SizedBox(
+                                width: width * .7,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    authController.exoticplaceList[data]
+                                            ["PackageName"]
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontFamily: "Sail",
+                                        fontSize: 28,
+                                        color: Colors.teal),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -179,11 +268,17 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                authController.exoticplaceList[data]
-                                    ["hotelname"],
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.orange),
+                              SizedBox(
+                                width: width * .99,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    authController.exoticplaceList[data]
+                                        ["hotelname"],
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.orange),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -898,17 +993,8 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // print(authController.exoticplaceList[data]);
-                              // Get.to(() => ReviewDetail(),
-                              //     arguments:
-                              //         authController.exoticplaceList[data]);
-                              Get.to(() => EmailSender());
-                              //  _openPopup(context);
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => ReviewDetail()),
-                              // );
+                              // Get.to(() => EmailSender());
+                              _showFormDialog(context);
                             },
                             child: Container(
                               width: width * .9,

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -22,6 +24,87 @@ class _WeddingDestinationDetailScreenState
     extends State<WeddingDestinationDetailScreen> {
   bool isInclude = false;
   var data = Get.arguments;
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
+  void _showFormDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('User Details Form'),
+          content: SingleChildScrollView(
+            child: FormBuilder(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  FormBuilderTextField(
+                    name: 'email',
+                    decoration: InputDecoration(labelText: 'Email'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    name: 'mobile',
+                    decoration: InputDecoration(labelText: 'Mobile Number'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    maxLines: 4,
+                    autocorrect: true,
+                    name: 'comments',
+                    decoration: InputDecoration(labelText: 'Comments'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.saveAndValidate()) {
+                  final formData = _formKey.currentState!.value;
+
+                  try {
+                    // Save user data to Firestore
+                    // await FirebaseFirestore.instance
+                    //     .collection('users')
+                    //     .add(formData);
+
+                    // Show a confirmation message to the user
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Data saved successfully!'),
+                      ),
+                    );
+
+                    // Close the dialog
+                    Navigator.of(context).pop();
+                  } catch (error) {
+                    print('Error saving data: $error');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Data saved Unsuccessfully!'),
+                    ));
+                  }
+                }
+              },
+              child: Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -914,7 +997,8 @@ class _WeddingDestinationDetailScreenState
                               // Get.to(() => ReviewDetail(),
                               //     arguments: authController
                               //         .destinationWeddingList[data]);
-                              Get.to(() => EmailSender());
+                              // Get.to(() => EmailSender());
+                              _showFormDialog(context);
                               // Get.to(() => LoginScreen());
                               //  _openPopup(context);
                               // Navigator.push(
