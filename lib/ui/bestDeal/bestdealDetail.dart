@@ -177,14 +177,21 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                authController.dealsList[data]["PackageName"]
-                                    .toString(),
-                                // x["PackageName"].toString(),
-                                style: TextStyle(
-                                    fontFamily: "Sail",
-                                    fontSize: 28,
-                                    color: Colors.teal),
+                              SizedBox(
+                                width: width * .8,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    authController.dealsList[data]
+                                            ["PackageName"]
+                                        .toString(),
+                                    // x["PackageName"].toString(),
+                                    style: TextStyle(
+                                        fontFamily: "Sail",
+                                        fontSize: 28,
+                                        color: Colors.teal),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -272,11 +279,17 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                authController.dealsList[data]["hotelname"]
-                                    .toString(),
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.orange),
+                              SizedBox(
+                                width: width * .99,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    authController.dealsList[data]["hotelname"]
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.orange),
+                                  ),
+                                ),
                               ),
                             ],
                           ),

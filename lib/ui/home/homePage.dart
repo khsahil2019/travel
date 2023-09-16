@@ -124,22 +124,22 @@ class _HomePageState extends State<HomePage> {
                 showSearch(context: context, delegate: searchPackage());
               },
             ),
-            GestureDetector(
-              onTap: () {},
-              child: IconButton(
-                icon: const Icon(
-                  Icons.settings,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => SignupPage()),
-                  // );
-                  // Do something when the more_vert icon is pressed
-                },
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: IconButton(
+            //     icon: const Icon(
+            //       Icons.settings,
+            //       color: Colors.black,
+            //     ),
+            //     onPressed: () {
+            //       // Navigator.push(
+            //       //   context,
+            //       //   MaterialPageRoute(builder: (context) => SignupPage()),
+            //       // );
+            //       // Do something when the more_vert icon is pressed
+            //     },
+            //   ),
+            // ),
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 255, 254, 254),
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: ListView(children: [
                 Column(
-                  children: [
+                children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -889,18 +889,22 @@ class _HomePageState extends State<HomePage> {
                                             width: width * .7),
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                            width: width * .35,
-                                            child: Text(
-                                              x['PackageName'],
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Row(
+                                        // mainAxisAlignment:
+                                        //     MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                              width: width * .35,
+                                              child: Text(
+                                                x['PackageName'],
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )),
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -909,7 +913,7 @@ class _HomePageState extends State<HomePage> {
                                       //mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         const SizedBox(
-                                          width: 5,
+                                          width: 10,
                                         ),
                                         const Icon(
                                           Icons.location_on,
@@ -929,7 +933,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 5,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
