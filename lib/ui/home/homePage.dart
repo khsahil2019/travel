@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: ListView(children: [
                 Column(
-                children: [
+                  children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
