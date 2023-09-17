@@ -208,14 +208,14 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                      child: search(width),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    // SingleChildScrollView(
+                    //   scrollDirection: Axis.horizontal,
+                    //   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                    //   child: search(width),
+                    // ),
+                    // const SizedBox(
+                    //   height: 30,
+                    // ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
