@@ -71,13 +71,13 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.saveAndValidate()) {
-                  final formData = _formKey.currentState!.value;
+                  // final formData = _formKey.currentState!.value;
 
                   try {
                     // Save user data to Firestore
-                    await FirebaseFirestore.instance
-                        .collection('users')
-                        .add(formData);
+                    // await FirebaseFirestore.instance
+                    //     .collection('users')
+                    //     .add(formData);
 
                     // Show a confirmation message to the user
                     ScaffoldMessenger.of(context).showSnackBar(

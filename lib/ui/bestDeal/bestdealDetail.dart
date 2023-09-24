@@ -71,7 +71,7 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.saveAndValidate()) {
-                  final formData = _formKey.currentState!.value;
+                  //  final formData = _formKey.currentState!.value;
 
                   try {
                     // Save user data to Firestore
@@ -80,11 +80,11 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                     //     .add(formData);
 
                     // // Show a confirmation message to the user
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(
-                    //     content: Text('Data saved successfully!'),
-                    //   ),
-                    // );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Data saved successfully!'),
+                      ),
+                    );
 
                     // Close the dialog
                     Navigator.of(context).pop();
