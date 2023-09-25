@@ -974,7 +974,19 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              _showFormDialog(context);
+                              if (authController.user == null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyFormScreen()),
+                                );
+                              }
                             },
                             child: Container(
                               width: width * .9,

@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
+// import 'dart:js';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/ui/bestDeal/bestdealPage.dart';
+import 'package:travel/ui/home/enquiry/enquiryEmail.dart';
 import 'package:travel/ui/home/homePage.dart';
 import 'dart:io';
 
@@ -18,7 +21,92 @@ import '../ui/bookingReviewPage/bookingReviewScreen.dart';
 import '../ui/bookingReviewPage/confirmation.dart';
 
 class ApiService {
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
+  BuildContext? get context => null;
+
+  void _showFormDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Enquiry form'),
+          content: SingleChildScrollView(
+            child: FormBuilder(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  FormBuilderTextField(
+                    name: 'email',
+                    decoration: InputDecoration(labelText: 'Email'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    name: 'mobile',
+                    decoration: InputDecoration(labelText: 'Mobile Number'),
+                    // validator: FormBuilderValidators.required(context),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormBuilderTextField(
+                    maxLines: 4,
+                    autocorrect: true,
+                    name: 'comments',
+                    decoration: InputDecoration(labelText: 'Comments'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.saveAndValidate()) {
+                  //  final formData = _formKey.currentState!.value;
+
+                  try {
+                    // Save user data to Firestore
+                    // await FirebaseFirestore.instance
+                    //     .collection('users')
+                    //     .add(formData);
+
+                    // // Show a confirmation message to the user
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Data saved successfully!'),
+                      ),
+                    );
+
+                    // Close the dialog
+                    Navigator.of(context).pop();
+                  } catch (error) {
+                    print('Error saving data: $error');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Data saved Unsuccessfully!'),
+                    ));
+                  }
+                }
+              },
+              child: Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   final baseUrl = "kabiatravels.com";
+  final baseUrl2 = "crux.center";
   final _header = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -68,9 +156,10 @@ class ApiService {
         if (_res["status"] == 1) {
           log("Log in success");
           authController.user = _res["data"];
-
-          Get.to(BookingConfirmationScreen());
-          //  Get.to(HomePage());
+          //
+          //_showFormDialog(context as BuildContext);
+          Get.to(MyFormScreen());
+          // Get.to(HomePage());
           showSnakbar("Welcome !", "Login Successful");
         } else {
           log("log in failed");
@@ -415,59 +504,52 @@ class ApiService {
   }
 
   /**/
-  // Future<Map?> Enquire(
-  //     String username, String email, String mobile, String password) async {
-  //   showLoading();
-  //   var client = http.Client();
-  //   Uri uri = Uri.https(baseUrl, 'api/sendmail.php');
-  //   log("uri: " + uri.toString());
+  Future<Map?> Enquire(
+    String email,
+    String subject,
+    String message,
+  ) async {
+    showLoading();
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl2, 'sendmail.php');
+    log("uri: " + uri.toString());
 
-  //   try {
-  //     var _body = json.encode({
-  //       'username': username,
-  //       'email': email,
-  //       'mobile': mobile,
-  //       'password': password,
-  //     });
-  //     log("body: " + _body);
-  //     var response = await client.post(uri, headers: _header, body: _body);
-  //     Map<String, dynamic> _res = jsonDecode(response.body);
-  //     log("response: " + _res.toString());
-  //     log("status code" + response.statusCode.toString());
-  //     if (response.statusCode == 200) {
-  //       dismissLoadingWidget();
-  //       if (_res["status"] == 1) {
-  //         log("signup in success");
-  //         showSnakbar("Congratulation !", "Signup successful");
-  //         //  authController.fulldata = _res["data"];
-  //         Get.offAll(LoginScreen());
+    try {
+      var _body = json.encode({
+        'email': "kabiatravels@gmail.com",
+        'subject': subject,
+        'body': message,
+        // 'password': password,
+      });
+      log("body: " + _body);
+      var response = await client.post(uri, headers: _header, body: _body);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          log("mail success");
+          showSnakbar("Congratulation !", "Mailed successful");
+          //  authController.fulldata = _res["data"];
+          Get.offAll(HomePage());
+        } else {
+          log("Error");
+          showSnakbar("Try Again !", "");
+        }
+      }
 
-  //         //    authController.user = _res["data"];
-  //         // Get.offAll(logIn(
-  //         //     authController.user.toString(), authController.user.toString()));
-  //       } else {
-  //         log("Mobile Number Or Email already registered");
-  //         showSnakbar(
-  //             "Try Again !", "Mobile Number or Email already registered");
-  //       }
-  //     }
-
-  //     // showBottomToast("Error", error.msg.toString());
-  //     // showToastMessage(error.msg, Icons.error);
-
-  //     // log("error: " + error.msg.toString());
-  //     // return userdata;
-  //     return null;
-  //   } on SocketException catch (e) {
-  //     dismissLoadingWidget();
-  //     // showToastMessage("No Internet Connection", Icons.error);
-  //     log("no internet catch: " + e.toString());
-  //     return null;
-  //   } catch (e) {
-  //     dismissLoadingWidget();
-  //     // showToastMessage(e.toString(), Icons.error);
-  //     log("error catch: " + e.toString());
-  //     return null;
-  //   }
-  //}
+      return null;
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage("No Internet Connection", Icons.error);
+      log("no internet catch: " + e.toString());
+      return null;
+    } catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return null;
+    }
+  }
 }

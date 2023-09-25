@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:travel/services/apiservice.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/authController.dart';
@@ -16,6 +17,7 @@ import '../../controller/authController.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../register/login.dart';
 import '../bestDeal/bestdealDetail.dart';
 import '../bestDeal/bestdealPage.dart';
 import '../designPackage/planForMe.dart';
@@ -25,6 +27,7 @@ import '../policy/privacyPolicy.dart';
 import '../serach/serach.dart';
 import '../weddingDestination/weddingDestiDetail.dart';
 import '../weddingDestination/weddingdestiPage.dart';
+import 'enquiry/enquiryEmail.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage() : super();
@@ -45,6 +48,9 @@ class _HomePageState extends State<HomePage> {
   Future<void>? _launched;
   String? _phone = '';
   bool _hasCallSupport = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
 
   @override
   Future<void> _launchInBrowser(Uri url) async {
@@ -70,6 +76,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   FormBuilderTextField(
+                    controller: emailController,
                     name: 'email',
                     decoration: InputDecoration(labelText: 'Email'),
                     // validator: FormBuilderValidators.required(context),
@@ -78,6 +85,7 @@ class _HomePageState extends State<HomePage> {
                     height: 10,
                   ),
                   FormBuilderTextField(
+                    controller: mobileController,
                     name: 'mobile',
                     decoration: InputDecoration(labelText: 'Mobile Number'),
                     // validator: FormBuilderValidators.required(context),
@@ -86,6 +94,7 @@ class _HomePageState extends State<HomePage> {
                     height: 10,
                   ),
                   FormBuilderTextField(
+                    controller: commentController,
                     maxLines: 4,
                     autocorrect: true,
                     name: 'comments',
@@ -103,32 +112,9 @@ class _HomePageState extends State<HomePage> {
               child: Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.saveAndValidate()) {
-                  final formData = _formKey.currentState!.value;
-
-                  try {
-                    // Save user data to Firestore
-                    // await FirebaseFirestore.instance
-                    //     .collection('users')
-                    //     .add(formData);
-
-                    // Show a confirmation message to the user
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Data saved successfully!'),
-                      ),
-                    );
-
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  } catch (error) {
-                    print('Error saving data: $error');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Data saved Unsuccessfully!'),
-                    ));
-                  }
-                }
+              onPressed: () {
+                ApiService().Enquire("sahilkh3014@gmail.com",
+                    mobileController.text, commentController.text);
               },
               child: Text('Submit'),
             ),
@@ -153,15 +139,23 @@ class _HomePageState extends State<HomePage> {
     final Uri train = Uri(
         scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
     final Uri flight =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/flights/');
     final Uri hotel =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
-    final Uri visa =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php/');
+        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/hotels/');
+    // final Uri visa =
+    //     Uri(scheme: 'https', host: 'www.ixigo.com', path: '/visa/');
     final Uri webcheck =
         Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
     final Uri bus =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/buses/');
+    // final Uri hotel =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+    final Uri visa =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php/');
+    // final Uri webcheck =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
+    // final Uri bus =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
     // log("Exotic place :" + authController.exoticplaceList.toString());
@@ -308,9 +302,12 @@ class _HomePageState extends State<HomePage> {
                           //flight//
                           GestureDetector(
                             onTap: () {
-                              _showToast(context);
-                              // setState(() {
-                              //   // _launched = _launchInWebViewOrVC(flight);
+                              // _showToast(context);
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(flight);
+                              });
+                              //  setState(() {
+                              //  _launched = _launchInWebViewOrVC(flight);
 
                               // Navigator.push(
                               //   context,
@@ -381,8 +378,8 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _showToast(context);
-                                // _launched = _launchInWebViewOrVC(hotel);
+                                // _showToast(context);
+                                _launched = _launchInWebViewOrVC(hotel);
                               });
                               // Navigator.push(
                               //   context,
@@ -462,37 +459,37 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           //wedding
-                          GestureDetector(
-                            onTap: () {
-                              _showToast(context);
-                              //  Get.to(() => WeddingDestinationScreen());
-                            },
-                            child: Column(
-                              children: [
-                                Image.network(
-                                    "https://kabiatravels.com/admin/index_images/" +
-                                        authController.indexPageList!["icon3"],
-                                    height: 100,
-                                    width: 100),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                    authController.indexPageList!["iconh3"]
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        color: Colors.teal,
-                                        fontWeight: FontWeight.bold))
-                              ],
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     _showToast(context);
+                          //     //  Get.to(() => WeddingDestinationScreen());
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       Image.network(
+                          //           "https://kabiatravels.com/admin/index_images/" +
+                          //               authController.indexPageList!["icon3"],
+                          //           height: 100,
+                          //           width: 100),
+                          //       const SizedBox(
+                          //         height: 15,
+                          //       ),
+                          //       Text(
+                          //           authController.indexPageList!["iconh3"]
+                          //               .toString(),
+                          //           textAlign: TextAlign.center,
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontWeight: FontWeight.bold))
+                          //     ],
+                          //   ),
+                          // ),
                           //bus
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _showToast(context);
-                                // _launched = _launchInWebViewOrVC(bus);
+                                // _showToast(context);
+                                _launched = _launchInWebViewOrVC(bus);
                               });
                             },
                             child: Column(
@@ -522,8 +519,8 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _showToast(context);
-                                // _launched = _launchInWebViewOrVC(visa);
+                                //_showToast(context);
+                                _launched = _launchInWebViewOrVC(visa);
                               });
                             },
                             child: Column(
@@ -553,8 +550,8 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _showToast(context);
-                                // _launched = _launchInWebViewOrVC(webcheck);
+                                // _showToast(context);
+                                _launched = _launchInWebViewOrVC(webcheck);
                               });
                             },
                             child: Column(
@@ -840,13 +837,31 @@ class _HomePageState extends State<HomePage> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: GestureDetector(
                                               onTap: () {
+                                                // Get.to(() => LoginScreen());
+
+                                                if (authController.user ==
+                                                    null) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginScreen()),
+                                                  );
+                                                } else {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyFormScreen()),
+                                                  );
+                                                }
                                                 // print(authController.dealsList
                                                 //     .indexOf(x));
                                                 // Get.to(() => BestDealsDetail(),
                                                 //     arguments: authController
                                                 //         .dealsList
                                                 //         .indexOf(x));
-                                                _showFormDialog(context);
+                                                // _showFormDialog(context);
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -1049,6 +1064,22 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              if (authController.user == null) {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          LoginScreen()),
+                                                );
+                                              } else {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MyFormScreen()),
+                                                );
+                                              }
+                                              // Get.to(() => LoginScreen());
                                               // Get.to(
                                               //     () => ExoticLocationDetail());
                                               // print(authController
@@ -1059,7 +1090,7 @@ class _HomePageState extends State<HomePage> {
                                               //     arguments: authController
                                               //         .exoticplaceList
                                               //         .indexOf(x));
-                                              _showFormDialog(context);
+                                              //  _showFormDialog(context);
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -1842,7 +1873,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _showFormDialog(context);
+                      if (authController.user == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyFormScreen()),
+                        );
+                      }
+                      // Get.to(() => LoginScreen());
+                      // _showFormDialog(context);
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(

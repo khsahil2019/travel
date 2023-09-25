@@ -1,238 +1,110 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:get/get.dart';
+import 'package:travel/services/apiservice.dart';
 
-// void main() => runApp(MyApp());
+import '../homePage.dart';
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(primaryColor: Colors.red),
-//       home: EmailSender(),
-//     );
-//   }
-// }
-
-class EmailSender extends StatefulWidget {
-  const EmailSender({Key? key}) : super(key: key);
-
+class MyFormScreen extends StatefulWidget {
   @override
-  _EmailSenderState createState() => _EmailSenderState();
+  _MyFormScreenState createState() => _MyFormScreenState();
 }
 
-class _EmailSenderState extends State<EmailSender> {
-  List<String> attachments = [];
-  bool isHTML = false;
-
-  final _recipientController = TextEditingController(
-    text: 'kabiatravels@gmail.com',
-  );
-
-  final _subjectController = TextEditingController(text: '');
-  final _mobileController = TextEditingController(text: '');
-  final _nameController = TextEditingController(text: '');
-
-  final _bodyController = TextEditingController(
-    text: '******',
-  );
-
-  Future<void> send() async {
-    final Email email = Email(
-      body: _mobileController.text +
-          "       " +
-          _nameController.text +
-          "     " +
-          _bodyController.text,
-      subject: _subjectController.text,
-      recipients: [_recipientController.text],
-      attachmentPaths: attachments,
-      isHTML: isHTML,
-    );
-
-    String platformResponse;
-
-    try {
-      await FlutterEmailSender.send(email);
-      platformResponse = 'success';
-    } catch (error) {
-      print(error);
-      platformResponse = error.toString();
-    }
-
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(platformResponse),
-      ),
-    );
-  }
+class _MyFormScreenState extends State<MyFormScreen> {
+  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _commentsController = TextEditingController();
+//  String _emailController.text ="kabiatravels@gmail.com";
 
   @override
   Widget build(BuildContext context) {
+    _emailController.text = "kabiatravels@gmail.com";
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-        actions: <Widget>[
-          IconButton(
-            onPressed: send,
-            icon: Icon(Icons.send),
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   actions: [],
+      //   title: Text('Form Example'),
+      // ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                obscureText: false,
-                controller: _recipientController,
-                enabled: false,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Recipient',
-                ),
-              ),
+          children: [
+            SizedBox(
+              height: 50,
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _subjectController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Subject',
-                ),
-              ),
+            Text(
+              "Enquire Form",
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.indigo,
+                  fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Name',
-                ),
-              ),
+            SizedBox(
+              height: 100,
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _mobileController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Mobile Number',
-                ),
-              ),
+            TextField(
+              controller: _emailController,
+              enabled: false,
+              decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _bodyController,
-                  maxLines: null,
-                  expands: true,
-                  textAlignVertical: TextAlignVertical.top,
-                  decoration: InputDecoration(
-                      labelText: 'Enquiry', border: OutlineInputBorder()),
-                ),
-              ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _mobileController,
+              decoration: InputDecoration(labelText: 'Mobile Number'),
+              keyboardType: TextInputType.phone,
             ),
-            // CheckboxListTile(
-            //   contentPadding:
-            //       EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-            //   title: Text('HTML'),
-            //   onChanged: (bool? value) {
-            //     if (value != null) {
-            //       setState(() {
-            //         isHTML = value;
-            //       });
-            //     }
-            //   },
-            //   value: isHTML,
-            // ),
-            //   Padding(
-            //     padding: EdgeInsets.all(8.0),
-            //     child: Column(
-            //       children: <Widget>[
-            //         for (var i = 0; i < attachments.length; i++)
-            //           Row(
-            //             children: <Widget>[
-            //               Expanded(
-            //                 child: Text(
-            //                   attachments[i],
-            //                   softWrap: false,
-            //                   overflow: TextOverflow.fade,
-            //                 ),
-            //               ),
-            //               IconButton(
-            //                 icon: Icon(Icons.remove_circle),
-            //                 onPressed: () => {_removeAttachment(i)},
-            //               )
-            //             ],
-            //           ),
-            //         // Align(
-            //         //   alignment: Alignment.centerRight,
-            //         //   child: IconButton(
-            //         //     icon: Icon(Icons.attach_file),
-            //         //     onPressed: _openImagePicker,
-            //         //   ),
-            //         // ),
-            //         // TextButton(
-            //         //   child: Text('Attach file in app documents directory'),
-            //         //   onPressed: () => _attachFileFromAppDocumentsDirectoy(),
-            //         // ),
-            //       ],
-            //     ),
-            //   ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _commentsController,
+              maxLines: 4,
+              decoration: InputDecoration(labelText: 'Comments'),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Perform actions for cancel button
+                    _clearForm();
+                    Get.to(() => HomePage());
+                  },
+                  child: Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Perform actions for submit button
+                    _submitForm();
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  // void _openImagePicker() async {
-  //   final picker = ImagePicker();
-  //   PickedFile? pick = await picker.getImage(source: ImageSource.gallery);
-  //   if (pick != null) {
-  //     setState(() {
-  //       attachments.add(pick.path);
-  //     });
-  //   }
-  // }
-
-  void _removeAttachment(int index) {
-    setState(() {
-      attachments.removeAt(index);
-    });
+  void _clearForm() {
+    //_emailController.clear();
+    _mobileController.clear();
+    _commentsController.clear();
   }
 
-  // Future<void> _attachFileFromAppDocumentsDirectoy() async {
-  //   try {
-  //     final appDocumentDir = await getApplicationDocumentsDirectory();
-  //     final filePath = appDocumentDir.path + '/file.txt';
-  //     final file = File(filePath);
-  //     await file.writeAsString('Text file in app directory');
+  void _submitForm() {
+    // TODO: Add code to handle form submission
+    String email = _emailController.text;
+    String mobile = _mobileController.text;
+    String comments = _commentsController.text;
 
-  //     setState(() {
-  //       attachments.add(filePath);
-  //     });
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Failed to create file in applicion directory'),
-  //       ),
-  //     );
-  //   }
-  // }
+    // TODO: Process the form data (e.g., save to database)
+    ApiService().Enquire(email, mobile, comments);
+    Get.to(() => HomePage());
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Form submitted!'),
+      ),
+    );
+  }
 }

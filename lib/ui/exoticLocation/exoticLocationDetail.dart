@@ -993,8 +993,21 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Get.to(() => EmailSender());
-                              _showFormDialog(context);
+                              // Get.to(() => EmailSender());log
+                              if (authController.user == null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyFormScreen()),
+                                );
+                              }
+                              // _showFormDialog(context);
                             },
                             child: Container(
                               width: width * .9,

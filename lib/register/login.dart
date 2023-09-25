@@ -101,36 +101,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
               ),
               SizedBox(height: 20.0),
-              Row(
-                children: [
-                  Checkbox(
-                    value: _rememberMe,
-                    onChanged: (value) {
-                      setState(() {
-                        _rememberMe = value!;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Remember me',
-                    style: TextStyle(color: Colors.teal),
-                  ),
-                  Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      // Navigate to forgot password screen
-                      // // Navigator.push(
-                      // //   context,
-                      // //   MaterialPageRoute(builder: (context) => ForgotScreen()),
-                      // );
-                    },
-                    child: Text(
-                      'Forgot Password',
-                      style: TextStyle(color: Colors.orange),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Checkbox(
+              //       value: _rememberMe,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           _rememberMe = value!;
+              //         });
+              //       },
+              //     ),
+              //     Text(
+              //       'Remember me',
+              //       style: TextStyle(color: Colors.teal),
+              //     ),
+              //     Spacer(),
+              //     TextButton(
+              //       onPressed: () {
+              //         // Navigate to forgot password screen
+              //         // // Navigator.push(
+              //         // //   context,
+              //         // //   MaterialPageRoute(builder: (context) => ForgotScreen()),
+              //         // );
+              //       },
+              //       child: Text(
+              //         'Forgot Password',
+              //         style: TextStyle(color: Colors.orange),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -168,29 +168,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                    3,
-                    (index) => GestureDetector(
-                          onTap: () {
-                            if (index == 1) {
-                              authController.signInWithGoogle();
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 35,
-                              child: Image.asset(
-                                socialIconList[index],
-                                width: 40,
-                              ),
-                            ),
-                          ),
-                        )),
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: List.generate(
+              //       3,
+              //       (index) => GestureDetector(
+              //             onTap: () {
+              //               if (index == 1) {
+              //                 authController.signInWithGoogle();
+              //               }
+              //             },
+              //             child: Padding(
+              //               padding: const EdgeInsets.all(8.0),
+              //               child: CircleAvatar(
+              //                 backgroundColor: Colors.white,
+              //                 radius: 35,
+              //                 child: Image.asset(
+              //                   socialIconList[index],
+              //                   width: 40,
+              //                 ),
+              //               ),
+              //             ),
+              //           )),
+              // )
             ],
           ),
         ),
