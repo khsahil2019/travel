@@ -53,76 +53,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController commentController = TextEditingController();
 
   @override
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-
-  void _showFormDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enquiry Form'),
-          content: SingleChildScrollView(
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  FormBuilderTextField(
-                    controller: emailController,
-                    name: 'email',
-                    decoration: InputDecoration(labelText: 'Email'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    controller: mobileController,
-                    name: 'mobile',
-                    decoration: InputDecoration(labelText: 'Mobile Number'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    controller: commentController,
-                    maxLines: 4,
-                    autocorrect: true,
-                    name: 'comments',
-                    decoration: InputDecoration(labelText: 'Comments'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ApiService().Enquire("sahilkh3014@gmail.com",
-                    mobileController.text, commentController.text);
-              },
-              child: Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future<void> _launchInWebViewOrVC(Uri url) async {
     if (!await launchUrl(
@@ -136,26 +67,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+    final Uri flight =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/flight.php');
     final Uri train = Uri(
         scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
-    final Uri flight =
-        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/flights/');
     final Uri hotel =
-        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/hotels/');
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php');
+    final Uri bus =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/bus.php');
+    final Uri visa =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php');
+    final Uri webcheck =
+        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php');
+    //https://kabiatravels.com/flight.php
+
     // final Uri visa =
     //     Uri(scheme: 'https', host: 'www.ixigo.com', path: '/visa/');
-    final Uri webcheck =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
-    final Uri bus =
-        Uri(scheme: 'https', host: 'www.ixigo.com', path: '/buses/');
-    // final Uri hotel =
-    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
-    final Uri visa =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php/');
     // final Uri webcheck =
     //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
     // final Uri bus =
+    //     Uri(scheme: 'https', host: 'www.ixigo.com', path: '/buses/');
+    // final Uri hotel =
     //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
     // log("Exotic place :" + authController.exoticplaceList.toString());
