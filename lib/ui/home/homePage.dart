@@ -175,6 +175,13 @@ class _HomePageState extends State<HomePage> {
                             width: 150),
                       ],
                     ),
+                    Image.asset("assets/img/plane.png"),
+                    // Row(
+                    //   //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     Image.asset("assets/img/plane.png"),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -270,44 +277,44 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           //train
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _launched = _launchInWebViewOrVC(train);
-                              });
-                            },
-                            child: Column(
-                              children: [
-                                authController.indexPageList!["Icon6"] != null
-                                    ? Image.network(
-                                        //  "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
-                                        "https://kabiatravels.com/admin/index_images/" +
-                                            authController
-                                                .indexPageList!["Icon6"],
-                                        height: 100,
-                                        width: 90)
-                                    : Image.network(
-                                        "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
-                                        // "https://kabiatravels.com/admin/index_images/" +
-                                        //     authController
-                                        //         .indexPageList!["Icon6"],
-                                        height: 100,
-                                        width: 90),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                authController.indexPageList!["iconh6"] != null
-                                    ? Text(
-                                        authController.indexPageList!["iconh6"]
-                                            .toString(),
-                                        // "Train",
-                                        style: const TextStyle(
-                                            color: Colors.teal,
-                                            fontWeight: FontWeight.bold))
-                                    : SizedBox(),
-                              ],
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       _launched = _launchInWebViewOrVC(train);
+                          //     });
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       authController.indexPageList!["Icon6"] != null
+                          //           ? Image.network(
+                          //               //  "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                          //               "https://kabiatravels.com/admin/index_images/" +
+                          //                   authController
+                          //                       .indexPageList!["Icon6"],
+                          //               height: 100,
+                          //               width: 90)
+                          //           : Image.network(
+                          //               "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                          //               // "https://kabiatravels.com/admin/index_images/" +
+                          //               //     authController
+                          //               //         .indexPageList!["Icon6"],
+                          //               height: 100,
+                          //               width: 90),
+                          //       const SizedBox(
+                          //         height: 10,
+                          //       ),
+                          //       authController.indexPageList!["iconh6"] != null
+                          //           ? Text(
+                          //               authController.indexPageList!["iconh6"]
+                          //                   .toString(),
+                          //               // "Train",
+                          //               style: const TextStyle(
+                          //                   color: Colors.teal,
+                          //                   fontWeight: FontWeight.bold))
+                          //           : SizedBox(),
+                          //     ],
+                          //   ),
+                          // ),
                           //hotel
                           GestureDetector(
                             onTap: () {
@@ -392,6 +399,171 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          //wedding
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     _showToast(context);
+                          //     //  Get.to(() => WeddingDestinationScreen());
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       Image.network(
+                          //           "https://kabiatravels.com/admin/index_images/" +
+                          //               authController.indexPageList!["icon3"],
+                          //           height: 100,
+                          //           width: 100),
+                          //       const SizedBox(
+                          //         height: 15,
+                          //       ),
+                          //       Text(
+                          //           authController.indexPageList!["iconh3"]
+                          //               .toString(),
+                          //           textAlign: TextAlign.center,
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontWeight: FontWeight.bold))
+                          //     ],
+                          //   ),
+                          // ),
+                          //bus
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       // _showToast(context);
+                          //       _launched = _launchInWebViewOrVC(bus);
+                          //     });
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       Image.network(
+                          //           "https://kabiatravels.com/admin/index_images/" +
+                          //               authController.indexPageList!["icon7"],
+                          //           height: 85,
+                          //           width: 100),
+                          //       const SizedBox(
+                          //         height: 15,
+                          //       ),
+                          //       Text(
+                          //           authController.indexPageList!["iconh7"]
+                          //               .toString(),
+                          //           textAlign: TextAlign.center,
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontWeight: FontWeight.bold))
+                          //     ],
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
+                          // //visa
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       //_showToast(context);
+                          //       _launched = _launchInWebViewOrVC(visa);
+                          //     });
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       Image.network(
+                          //           "https://kabiatravels.com/admin/index_images/" +
+                          //               authController.indexPageList!["icon8"],
+                          //           height: 85,
+                          //           width: 100),
+                          //       const SizedBox(
+                          //         height: 15,
+                          //       ),
+                          //       Text(
+                          //           authController.indexPageList!["iconh8"]
+                          //               .toString(),
+                          //           textAlign: TextAlign.center,
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontWeight: FontWeight.bold))
+                          //     ],
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
+                          // //web-checkin
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       // _showToast(context);
+                          //       _launched = _launchInWebViewOrVC(webcheck);
+                          //     });
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       Image.network(
+                          //           "https://kabiatravels.com/admin/index_images/" +
+                          //               authController.indexPageList!["icon9"],
+                          //           height: 85,
+                          //           width: 100),
+                          //       const SizedBox(
+                          //         height: 15,
+                          //       ),
+                          //       Text(
+                          //           authController.indexPageList!["iconh9"]
+                          //               .toString(),
+                          //           textAlign: TextAlign.center,
+                          //           style: const TextStyle(
+                          //               color: Colors.teal,
+                          //               fontWeight: FontWeight.bold))
+                          //     ],
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //train
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _launched = _launchInWebViewOrVC(train);
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                authController.indexPageList!["Icon6"] != null
+                                    ? Image.network(
+                                        //  "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                                        "https://kabiatravels.com/admin/index_images/" +
+                                            authController
+                                                .indexPageList!["Icon6"],
+                                        height: 100,
+                                        width: 90)
+                                    : Image.network(
+                                        "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
+                                        // "https://kabiatravels.com/admin/index_images/" +
+                                        //     authController
+                                        //         .indexPageList!["Icon6"],
+                                        height: 100,
+                                        width: 90),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                authController.indexPageList!["iconh6"] != null
+                                    ? Text(
+                                        authController.indexPageList!["iconh6"]
+                                            .toString(),
+                                        // "Train",
+                                        style: const TextStyle(
+                                            color: Colors.teal,
+                                            fontWeight: FontWeight.bold))
+                                    : SizedBox(),
+                              ],
+                            ),
+                          ),
+
                           //wedding
                           // GestureDetector(
                           //   onTap: () {
@@ -606,223 +778,239 @@ class _HomePageState extends State<HomePage> {
                           for (var x in authController.dealsList.reversed)
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                width: width * .8,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(18)),
-                                child: Column(
-                                  children: [
-                                    // SizedBox(
-                                    //   height: 20,
-                                    // ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            image: new DecorationImage(
-                                                image: NetworkImage(
-                                                  "https://kabiatravels.com/admin/packageimage/" +
-                                                      x["PackageImage"],
-                                                ),
-                                                fit: BoxFit.cover)),
-                                        child: Image.network(
-                                            "https://kabiatravels.com/admin/packageimage/" +
-                                                x["PackageImage"],
-                                            height: 130,
-                                            width: width * .7),
-                                      ),
-                                    ),
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Row(children: [
-                                        SizedBox(
-                                          width: width * .52,
-                                          child: Text(
-                                            x["PackageType"],
-                                            style: const TextStyle(
-                                                color: Colors.teal),
-                                          ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  print(authController.dealsList.indexOf(x));
+                                  Get.to(() => BestDealsDetail(),
+                                      arguments:
+                                          authController.dealsList.indexOf(x));
+                                },
+                                child: Container(
+                                  width: width * .8,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 5,
+                                          offset: const Offset(0,
+                                              0), // changes position of shadow
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(3.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.orange,
-                                                borderRadius:
-                                                    BorderRadius.circular(18),
-                                                border: Border.all(
-                                                    color: Colors.black,
-                                                    width: 0.1)),
-                                            child: Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: Text(
-                                                  x["discpercent"] + "% off",
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white)),
-                                            ),
-                                          ),
-                                        )
-                                      ]),
-                                    ),
-                                    // SizedBox(
-                                    //   height: 5,
-                                    // ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Row(
-                                        //mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                              width: width * .5,
-                                              child: Text(
-                                                x['PackageName'],
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16),
-                                              )),
-                                          // Icon(
-                                          //   Icons.star,
-                                          //   color: Colors.teal,
-                                          //   size: 12,
-                                          // ),
-                                          // Text("4.5"),
-                                        ],
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18)),
+                                  child: Column(
+                                    children: [
+                                      // SizedBox(
+                                      //   height: 20,
+                                      // ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              image: new DecorationImage(
+                                                  image: NetworkImage(
+                                                    "https://kabiatravels.com/admin/packageimage/" +
+                                                        x["PackageImage"],
+                                                  ),
+                                                  fit: BoxFit.cover)),
+                                          child: Image.network(
+                                              "https://kabiatravels.com/admin/packageimage/" +
+                                                  x["PackageImage"],
+                                              height: 130,
+                                              width: width * .7),
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Row(
-                                        //mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          // SizedBox(
-                                          //   width: 0,
-                                          // ),
-                                          const Icon(
-                                            Icons.location_on,
-                                            color: Colors.grey,
-                                            size: 14,
-                                          ),
+
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(children: [
                                           SizedBox(
-                                              //width: width * .28,
-                                              child: Text(
-                                            x['PackageLocation'],
-                                            style:
-                                                const TextStyle(fontSize: 10),
-                                          )),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          RichText(
-                                            text: new TextSpan(
-                                              text: "Rs. " +
-                                                  x['PackagePrice'] +
-                                                  "/",
+                                            width: width * .52,
+                                            child: Text(
+                                              x["PackageType"],
                                               style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                              children: <TextSpan>[
-                                                new TextSpan(
-                                                    text: x['discprice'],
-                                                    style: new TextStyle(
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                                new TextSpan(
-                                                    text: ' person',
-                                                    style: new TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                              ],
+                                                  color: Colors.teal),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                // Get.to(() => LoginScreen());
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.orange,
+                                                  borderRadius:
+                                                      BorderRadius.circular(18),
+                                                  border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 0.1)),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(4.0),
+                                                child: Text(
+                                                    x["discpercent"] + "% off",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white)),
+                                              ),
+                                            ),
+                                          )
+                                        ]),
+                                      ),
+                                      // SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                                width: width * .5,
+                                                child: Text(
+                                                  x['PackageName'],
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                )),
+                                            // Icon(
+                                            //   Icons.star,
+                                            //   color: Colors.teal,
+                                            //   size: 12,
+                                            // ),
+                                            // Text("4.5"),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            // SizedBox(
+                                            //   width: 0,
+                                            // ),
+                                            const Icon(
+                                              Icons.location_on,
+                                              color: Colors.grey,
+                                              size: 14,
+                                            ),
+                                            SizedBox(
+                                                //width: width * .28,
+                                                child: Text(
+                                              x['PackageLocation'],
+                                              style:
+                                                  const TextStyle(fontSize: 10),
+                                            )),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            RichText(
+                                              text: new TextSpan(
+                                                text: "Rs. " +
+                                                    x['PackagePrice'] +
+                                                    "/",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: <TextSpan>[
+                                                  new TextSpan(
+                                                      text: x['discprice'],
+                                                      style: new TextStyle(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight
+                                                              .normal)),
+                                                  new TextSpan(
+                                                      text: ' person',
+                                                      style: new TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight
+                                                              .normal)),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  // Get.to(() => LoginScreen());
 
-                                                if (authController.user ==
-                                                    null) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoginScreen()),
-                                                  );
-                                                } else {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyFormScreen()),
-                                                  );
-                                                }
-                                                // print(authController.dealsList
-                                                //     .indexOf(x));
-                                                // Get.to(() => BestDealsDetail(),
-                                                //     arguments: authController
-                                                //         .dealsList
-                                                //         .indexOf(x));
-                                                // _showFormDialog(context);
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    border: Border.all(
-                                                        color: Colors.orange)),
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      bottom: 5,
-                                                      right: 10,
-                                                      left: 10),
-                                                  child: const Text(
-                                                    "Enquire",
-                                                    style:
-                                                        TextStyle(fontSize: 12),
+                                                  if (authController.user ==
+                                                      null) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              LoginScreen()),
+                                                    );
+                                                  } else {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MyFormScreen()),
+                                                    );
+                                                  }
+                                                  // print(authController.dealsList
+                                                  //     .indexOf(x));
+                                                  // Get.to(() => BestDealsDetail(),
+                                                  //     arguments: authController
+                                                  //         .dealsList
+                                                  //         .indexOf(x));
+                                                  // _showFormDialog(context);
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border: Border.all(
+                                                          color:
+                                                              Colors.orange)),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5,
+                                                        bottom: 5,
+                                                        right: 10,
+                                                        left: 10),
+                                                    child: const Text(
+                                                      "Enquire",
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             )
@@ -891,165 +1079,178 @@ class _HomePageState extends State<HomePage> {
                           for (var x in authController.exoticplaceList.reversed)
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                width: width * .8,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(18)),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
+                              child: GestureDetector(
+                                onTap: () {
+                                  print(authController.exoticplaceList
+                                      .indexOf(x));
+                                  Get.to(() => ExoticLocationDetail(),
+                                      arguments: authController.exoticplaceList
+                                          .indexOf(x));
+                                },
+                                child: Container(
+                                  width: width * .8,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 5,
+                                          offset: const Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18)),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                "https://kabiatravels.com/admin/packageimage/" +
+                                                    x["PackageImage"],
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: Image.network(
                                               "https://kabiatravels.com/admin/packageimage/" +
                                                   x["PackageImage"],
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
+                                              height: 130,
+                                              width: width * .7),
                                         ),
-                                        child: Image.network(
-                                            "https://kabiatravels.com/admin/packageimage/" +
-                                                x["PackageImage"],
-                                            height: 130,
-                                            width: width * .7),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Row(
-                                        // mainAxisAlignment:
-                                        //     MainAxisAlignment.center,
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                                width: width * .35,
+                                                child: Text(
+                                                  x['PackageName'],
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        //mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Icon(
+                                            Icons.location_on,
+                                            color: Colors.grey,
+                                            size: 14,
+                                          ),
                                           SizedBox(
                                               width: width * .35,
                                               child: Text(
-                                                x['PackageName'],
+                                                x['PackageLocation'],
                                                 style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontSize: 10),
                                               )),
                                         ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        const Icon(
-                                          Icons.location_on,
-                                          color: Colors.grey,
-                                          size: 14,
-                                        ),
-                                        SizedBox(
-                                            width: width * .35,
-                                            child: Text(
-                                              x['PackageLocation'],
-                                              style:
-                                                  const TextStyle(fontSize: 10),
-                                            )),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          RichText(
-                                            text: new TextSpan(
-                                              text: 'Rs ' +
-                                                  x["PackagePrice"] +
-                                                  '/',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                              children: <TextSpan>[
-                                                new TextSpan(
-                                                    text: 'person',
-                                                    style: const TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                              ],
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            RichText(
+                                              text: new TextSpan(
+                                                text: 'Rs ' +
+                                                    x["PackagePrice"] +
+                                                    '/',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: <TextSpan>[
+                                                  new TextSpan(
+                                                      text: 'person',
+                                                      style: const TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight
+                                                              .normal)),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (authController.user == null) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          LoginScreen()),
-                                                );
-                                              } else {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MyFormScreen()),
-                                                );
-                                              }
-                                              // Get.to(() => LoginScreen());
-                                              // Get.to(
-                                              //     () => ExoticLocationDetail());
-                                              // print(authController
-                                              //     .exoticplaceList
-                                              //     .indexOf(x));
-                                              // Get.to(
-                                              //     () => ExoticLocationDetail(),
-                                              //     arguments: authController
-                                              //         .exoticplaceList
-                                              //         .indexOf(x));
-                                              //  _showFormDialog(context);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                      color: Colors.teal)),
-                                              child: const Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 5,
-                                                    bottom: 5,
-                                                    right: 10,
-                                                    left: 10),
-                                                child: const Text(
-                                                  "Enquire",
-                                                  style:
-                                                      TextStyle(fontSize: 12),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (authController.user ==
+                                                    null) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginScreen()),
+                                                  );
+                                                } else {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyFormScreen()),
+                                                  );
+                                                }
+                                                // Get.to(() => LoginScreen());
+                                                // Get.to(
+                                                //     () => ExoticLocationDetail());
+                                                // print(authController
+                                                //     .exoticplaceList
+                                                //     .indexOf(x));
+                                                // Get.to(
+                                                //     () => ExoticLocationDetail(),
+                                                //     arguments: authController
+                                                //         .exoticplaceList
+                                                //         .indexOf(x));
+                                                //  _showFormDialog(context);
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    border: Border.all(
+                                                        color: Colors.teal)),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 5,
+                                                      bottom: 5,
+                                                      right: 10,
+                                                      left: 10),
+                                                  child: const Text(
+                                                    "Enquire",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             )
@@ -1304,7 +1505,7 @@ class _HomePageState extends State<HomePage> {
                         Image.asset("assets/img/fifth.png",
                             height: 150, width: 150),
                         const SizedBox(
-                          width: 20,
+                          width: 15,
                         ),
                         Column(children: [
                           Row(
@@ -1342,7 +1543,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            "Travor is one of the most popular\n Travel agency for those who\n want to explore the world\n and try to make adventure\n as well as we can\n provide",
+                            "Kabia Travels has a professional helpful\n team. Last month I booked a trip to\n Manali and Shimla and got struck \nthere due to heavy rain and land slides \nbut these guys helped me out of their way\n and helped me to reach Mumbai safely.\n Kudos to the team!! ",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 11),
                           ),
@@ -1353,7 +1554,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text(
-                                "John smith",
+                                "Sahil Thakur",
                                 style:
                                     TextStyle(color: Colors.teal, fontSize: 13),
                               ),
@@ -1367,7 +1568,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text(
-                                "[Ceo Founder]",
+                                "Shimla",
                                 style: TextStyle(fontSize: 10),
                               ),
                               const SizedBox(
@@ -1407,6 +1608,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 50,
                     ),
+                    // Text(authController.user!["EmailId"].toString())
                     //comment
                   ],
                 )
@@ -1577,8 +1779,25 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 color: Colors.orange,
               ),
-              accountName: Text("Tester"),
-              accountEmail: Text("test@gmail.com"),
+              // accountName: Text("skj"),
+
+              accountName:
+                  //  authController.user != null &&
+                  //         authController.user!["Name"] != "null"
+                  //     ? Text(authController.user!["Name"].toString()):
+                  Text("Welcome!"),
+              accountEmail: authController.user != null
+                  ? Text(authController.user!["EmailId"].toString())
+                  : GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      },
+                      child: Text("Login")),
+              // accountEmail: Text(authController.user!["EmailId"].toString()),
               currentAccountPicture: Image.network(
                   'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a89c3e38-b6f3-48a0-9f9e-df9a0129fb93/daghh5x-4a77b3ec-fd4f-4d17-9f84-5963a8cb5c03.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2E4OWMzZTM4LWI2ZjMtNDhhMC05ZjllLWRmOWEwMTI5ZmI5M1wvZGFnaGg1eC00YTc3YjNlYy1mZDRmLTRkMTctOWY4NC01OTYzYThjYjVjMDMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.dWTFMrwnbAbj5TtUp9U_vQsohW7MnkRPymzR5wZQoV8'),
             ),

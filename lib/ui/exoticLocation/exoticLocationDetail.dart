@@ -136,13 +136,6 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://kabiatravels.com/admin/packageimage/' +
-                              //     authController.exoticplaceList[data]["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     authController.exoticplaceList[data]["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     authController.exoticplaceList[data]["image"],
-
                               'https://kabiatravels.com/admin/packageimage/' +
                                   authController.exoticplaceList[data]
                                       ["PackageImage"],
