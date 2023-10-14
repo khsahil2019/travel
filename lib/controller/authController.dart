@@ -63,63 +63,6 @@ class AuthController extends GetxController {
     ApiService().logo().then((value) => logoList = value);
   }
 
-//  actionRemeberMe(bool value) {
-//     _rememberMe = value;
-//     SharedPreferences.getInstance().then(
-//       (prefs) {
-//         prefs.setBool("remember_me", value);
-//         prefs.setString('email', _emailController.text);
-//         prefs.setString('userId', _passwordController.text);
-//       },
-//     );
-
-//   void signInWithGoogle() async {
-//     showLoading();
-//     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//     try {
-//       final GoogleSignInAuthentication? googleAuth =
-//           await googleUser?.authentication;
-//       if (googleAuth != null) {
-//         //  final credential = GoogleAuthProvider.credential(
-//         //       accessToken: googleAuth.accessToken,
-//         //       idToken: googleAuth.idToken,
-//         //     );
-//       }
-//     } catch (e) {}
-//   }
-// }
-
-// void signInWithGoogle() async {
-//   GoogleSignIn _googleSignIn = GoogleSignIn();
-//   try {
-//     showLoading();
-//     var account = await _googleSignIn.signIn();
-//     if (account != null) {
-//       var googleKey = await account.authentication;
-//       var credential = GoogleAuthProvider.credential(
-//         accessToken: googleKey.accessToken,
-//         idToken: googleKey.idToken,
-//       );
-
-//       await auth.signInWithCredential(credential).then((value) {
-//         dismissLoadingWidget();
-//         showToastMessage("Signed In Successfully.");
-//       }).onError((e, stackTrace) {
-//         log("Error: $e");
-//         dismissLoadingWidget();
-//         if (e is FirebaseAuthException) {
-//           showToastMessage(e.message!);
-//         } else {
-//           showToastMessage(e.toString());
-//         }
-//       });
-//     }
-//   } catch (error) {
-//     dismissLoadingWidget();
-//     log("Catch Error: $error");
-//     showToastMessage(error.toString());
-//   }
-
   void signInWithGoogle() async {
     if (kIsWeb) {
       GoogleAuthProvider authProvider = GoogleAuthProvider();

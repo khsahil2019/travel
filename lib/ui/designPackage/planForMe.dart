@@ -12,13 +12,11 @@ class PlanForMe extends StatefulWidget {
 
 class _PlanForMeState extends State<PlanForMe> {
   final _formKey = GlobalKey<FormState>();
-  // late String name;
-  // late String destination;
-  // late String type;
+
   DateTime? fromDate;
   DateTime? toDate;
-  // late int guests;
-  TextEditingController nameCtrl = new TextEditingController();
+
+  TextEditingController mobileCtrl = new TextEditingController();
   TextEditingController destinationCtrl = new TextEditingController();
   TextEditingController typeCtrl = new TextEditingController();
   TextEditingController guestCtrl = new TextEditingController();
@@ -47,8 +45,8 @@ class _PlanForMeState extends State<PlanForMe> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Form'),
-      ),
+          // title: Text('Flutter Form'),
+          ),
       body: Stack(
         children: [
           Container(
@@ -74,19 +72,6 @@ class _PlanForMeState extends State<PlanForMe> {
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                            TextField(
-                              enabled: true,
-                              controller: nameCtrl,
-                              decoration: const InputDecoration(
-                                  labelText: 'Enter your Name',
-                                  border: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder()),
-                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -94,6 +79,7 @@ class _PlanForMeState extends State<PlanForMe> {
                               enabled: true,
                               controller: destinationCtrl,
                               decoration: const InputDecoration(
+                                  hintText: "Manali",
                                   labelText: 'Enter Destination',
                                   border: UnderlineInputBorder(
                                       borderSide:
@@ -110,6 +96,7 @@ class _PlanForMeState extends State<PlanForMe> {
                               enabled: true,
                               controller: typeCtrl,
                               decoration: const InputDecoration(
+                                  hintText: "Family",
                                   labelText: 'Enter type of travel',
                                   border: UnderlineInputBorder(
                                       borderSide:
@@ -140,8 +127,30 @@ class _PlanForMeState extends State<PlanForMe> {
                             TextField(
                               enabled: true,
                               controller: guestCtrl,
+                              keyboardType: TextInputType.number,
+                              maxLength: 2,
                               decoration: const InputDecoration(
                                   labelText: 'Enter number of guest',
+                                  counterText: "",
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.blue),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder()),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextField(
+                              enabled: true,
+                              maxLength: 10,
+                              keyboardType: TextInputType.number,
+                              controller: mobileCtrl,
+                              decoration: const InputDecoration(
+                                  counterText: "",
+                                  labelText: 'Enter Mobile Number',
                                   border: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
@@ -154,17 +163,17 @@ class _PlanForMeState extends State<PlanForMe> {
                             ElevatedButton(
                               onPressed: () {
                                 if (validate()) {
-                                  // _formKey.currentState!.save();
                                   ApiService().requestPackage(
-                                      //  nameCtrl.text,
+                                      "",
                                       destinationCtrl.text,
                                       typeCtrl.text,
                                       fromDate.toString(),
                                       toDate.toString(),
-                                      guestCtrl.text);
+                                      guestCtrl.text,
+                                      mobileCtrl.text);
                                   Get.to(() => HomePage());
-                                  // showSnakbar("Congratulation",
-                                  //     "Your Designed package has been sent to admin");
+                                  showSnakbar("Congratulation",
+                                      "Your Designed package has been sent to admin");
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //   SnackBar(
                                   //       content: Text(
@@ -189,7 +198,7 @@ class _PlanForMeState extends State<PlanForMe> {
   }
 
   bool validate() {
-    // if (nameCtrl.text.isEmpty) {
+    // if (mobileCtrl.text.isEmpty) {
     //   showSnakbar("Error", "Please Enter Name");
     //   return false;
     // }

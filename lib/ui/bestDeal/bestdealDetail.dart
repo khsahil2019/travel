@@ -24,88 +24,6 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
   var data = Get.arguments;
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
-  void _showFormDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enquiry form'),
-          content: SingleChildScrollView(
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  FormBuilderTextField(
-                    name: 'email',
-                    decoration: InputDecoration(labelText: 'Email'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    name: 'mobile',
-                    decoration: InputDecoration(labelText: 'Mobile Number'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    maxLines: 4,
-                    autocorrect: true,
-                    name: 'comments',
-                    decoration: InputDecoration(labelText: 'Comments'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.saveAndValidate()) {
-                  //  final formData = _formKey.currentState!.value;
-
-                  try {
-                    // Save user data to Firestore
-                    // await FirebaseFirestore.instance
-                    //     .collection('users')
-                    //     .add(formData);
-
-                    // // Show a confirmation message to the user
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Data saved successfully!'),
-                      ),
-                    );
-
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  } catch (error) {
-                    print('Error saving data: $error');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Data saved Unsuccessfully!'),
-                    ));
-                  }
-                }
-              },
-              child: Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // var indexOf;
-
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -121,9 +39,6 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                   scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
-                      // Text(authController.dealsList[data]["PackageName"]
-                      //     .toString()),
-                      // for (var x in authController.dealsList)
                       Column(
                         children: [
                           CarouselSlider(
@@ -139,22 +54,11 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://kabiatravels.com/admin/packageimage/' +
-                              //     x["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     x["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     x["image"],
-                              // 'assets/img/desti2.jpeg',
-                              // 'assets/img/desti3.jpeg',
-
                               'https://kabiatravels.com/admin/packageimage/' +
                                   authController.dealsList[data]
                                       ["PackageImage"],
                               'https://kabiatravels.com/admin/packageimage/' +
                                   authController.dealsList[data]["hotelimage"],
-                              // 'https://kabiatravels.com/admin/packageimage/' +
-                              //     authController.dealsList[data]["day1_image"],
                             ]
                                 .map((item) => Container(
                                       child: Center(

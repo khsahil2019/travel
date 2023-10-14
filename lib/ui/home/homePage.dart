@@ -66,33 +66,35 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  final Uri flight =
+      Uri(scheme: 'https', host: 'kabiatravels.com', path: '/flight.php');
+  final Uri train =
+      Uri(scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
+  final Uri hotel =
+      Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php');
+  final Uri bus =
+      Uri(scheme: 'https', host: 'kabiatravels.com', path: '/bus.php');
+  final Uri visa =
+      Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php');
+  final Uri webcheck =
+      Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php');
   Widget build(BuildContext context) {
-    final Uri flight =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/flight.php');
-    final Uri train = Uri(
-        scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
-    final Uri hotel =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php');
-    final Uri bus =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/bus.php');
-    final Uri visa =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php');
-    final Uri webcheck =
-        Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php');
-    //https://kabiatravels.com/flight.php
-
-    // final Uri visa =
-    //     Uri(scheme: 'https', host: 'www.ixigo.com', path: '/visa/');
-    // final Uri webcheck =
-    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php/');
-    // final Uri bus =
-    //     Uri(scheme: 'https', host: 'www.ixigo.com', path: '/buses/');
+    // final Uri flight =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/flight.php');
+    // final Uri train = Uri(
+    //     scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
     // final Uri hotel =
-    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php/');
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/Rooms.php');
+    // final Uri bus =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/bus.php');
+    // final Uri visa =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/visa.php');
+    // final Uri webcheck =
+    //     Uri(scheme: 'https', host: 'kabiatravels.com', path: '/web-check.php');
 
     // log(authController.)
     // log("asdfaf" + authController.user.toString());
-    // log("Exotic place :" + authController.exoticplaceList.toString());
+    log("Exotic place :" + authController.exoticplaceList.toString());
     log("index : " + authController.indexPageList.toString());
     log("Deals : " + authController.dealsList.toString());
     log("logo : " + authController.logoList.toString());
@@ -176,14 +178,21 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Image.asset("assets/img/plane.png"),
-                    // Row(
-                    //   //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Image.asset("assets/img/plane.png"),
-                    //   ],
-                    // ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Get.to(() => PlanForMe());
+                            },
+                            child: buttonOrange("Design Package for me")),
+                      ],
+                    ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -277,44 +286,7 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           //train
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       _launched = _launchInWebViewOrVC(train);
-                          //     });
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       authController.indexPageList!["Icon6"] != null
-                          //           ? Image.network(
-                          //               //  "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
-                          //               "https://kabiatravels.com/admin/index_images/" +
-                          //                   authController
-                          //                       .indexPageList!["Icon6"],
-                          //               height: 100,
-                          //               width: 90)
-                          //           : Image.network(
-                          //               "https://kabiatravels.com/admin/index_images/Untitled%20design.png",
-                          //               // "https://kabiatravels.com/admin/index_images/" +
-                          //               //     authController
-                          //               //         .indexPageList!["Icon6"],
-                          //               height: 100,
-                          //               width: 90),
-                          //       const SizedBox(
-                          //         height: 10,
-                          //       ),
-                          //       authController.indexPageList!["iconh6"] != null
-                          //           ? Text(
-                          //               authController.indexPageList!["iconh6"]
-                          //                   .toString(),
-                          //               // "Train",
-                          //               style: const TextStyle(
-                          //                   color: Colors.teal,
-                          //                   fontWeight: FontWeight.bold))
-                          //           : SizedBox(),
-                          //     ],
-                          //   ),
-                          // ),
+
                           //hotel
                           GestureDetector(
                             onTap: () {
@@ -322,11 +294,6 @@ class _HomePageState extends State<HomePage> {
                                 // _showToast(context);
                                 _launched = _launchInWebViewOrVC(hotel);
                               });
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const HotelRooms()),
-                              // );
                             },
                             child: Column(
                               children: [
@@ -400,121 +367,32 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           //wedding
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     _showToast(context);
-                          //     //  Get.to(() => WeddingDestinationScreen());
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       Image.network(
-                          //           "https://kabiatravels.com/admin/index_images/" +
-                          //               authController.indexPageList!["icon3"],
-                          //           height: 100,
-                          //           width: 100),
-                          //       const SizedBox(
-                          //         height: 15,
-                          //       ),
-                          //       Text(
-                          //           authController.indexPageList!["iconh3"]
-                          //               .toString(),
-                          //           textAlign: TextAlign.center,
-                          //           style: const TextStyle(
-                          //               color: Colors.teal,
-                          //               fontWeight: FontWeight.bold))
-                          //     ],
-                          //   ),
-                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              // _showToast(context);
+                              Get.to(() => WeddingDestinationScreen());
+                            },
+                            child: Column(
+                              children: [
+                                Image.network(
+                                    "https://kabiatravels.com/admin/index_images/" +
+                                        authController.indexPageList!["icon3"],
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                    authController.indexPageList!["iconh3"]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
                           //bus
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       // _showToast(context);
-                          //       _launched = _launchInWebViewOrVC(bus);
-                          //     });
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       Image.network(
-                          //           "https://kabiatravels.com/admin/index_images/" +
-                          //               authController.indexPageList!["icon7"],
-                          //           height: 85,
-                          //           width: 100),
-                          //       const SizedBox(
-                          //         height: 15,
-                          //       ),
-                          //       Text(
-                          //           authController.indexPageList!["iconh7"]
-                          //               .toString(),
-                          //           textAlign: TextAlign.center,
-                          //           style: const TextStyle(
-                          //               color: Colors.teal,
-                          //               fontWeight: FontWeight.bold))
-                          //     ],
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   width: 10,
-                          // ),
-                          // //visa
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       //_showToast(context);
-                          //       _launched = _launchInWebViewOrVC(visa);
-                          //     });
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       Image.network(
-                          //           "https://kabiatravels.com/admin/index_images/" +
-                          //               authController.indexPageList!["icon8"],
-                          //           height: 85,
-                          //           width: 100),
-                          //       const SizedBox(
-                          //         height: 15,
-                          //       ),
-                          //       Text(
-                          //           authController.indexPageList!["iconh8"]
-                          //               .toString(),
-                          //           textAlign: TextAlign.center,
-                          //           style: const TextStyle(
-                          //               color: Colors.teal,
-                          //               fontWeight: FontWeight.bold))
-                          //     ],
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   width: 10,
-                          // ),
-                          // //web-checkin
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       // _showToast(context);
-                          //       _launched = _launchInWebViewOrVC(webcheck);
-                          //     });
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       Image.network(
-                          //           "https://kabiatravels.com/admin/index_images/" +
-                          //               authController.indexPageList!["icon9"],
-                          //           height: 85,
-                          //           width: 100),
-                          //       const SizedBox(
-                          //         height: 15,
-                          //       ),
-                          //       Text(
-                          //           authController.indexPageList!["iconh9"]
-                          //               .toString(),
-                          //           textAlign: TextAlign.center,
-                          //           style: const TextStyle(
-                          //               color: Colors.teal,
-                          //               fontWeight: FontWeight.bold))
-                          //     ],
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -565,31 +443,6 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           //wedding
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     _showToast(context);
-                          //     //  Get.to(() => WeddingDestinationScreen());
-                          //   },
-                          //   child: Column(
-                          //     children: [
-                          //       Image.network(
-                          //           "https://kabiatravels.com/admin/index_images/" +
-                          //               authController.indexPageList!["icon3"],
-                          //           height: 100,
-                          //           width: 100),
-                          //       const SizedBox(
-                          //         height: 15,
-                          //       ),
-                          //       Text(
-                          //           authController.indexPageList!["iconh3"]
-                          //               .toString(),
-                          //           textAlign: TextAlign.center,
-                          //           style: const TextStyle(
-                          //               color: Colors.teal,
-                          //               fontWeight: FontWeight.bold))
-                          //     ],
-                          //   ),
-                          // ),
                           //bus
                           GestureDetector(
                             onTap: () {
@@ -735,6 +588,9 @@ class _HomePageState extends State<HomePage> {
                             height: 100, width: width * .2)
                       ],
                     ),
+                    SizedBox(
+                      height: 50,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -748,13 +604,13 @@ class _HomePageState extends State<HomePage> {
                               text: new TextSpan(
                                 text: 'Grab ',
                                 style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
+                                    color: Colors.black, fontSize: 22),
                                 children: <TextSpan>[
                                   new TextSpan(
                                       text: 'Best Deal',
                                       style: new TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                          fontSize: 22,
                                           color: Colors.orange)),
                                 ],
                               ),
@@ -1026,7 +882,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         child: button("See All")),
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1178,7 +1034,7 @@ class _HomePageState extends State<HomePage> {
                                               text: new TextSpan(
                                                 text: 'Rs ' +
                                                     x["PackagePrice"] +
-                                                    '/',
+                                                    '',
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 12,
@@ -1186,7 +1042,7 @@ class _HomePageState extends State<HomePage> {
                                                         FontWeight.bold),
                                                 children: <TextSpan>[
                                                   new TextSpan(
-                                                      text: 'person',
+                                                      text: '',
                                                       style: const TextStyle(
                                                           fontSize: 10,
                                                           fontWeight: FontWeight
@@ -1258,7 +1114,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     GestureDetector(
                         onTap: () {
@@ -1270,218 +1126,235 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //       builder: (context) => DestinationWedding()),
-                    //         // );
-                    //       },
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.only(
-                    //             top: 10, bottom: 10, right: 30, left: 30),
-                    //         child: Text(
-                    //           authController.indexPageList!["iconh3"]
-                    //               .toString(),
-                    //           style: const TextStyle(
-                    //               color: Colors.orange,
-                    //               fontSize: 24,
-                    //               fontWeight: FontWeight.bold),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     SizedBox(
-                    //       width: width * .8,
-                    //       child: Text(
-                    //         authController.indexPageList!["iconp5"].toString(),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
-                    // Text(authController.destinationWeddingList.length
-                    // .toString()),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   child: Row(
-                    //     children: [
-                    //       for (var x
-                    //           in authController.destinationWeddingList.reversed)
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(10.0),
-                    //           child: Container(
-                    //             width: width * .8,
-                    //             decoration: BoxDecoration(
-                    //                 boxShadow: [
-                    //                   BoxShadow(
-                    //                     color: Colors.grey.withOpacity(0.2),
-                    //                     spreadRadius: 5,
-                    //                     blurRadius: 5,
-                    //                     offset: const Offset(
-                    //                         0, 0), // changes position of shadow
-                    //                   ),
-                    //                 ],
-                    //                 color: Colors.white,
-                    //                 borderRadius: BorderRadius.circular(18)),
-                    //             child: Column(
-                    //               children: [
-                    //                 Padding(
-                    //                   padding: const EdgeInsets.all(8.0),
-                    //                   child: Container(
-                    //                     decoration: BoxDecoration(
-                    //                       borderRadius:
-                    //                           BorderRadius.circular(10.0),
-                    //                       image: DecorationImage(
-                    //                         image: NetworkImage(
-                    //                           "https://kabiatravels.com/admin/packageimage/" +
-                    //                               x["PackageImage"],
-                    //                         ),
-                    //                         fit: BoxFit.cover,
-                    //                       ),
-                    //                     ),
-                    //                     child: Image.network(
-                    //                         "https://kabiatravels.com/admin/packageimage/" +
-                    //                             x["PackageImage"],
-                    //                         height: 130,
-                    //                         width: width * .7),
-                    //                   ),
-                    //                 ),
-                    //                 Row(
-                    //                   mainAxisAlignment:
-                    //                       MainAxisAlignment.center,
-                    //                   children: [
-                    //                     SizedBox(
-                    //                         width: width * .35,
-                    //                         child: Text(
-                    //                           x['PackageName'],
-                    //                           style: const TextStyle(
-                    //                               fontWeight: FontWeight.bold),
-                    //                         )),
-                    //                     // Icon(
-                    //                     //   Icons.star,
-                    //                     //   color: Colors.teal,
-                    //                     //   size: 12,
-                    //                     // ),
-                    //                     // Text("4.5"),
-                    //                   ],
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Row(
-                    //                   //mainAxisAlignment: MainAxisAlignment.center,
-                    //                   children: [
-                    //                     const SizedBox(
-                    //                       width: 5,
-                    //                     ),
-                    //                     const Icon(
-                    //                       Icons.location_on,
-                    //                       color: Colors.grey,
-                    //                       size: 14,
-                    //                     ),
-                    //                     SizedBox(
-                    //                         width: width * .35,
-                    //                         child: Text(
-                    //                           x['PackageLocation'],
-                    //                           style:
-                    //                               const TextStyle(fontSize: 10),
-                    //                         )),
-                    //                   ],
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 5,
-                    //                 ),
-                    //                 Padding(
-                    //                   padding: const EdgeInsets.all(8.0),
-                    //                   child: Row(
-                    //                     mainAxisAlignment:
-                    //                         MainAxisAlignment.spaceBetween,
-                    //                     children: [
-                    //                       RichText(
-                    //                         text: TextSpan(
-                    //                           text: 'Rs ' +
-                    //                               x["PackagePrice"] +
-                    //                               '/',
-                    //                           style: const TextStyle(
-                    //                               color: Colors.black,
-                    //                               fontSize: 12,
-                    //                               fontWeight: FontWeight.bold),
-                    //                           children: const <TextSpan>[
-                    //                             TextSpan(
-                    //                                 text: 'person',
-                    //                                 style: TextStyle(
-                    //                                     fontSize: 10,
-                    //                                     fontWeight:
-                    //                                         FontWeight.normal)),
-                    //                           ],
-                    //                         ),
-                    //                       ),
-                    //                       GestureDetector(
-                    //                         onTap: () {
-                    //                           print(authController
-                    //                               .destinationWeddingList
-                    //                               .indexOf(x));
-                    //                           Get.to(
-                    //                               () =>
-                    //                                   WeddingDestinationDetailScreen(),
-                    //                               arguments: authController
-                    //                                   .destinationWeddingList
-                    //                                   .indexOf(x));
-                    //                         },
-                    //                         child: Container(
-                    //                           decoration: BoxDecoration(
-                    //                               borderRadius:
-                    //                                   BorderRadius.circular(20),
-                    //                               border: Border.all(
-                    //                                   color: Colors.teal)),
-                    //                           child: const Padding(
-                    //                             padding: EdgeInsets.only(
-                    //                                 top: 5,
-                    //                                 bottom: 5,
-                    //                                 right: 10,
-                    //                                 left: 10),
-                    //                             child: Text(
-                    //                               "Enquire",
-                    //                               style:
-                    //                                   TextStyle(fontSize: 12),
-                    //                             ),
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         )
-                    //     ],
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
-                    // GestureDetector(
-                    //     onTap: () {
-                    //       // Get.to(() => WeddingDestinationScreen());
-                    //       SnackBar(content: Text("Under working"));
-                    //     },
-                    //     child: button("See All")),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => DestinationWedding()),
+                            // );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 10, right: 30, left: 30),
+                            child: Text(
+                              authController.indexPageList!["iconh3"]
+                                  .toString(),
+                              style: const TextStyle(
+                                  color: Colors.orange,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: width * .8,
+                          child: Text(
+                            authController.indexPageList!["iconp5"].toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for (var x
+                              in authController.destinationWeddingList.reversed)
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  print(authController.destinationWeddingList
+                                      .indexOf(x));
+                                  Get.to(() => WeddingDestinationDetailScreen(),
+                                      arguments: authController
+                                          .destinationWeddingList
+                                          .indexOf(x));
+                                },
+                                child: Container(
+                                  width: width * .8,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 5,
+                                          offset: const Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18)),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                "https://kabiatravels.com/admin/packageimage/" +
+                                                    x["PackageImage"],
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: Image.network(
+                                              "https://kabiatravels.com/admin/packageimage/" +
+                                                  x["PackageImage"],
+                                              height: 130,
+                                              width: width * .7),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                                width: width * .5,
+                                                child: Text(
+                                                  x['PackageName'],
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        //mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Icon(
+                                            Icons.location_on,
+                                            color: Colors.grey,
+                                            size: 14,
+                                          ),
+                                          SizedBox(
+                                              width: width * .35,
+                                              child: Text(
+                                                x['PackageLocation'],
+                                                style: const TextStyle(
+                                                    fontSize: 10),
+                                              )),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            RichText(
+                                              text: new TextSpan(
+                                                text: 'Rs ' +
+                                                    x["PackagePrice"] +
+                                                    '',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: <TextSpan>[
+                                                  new TextSpan(
+                                                      text: '',
+                                                      style: const TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight
+                                                              .normal)),
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (authController.user ==
+                                                    null) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginScreen()),
+                                                  );
+                                                } else {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyFormScreen()),
+                                                  );
+                                                }
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    border: Border.all(
+                                                        color: Colors.teal)),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 5,
+                                                      bottom: 5,
+                                                      right: 10,
+                                                      left: 10),
+                                                  child: const Text(
+                                                    "Enquire",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => WeddingDestinationScreen());
+                          // SnackBar(content: Text("Under working"));
+                        },
+                        child: button("See All")),
                     /*comment*/
                     // Divider(
                     //   thickness: 1,
@@ -1503,10 +1376,10 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       children: [
                         Image.asset("assets/img/fifth.png",
-                            height: 150, width: 150),
-                        const SizedBox(
-                          width: 15,
-                        ),
+                            height: 150, width: 130),
+                        // const SizedBox(
+                        //   width: 5,
+                        // ),
                         Column(children: [
                           Row(
                             children: [
@@ -1543,10 +1416,45 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            "Kabia Travels has a professional helpful\n team. Last month I booked a trip to\n Manali and Shimla and got struck \nthere due to heavy rain and land slides \nbut these guys helped me out of their way\n and helped me to reach Mumbai safely.\n Kudos to the team!! ",
+                            "Kabia Travels has a professional helpful\n team. Last month I booked a trip to Manali\n and Shimla and got struck there due to heavy\n rain and land slides but these guys helped me\n out of their way and helped me to reach Mumbai\n safely. Kudos to the team!! ",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 11),
                           ),
+                          // const Text(
+                          //   "Kabia Travels has a professional helpful",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "team. Last month I booked a trip to Manali",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "and Shimla and got struck there due to heavy",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "rain and land slides but these guys helped me",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "out of their way and helped me to reach Mumbai",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "safely. Kudos to the team!! ",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
+                          // const Text(
+                          //   "Kabia Travels has a professional helpful team. Last month I booked a trip to Manali and Shimla and got struck there due to heavy rain and land slides but these guys helped me out of their way and helped me to reach Mumbai safely. Kudos to the team!! ",
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 11),
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -1585,26 +1493,26 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(authController.indexPageList!["p1"],
-                              style: TextStyle(
-                                  fontSize: 14, color: Colors.orange)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Contact No. " + authController.indexPageList!["p2"],
-                          style: TextStyle(fontSize: 14, color: Colors.teal),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Text(authController.indexPageList!["p1"],
+                    //           style: TextStyle(
+                    //               fontSize: 14, color: Colors.orange)),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       "Contact No. " + authController.indexPageList!["p2"],
+                    //       style: TextStyle(fontSize: 14, color: Colors.teal),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 50,
                     ),
@@ -1767,6 +1675,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget buttonOrange(String text) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20), color: Colors.orange),
+      child: Padding(
+        padding:
+            const EdgeInsets.only(top: 10, bottom: 10, right: 30, left: 30),
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
   Widget DrawerBox(double width) {
     return Container(
       width: width * .7,
@@ -1777,7 +1700,7 @@ class _HomePageState extends State<HomePage> {
             UserAccountsDrawerHeader(
               // arrowColor: Colors.black,
               decoration: BoxDecoration(
-                color: Colors.orange,
+                color: const Color.fromARGB(255, 230, 220, 220),
               ),
               // accountName: Text("skj"),
 
@@ -1785,9 +1708,13 @@ class _HomePageState extends State<HomePage> {
                   //  authController.user != null &&
                   //         authController.user!["Name"] != "null"
                   //     ? Text(authController.user!["Name"].toString()):
-                  Text("Welcome!"),
+                  Text(
+                "Welcome!",
+                style: TextStyle(color: Colors.black),
+              ),
               accountEmail: authController.user != null
-                  ? Text(authController.user!["EmailId"].toString())
+                  ? Text(authController.user!["EmailId"].toString(),
+                      style: TextStyle(color: Colors.black))
                   : GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -1796,43 +1723,35 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => LoginScreen()),
                         );
                       },
-                      child: Text("Login")),
+                      child:
+                          Text("Login", style: TextStyle(color: Colors.black))),
               // accountEmail: Text(authController.user!["EmailId"].toString()),
               currentAccountPicture: Image.network(
-                  'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a89c3e38-b6f3-48a0-9f9e-df9a0129fb93/daghh5x-4a77b3ec-fd4f-4d17-9f84-5963a8cb5c03.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2E4OWMzZTM4LWI2ZjMtNDhhMC05ZjllLWRmOWEwMTI5ZmI5M1wvZGFnaGg1eC00YTc3YjNlYy1mZDRmLTRkMTctOWY4NC01OTYzYThjYjVjMDMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.dWTFMrwnbAbj5TtUp9U_vQsohW7MnkRPymzR5wZQoV8'),
+                  'https://kabiatravels.com/admin/index_images/63ba412eae7aab2b53997550_testimonial-img.png'),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-
-              //shape: Border.all(color: Colors.black),
+              leading: Icon(
+                Icons.home,
+                color: Colors.red,
+              ),
+              // shape: Border.all(color: Colors.red),
               title: Text('Home'),
               onTap: () {
                 // Get.to(HomePage())!.then((value) => Navigator.pop(context));
                 Navigator.pop(context);
               },
             ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
-            // ListTile(
-            //   leading: Icon(Icons.play_circle),
-
-            //   //  shape: Border.all(color: Colors.black),
-            //   title: Text('Wedding Destination'),
-            //   onTap: () {
-            //     Get.to(WeddingDestinationScreen())!
-            //         .then((value) => Navigator.pop(context));
-            //     // Navigator.pop(context);
-            //   },
-            // ),
             // Divider(
             //   thickness: 1,
             //   color: Colors.grey,
             // ),
-            ListTile(
-              leading: Icon(Icons.place_sharp),
 
+            ListTile(
+              leading: Icon(
+                Icons.place,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
               // shape: Border
               //.all(color: Colors.black),
               title: Text('Exotic Place'),
@@ -1842,50 +1761,121 @@ class _HomePageState extends State<HomePage> {
                 // Navigator.pop(context);
               },
             ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
-            ListTile(
-              leading: Icon(Icons.dehaze_rounded),
-
-              // shape: Border
-              //.all(color: Colors.black),
-              title: Text('Best Deals'),
-              onTap: () {
-                Get.to(BestDeals())!.then((value) => Navigator.pop(context));
-                // Navigator.pop(context);
-              },
-            ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
-            // ListTile(
-            //   leading: Icon(Icons.hotel),
-
-            //   // shape: Border.all(color: Colors.black),
-            //   title: Text('Hotels'),
-            //   onTap: () {
-            //     // Navigator.push(
-            //     //   context,
-            //     //   MaterialPageRoute(builder: (context) => AboutUs()),
-            //     // );
-            //     // Navigator.pop(context);
-            //   },
-            // ),
             // Divider(
             //   thickness: 1,
             //   color: Colors.grey,
             // ),
-            // ListTile(
-            //   leading: Icon(Icons.flight),
-
-            //   // shape: Border.all(color: Colors.black),
-            //   title: Text('Flights'),
-            // ),
+            ListTile(
+              leading: Icon(
+                Icons.local_offer,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.red),
+              title: Text('Best Deals'),
+              onTap: () {
+                Get.to(BestDeals())!.then((value) => Navigator.pop(context));
+              },
+            ),
             // Divider(
             //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
+
+            ListTile(
+              leading: Icon(
+                Icons.heat_pump_rounded,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text('Destination Wedding'),
+              onTap: () {
+                Get.to(WeddingDestinationScreen())!
+                    .then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
+            ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
+
+            ListTile(
+              leading: Icon(
+                Icons.flight,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.red),
+              title: Text('Flights'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(flight);
+                });
+              },
+            ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
+
+            ListTile(
+              leading: Icon(
+                Icons.hotel,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text('Hotels'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(hotel);
+                });
+              },
+            ),
+            // Divider(
+            //   thickness: 1,
+            //   color: Colors.grey,
+            // ),
+
+            ListTile(
+              leading: Icon(
+                Icons.bus_alert,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.red),
+              title: Text('Bus'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(bus);
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.train,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text('Train'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(train);
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.card_giftcard,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.red),
+              title: Text('Visa'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(visa);
+                });
+              },
+            ),
+            // Divider(
+            //   thickness: 0.5,
             //   color: Colors.grey,
             // ),
             // ListTile(
@@ -1907,325 +1897,56 @@ class _HomePageState extends State<HomePage> {
             //   thickness: 1,
             //   color: Colors.grey,
             // ),
+
+            // Center(child: Text("Legals")),
             SizedBox(
               height: 10,
             ),
-            Center(child: Text("Legals")),
-            SizedBox(
-              height: 10,
-            ),
+
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(Icons.phone),
-                Text("Contact us"),
+                SizedBox(width: 10),
+                Image.network(
+                    "https://kabiatravels.com/admin/uploadss/" +
+                        authController.logoList!["logo"],
+                    height: 50,
+                    width: 50),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(authController.indexPageList!["p1"],
+                      style: TextStyle(fontSize: 14, color: Colors.orange)),
+                ),
               ],
             ),
             SizedBox(
               height: 10,
             ),
-            Center(child: Text("Version 1.0.0"))
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget ExoticBox(double width, String img, String place, String location) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: width * .41,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 5,
-            offset: const Offset(0, 0), // changes position of shadow
-          ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          children: [
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/img/$img'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child:
-                      Image.asset("assets/img/$img", height: 130, width: 130)),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                    width: width * .35,
-                    child: Text(
-                      place,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
+                  width: 10,
+                ),
                 // Icon(
-                //   Icons.star,
-                //   color: Colors.teal,
-                //   size: 12,
+                //   Icons.contact_support,
+                //   color: Colors.grey,
                 // ),
-                // Text("4.5"),
+                Text(
+                  "Contact No:\n" + authController.indexPageList!["p2"],
+                  style: TextStyle(fontSize: 14, color: Colors.teal),
+                ),
+                SizedBox(width: 10),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.location_on,
-                  color: Colors.grey,
-                  size: 14,
-                ),
-                SizedBox(
-                    //width: width * .28,
-                    child: Text(
-                  location,
-                  style: const TextStyle(fontSize: 10),
-                )),
-              ],
-            ),
-            const SizedBox(
+            SizedBox(
               height: 5,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: new TextSpan(
-                      text: '\$110/',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        new TextSpan(
-                            text: 'person',
-                            style: new TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (authController.user == null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyFormScreen()),
-                        );
-                      }
-                      // Get.to(() => LoginScreen());
-                      // _showFormDialog(context);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const ExoticPlaceDetail()),
-                      // );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.teal)),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, right: 10, left: 10),
-                        child: Text(
-                          "Enquire",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
+
+            // Center(child: Text("App Version 1.0.0"))
           ],
         ),
-      ),
-    );
-  }
-
-  Widget Trip(double width, String img, String place, String location) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: width * .8,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 5,
-            offset: const Offset(0, 0), // changes position of shadow
-          ),
-        ], color: Colors.white, borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          children: [
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/img/$img'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Image.asset("assets/img/$img",
-                      height: 130, width: width * .7)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Row(children: [
-                const Text(
-                  "4 days 3 night",
-                  style: const TextStyle(color: Colors.teal),
-                )
-              ]),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      width: width * .5,
-                      child: Text(
-                        place,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      )),
-                  // Icon(
-                  //   Icons.star,
-                  //   color: Colors.teal,
-                  //   size: 12,
-                  // ),
-                  // Text("4.5"),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    width: 0,
-                  ),
-                  const Icon(
-                    Icons.location_on,
-                    color: Colors.grey,
-                    size: 14,
-                  ),
-                  SizedBox(
-                      //width: width * .28,
-                      child: Text(
-                    location,
-                    style: const TextStyle(fontSize: 10),
-                  )),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: new TextSpan(
-                      text: '\$110/',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        new TextSpan(
-                            text: 'person',
-                            style: new TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.orange)),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, right: 10, left: 10),
-                        child: const Text(
-                          "Book",
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showToast(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('we are coming soon'),
-        action: SnackBarAction(
-            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
 }
-
-
-// class MySearchDelegate extends MySearchDelegate {
-//   @override
-//   Widget? buildLeading(BuildContext context) => Container();
-//   @override
-// List<Widget>? buildActions(BuildContext context) => Container();
-
-// @override
-// Widget buildResults(BuildContext)
-// }

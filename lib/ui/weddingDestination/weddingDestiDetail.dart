@@ -26,85 +26,85 @@ class _WeddingDestinationDetailScreenState
   var data = Get.arguments;
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
-  void _showFormDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('User Details Form'),
-          content: SingleChildScrollView(
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  FormBuilderTextField(
-                    name: 'email',
-                    decoration: InputDecoration(labelText: 'Email'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    name: 'mobile',
-                    decoration: InputDecoration(labelText: 'Mobile Number'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    maxLines: 4,
-                    autocorrect: true,
-                    name: 'comments',
-                    decoration: InputDecoration(labelText: 'Comments'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.saveAndValidate()) {
-                  final formData = _formKey.currentState!.value;
+  // void _showFormDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('User Details Form'),
+  //         content: SingleChildScrollView(
+  //           child: FormBuilder(
+  //             key: _formKey,
+  //             child: Column(
+  //               children: <Widget>[
+  //                 FormBuilderTextField(
+  //                   name: 'email',
+  //                   decoration: InputDecoration(labelText: 'Email'),
+  //                   // validator: FormBuilderValidators.required(context),
+  //                 ),
+  //                 SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 FormBuilderTextField(
+  //                   name: 'mobile',
+  //                   decoration: InputDecoration(labelText: 'Mobile Number'),
+  //                   // validator: FormBuilderValidators.required(context),
+  //                 ),
+  //                 SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 FormBuilderTextField(
+  //                   maxLines: 4,
+  //                   autocorrect: true,
+  //                   name: 'comments',
+  //                   decoration: InputDecoration(labelText: 'Comments'),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(); // Close the dialog
+  //             },
+  //             child: Text('Cancel'),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () async {
+  //               if (_formKey.currentState!.saveAndValidate()) {
+  //                 final formData = _formKey.currentState!.value;
 
-                  try {
-                    // Save user data to Firestore
-                    // await FirebaseFirestore.instance
-                    //     .collection('users')
-                    //     .add(formData);
+  //                 try {
+  //                   // Save user data to Firestore
+  //                   // await FirebaseFirestore.instance
+  //                   //     .collection('users')
+  //                   //     .add(formData);
 
-                    // Show a confirmation message to the user
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Data saved successfully!'),
-                      ),
-                    );
+  //                   // Show a confirmation message to the user
+  //                   ScaffoldMessenger.of(context).showSnackBar(
+  //                     SnackBar(
+  //                       content: Text('Data saved successfully!'),
+  //                     ),
+  //                   );
 
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  } catch (error) {
-                    print('Error saving data: $error');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Data saved Unsuccessfully!'),
-                    ));
-                  }
-                }
-              },
-              child: Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //                   // Close the dialog
+  //                   Navigator.of(context).pop();
+  //                 } catch (error) {
+  //                   print('Error saving data: $error');
+  //                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //                     content: Text('Data saved Unsuccessfully!'),
+  //                   ));
+  //                 }
+  //               }
+  //             },
+  //             child: Text('Submit'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -172,14 +172,20 @@ class _WeddingDestinationDetailScreenState
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                authController.destinationWeddingList[data]
-                                        ["PackageName"]
-                                    .toString(),
-                                style: TextStyle(
-                                    fontFamily: "Sail",
-                                    fontSize: 28,
-                                    color: Colors.teal),
+                              SizedBox(
+                                width: width * .9,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    authController.destinationWeddingList[data]
+                                            ["PackageName"]
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontFamily: "Sail",
+                                        fontSize: 28,
+                                        color: Colors.teal),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -238,7 +244,7 @@ class _WeddingDestinationDetailScreenState
                                           .destinationWeddingList[data]
                                               ["PackagePrice"]
                                           .toString() +
-                                      "/per Person")),
+                                      "")),
                               Icon(Icons.person_outline),
                               // Icon(Icons.person_outline),
                               // Icon(Icons.person_outline)
@@ -992,20 +998,19 @@ class _WeddingDestinationDetailScreenState
                           ),
                           GestureDetector(
                             onTap: () {
-                              // print(
-                              //     authController.destinationWeddingList[data]);
-                              // Get.to(() => ReviewDetail(),
-                              //     arguments: authController
-                              //         .destinationWeddingList[data]);
-                              // Get.to(() => EmailSender());
-                              _showFormDialog(context);
-                              // Get.to(() => LoginScreen());
-                              //  _openPopup(context);
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => ReviewDetail()),
-                              // );
+                              if (authController.user == null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyFormScreen()),
+                                );
+                              }
                             },
                             child: Container(
                               width: width * .9,

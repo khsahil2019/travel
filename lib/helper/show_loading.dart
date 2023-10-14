@@ -14,13 +14,6 @@ showLoading() {
         color: Colors.blue,
         size: 50.0,
       ),
-      // Row(
-      //   children: const [
-      //     CircularProgressIndicator(),
-      //     SizedBox(width: 10,),
-      //     Expanded(child: Text('Loading...'))
-      //   ],
-      // ),
       barrierDismissible: false);
 }
 
