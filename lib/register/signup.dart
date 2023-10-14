@@ -15,33 +15,6 @@ class SignupPage extends StatefulWidget {
   _SignupPageState createState() => _SignupPageState();
 }
 
-//Map userData = {"name": userData, "email": "", "mobile": "", "pass": ""};
-// Future<void> signUp(
-//     String username, String email, String mobile, String password) async {
-//   const url =
-//       'http://localhost/Tourism/Tourism%20Management%20System%20using%20PHP%20&%20MySQL%20-TMS/tms/api/signup.php';
-
-//   final response = await http.post(
-//     Uri.parse(url),
-//     headers: <String, String>{
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: jsonEncode(<String, String>{
-//       'fname': username,
-//       'email': email,
-//       'mobilenumber': mobile,
-//       'password': password,
-//     }),
-//   );
-
-//   if (response.statusCode == 200) {
-//     final data = jsonDecode(response.body);
-//     print(data);
-//   } else {
-//     print('Error: ${response.statusCode}');
-//   }
-// }
-
 class _SignupPageState extends State<SignupPage> {
   TextEditingController _firstNameController = TextEditingController();
   // TextEditingController _lastNameController = TextEditingController();
@@ -59,25 +32,6 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // SizedBox(
-              //   height: 30,
-              // ),
-              // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              //   GestureDetector(
-              //       onTap: () {
-              //         Get.back();
-              //       },
-              //       child: Icon(Icons.arrow_back_sharp)),
-              //   GestureDetector(
-              //       onTap: () {
-              //         Get.to(LoginScreen());
-              //         // Get.offAll(LogInScreen());
-              //       },
-              //       child: Text("Login"))
-              // ]),
-              // SizedBox(
-              //   height: 30,
-              // ),
               Text(
                 "Sign up",
                 style: TextStyle(
@@ -144,17 +98,10 @@ class _SignupPageState extends State<SignupPage> {
                       _emailController.text,
                       _mobileController.text,
                       _passwordController.text);
-                  // .whenComplete(() => Get.offAll(() => LoginScreen()));
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => DetailPage()),
-                  // );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Icon(Icons.mail),
-                    //SizedBox(width: 8),
                     Text('Create account'),
                   ],
                 ),
@@ -188,13 +135,4 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-
-  // void _submitForm() {
-  //   final username = _firstNameController.text;
-  //   final email = _emailController.text;
-  //   final mobile = _mobileController.text;
-  //   final password = _passwordController.text;
-
-  //   signUp(username, email, mobile, password);
-  // }
 }

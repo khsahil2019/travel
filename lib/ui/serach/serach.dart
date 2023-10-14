@@ -204,7 +204,7 @@ class searchPackage extends SearchDelegate {
                                   padding: EdgeInsets.only(
                                       top: 5, bottom: 5, right: 10, left: 10),
                                   child: const Text(
-                                    "Book",
+                                    "Enquire",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -379,7 +379,7 @@ class searchPackage extends SearchDelegate {
                                   padding: EdgeInsets.only(
                                       top: 5, bottom: 5, right: 10, left: 10),
                                   child: const Text(
-                                    "Book",
+                                    "Enquire",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -438,9 +438,15 @@ class searchPackage extends SearchDelegate {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(x["PackageName"],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20))
+                        SizedBox(
+                          width: width * .9,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(x["PackageName"],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -555,7 +561,7 @@ class searchPackage extends SearchDelegate {
                                   padding: EdgeInsets.only(
                                       top: 5, bottom: 5, right: 10, left: 10),
                                   child: const Text(
-                                    "Book",
+                                    "Enquire",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),

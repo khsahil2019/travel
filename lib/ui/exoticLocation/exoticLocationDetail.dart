@@ -119,8 +119,6 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                   scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
-                      // Text(authController.exoticplaceList[data].toString()),
-                      // for (var x in authController.exoticplaceList)
                       Column(
                         children: [
                           CarouselSlider(
@@ -136,13 +134,6 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                               viewportFraction: 0.7,
                             ),
                             items: [
-                              // 'https://kabiatravels.com/admin/packageimage/' +
-                              //     authController.exoticplaceList[data]["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     authController.exoticplaceList[data]["image"],
-                              // // 'https://kabiatravels.com/admin/packageimage/' +
-                              // //     authController.exoticplaceList[data]["image"],
-
                               'https://kabiatravels.com/admin/packageimage/' +
                                   authController.exoticplaceList[data]
                                       ["PackageImage"],
@@ -239,7 +230,7 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                                       authController.exoticplaceList[data]
                                               ["PackagePrice"]
                                           .toString() +
-                                      "/per Person")),
+                                      "")),
                               Icon(Icons.person_outline),
                               // Icon(Icons.person_outline),
                               // Icon(Icons.person_outline)

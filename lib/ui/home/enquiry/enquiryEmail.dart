@@ -49,6 +49,7 @@ class _MyFormScreenState extends State<MyFormScreen> {
             SizedBox(height: 10),
             TextField(
               controller: _mobileController,
+              maxLength: 10,
               decoration: InputDecoration(labelText: 'Mobile Number'),
               keyboardType: TextInputType.phone,
             ),

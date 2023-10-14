@@ -158,8 +158,8 @@ class ApiService {
           authController.user = _res["data"];
           //
           //_showFormDialog(context as BuildContext);
-          Get.to(MyFormScreen());
-          // Get.to(HomePage());
+          //Get.to(MyFormScreen());
+          Get.to(HomePage());
           showSnakbar("Welcome !", "Login Successful");
         } else {
           log("log in failed");
@@ -207,10 +207,6 @@ class ApiService {
           showSnakbar("Congratulation !", "Signup successful");
           //  authController.fulldata = _res["data"];
           Get.offAll(LoginScreen());
-
-          //    authController.user = _res["data"];
-          // Get.offAll(logIn(
-          //     authController.user.toString(), authController.user.toString()));
         } else {
           log("Mobile Number Or Email already registered");
           showSnakbar(
@@ -380,7 +376,7 @@ class ApiService {
   Future<List<dynamic>> destinationWedding() async {
     //showLoading();
     var client = http.Client();
-    Uri uri = Uri.https(baseUrl, 'api/wedding.php');
+    Uri uri = Uri.https(baseUrl, 'api/weddingindex.php');
     log("uri: " + uri.toString());
 
     try {
@@ -445,8 +441,8 @@ class ApiService {
     }
   }
 
-  Future<Map?> requestPackage(String destination, String type, String fromDate,
-      String toDate, String noOfGuest) async {
+  Future<Map?> requestPackage(String userEmail, String destination, String type,
+      String fromDate, String toDate, String noOfGuest, String mobileNo) async {
     showLoading();
     var client = http.Client();
     Uri uri = Uri.https(baseUrl, 'api/packagerequest.php');
@@ -454,12 +450,13 @@ class ApiService {
 
     try {
       var _body = json.encode({
-        //  'name': name,
+        'UserEmail': userEmail,
         'location': destination,
         'type': type,
         'fromdate': fromDate,
         'todate': toDate,
         'person': noOfGuest,
+        'number': mobileNo
       });
       log("body: " + _body);
       var response = await client.post(uri, headers: _header, body: _body);
