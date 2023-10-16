@@ -1908,8 +1908,10 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SizedBox(width: 10),
                 Image.network(
-                    "https://kabiatravels.com/admin/uploadss/" +
-                        authController.logoList!["logo"],
+                    authController.logoList != null
+                        ? "https://kabiatravels.com/admin/uploadss/" +
+                            authController.logoList!["logo"]
+                        : "",
                     height: 50,
                     width: 50),
                 SizedBox(width: 10),
