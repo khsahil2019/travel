@@ -2029,13 +2029,6 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(width: 10),
-<<<<<<< HEAD
-                // Image.network(
-                //     "https://kabiatravels.com/admin/uploadss/" +
-                //         authController.logoList!["logo"],
-                //     height: 50,
-                //     width: 50),
-=======
                 Image.network(
                     authController.logoList != null
                         ? "https://kabiatravels.com/admin/uploadss/" +
@@ -2043,8 +2036,7 @@ class _HomePageState extends State<HomePage> {
                         : "",
                     height: 50,
                     width: 50),
->>>>>>> 0a051323dfc1dcffef2061ce29e6e92825740888
-               , SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(authController.indexPageList!["p1"],
                       style: TextStyle(fontSize: 14, color: Colors.orange)),
