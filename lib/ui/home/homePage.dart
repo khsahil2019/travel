@@ -1,7 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'dart:developer';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -44,7 +44,49 @@ class _HomePageState extends State<HomePage> {
   double _value = 0;
   final double _min = 500;
   final double _max = 50000;
-
+  final List reviewList1 = [
+    for (var x in authController.reviewList)
+      Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(x["comment"].toString()),
+              SizedBox(
+                height: 10,
+              ),
+              Text(x["name"].toString(),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.teal,
+                      fontWeight: FontWeight.bold)),
+              SizedBox(
+                height: 5,
+              ),
+              Text(x["location"].toString(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.orange,
+                  )),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Image.network(
+              //       "https://kabiatravels.com/admin/uploadss/" +
+              //           authController.logoList!["logo"],
+              //       height: 100,
+              //       width: 100,
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+        ),
+      ),
+  ];
   Future<void>? _launched;
   String? _phone = '';
   bool _hasCallSupport = false;
@@ -66,8 +108,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  final Uri manage = Uri(
+      scheme: 'https', host: 'kabiatravels.com', path: '/customer-login.php');
   final Uri flight =
       Uri(scheme: 'https', host: 'kabiatravels.com', path: '/flight.php');
+  final Uri live = Uri(
+      scheme: 'https', host: 'www.railyatri.in', path: '/live-train-status');
   final Uri train =
       Uri(scheme: 'https', host: 'www.irctc.co.in', path: 'nget/train-search/');
   final Uri hotel =
@@ -100,6 +146,7 @@ class _HomePageState extends State<HomePage> {
     log("logo : " + authController.logoList.toString());
     log("DestinationWedding : " +
         authController.destinationWeddingList.toString());
+    log("Review : " + authController.reviewList.toString());
     // log("privacy " + authController.privacyList.toString());
 
     // ignore: unused_local_variable
@@ -128,6 +175,18 @@ class _HomePageState extends State<HomePage> {
             style: const TextStyle(color: Colors.black),
           ),
           actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.manage_history,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                setState(() {
+                  // _showToast(context);
+                  _launched = _launchInWebViewOrVC(manage);
+                });
+              },
+            ),
             IconButton(
               icon: const Icon(
                 Icons.search,
@@ -194,32 +253,33 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        authController.indexPageList!["p4"] == null
-                            ? GestureDetector(
-                                onTap: () {
-                                  Get.to(PlanForMe());
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.orange),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(
-                                      authController.indexPageList!["p4"]
-                                          .toString(),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : SizedBox(),
-                      ],
-                    ),
+                    // Text(authController.reviewList.toString()),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     authController.indexPageList!["p4"] == null
+                    //         ? GestureDetector(
+                    //             onTap: () {
+                    //               Get.to(PlanForMe());
+                    //             },
+                    //             child: Container(
+                    //               decoration: BoxDecoration(
+                    //                   borderRadius: BorderRadius.circular(20),
+                    //                   color: Colors.orange),
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.all(10.0),
+                    //                 child: Text(
+                    //                   authController.indexPageList!["p4"]
+                    //                       .toString(),
+                    //                   style:
+                    //                       const TextStyle(color: Colors.white),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           )
+                    //         : SizedBox(),
+                    //   ],
+                    // ),
 
                     const SizedBox(
                       height: 30,
@@ -229,7 +289,8 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           authController.indexPageList!['p5'].toString(),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.teal),
+                          style:
+                              const TextStyle(color: Colors.teal, fontSize: 14),
                         )),
 
                     const SizedBox(
@@ -533,6 +594,35 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          /*live status*/
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // _showToast(context);
+                                _launched = _launchInWebViewOrVC(live);
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "assets/img/live.png",
+                                  width: 75,
+                                  height: 85,
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text("live status",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -782,7 +872,7 @@ class _HomePageState extends State<HomePage> {
                                             RichText(
                                               text: new TextSpan(
                                                 text: "Rs. " +
-                                                    x['PackagePrice'] +
+                                                    x['discprice'] +
                                                     "/",
                                                 style: const TextStyle(
                                                     color: Colors.black,
@@ -791,7 +881,7 @@ class _HomePageState extends State<HomePage> {
                                                         FontWeight.bold),
                                                 children: <TextSpan>[
                                                   new TextSpan(
-                                                      text: x['discprice'],
+                                                      text: x['PackagePrice'],
                                                       style: new TextStyle(
                                                           decoration:
                                                               TextDecoration
@@ -1356,9 +1446,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         child: button("See All")),
                     /*comment*/
-                    // Divider(
-                    //   thickness: 1,
-                    // ),
+
                     /*End wedding destination*/
                     /*Hotel rooms */
                     const SizedBox(
@@ -1375,116 +1463,118 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        Image.asset("assets/img/fifth.png",
-                            height: 150, width: 130),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        Column(children: [
-                          Row(
+                        Column(
+                          children: [
+                            Image.asset("assets/img/fifth.png",
+                                height: 150, width: 125),
+                          ],
+                        ),
+                        SizedBox(width: 5),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Our Testimonials",
-                                style: const TextStyle(color: Colors.teal),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Our Testimonials",
+                                    style: const TextStyle(
+                                        color: Colors.teal,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Image.asset(
+                                    "assets/img/badge.png",
+                                    height: 30,
+                                    width: 30,
+                                  )
+                                ],
                               ),
-                              Image.asset(
-                                "assets/img/badge.png",
-                                height: 20,
-                                width: 30,
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: new TextSpan(
-                              text: 'Happy ',
-                              style: const TextStyle(color: Colors.black),
-                              children: <TextSpan>[
-                                new TextSpan(
-                                    text: 'Travelers\n',
-                                    style: new TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.orange)),
-                                new TextSpan(
-                                    text: 'Expression',
-                                    style: new TextStyle(
-                                        // fontWeight: FontWeight.bold,
-                                        color: Colors.teal)),
-                              ],
+                              const SizedBox(height: 10),
+                              RichText(
+                                //textAlign: TextAlign.center,
+                                text: new TextSpan(
+                                  text: 'Happy ',
+                                  style: const TextStyle(color: Colors.black),
+                                  children: <TextSpan>[
+                                    new TextSpan(
+                                        text: 'Travelers\n',
+                                        style: new TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.orange)),
+                                    new TextSpan(
+                                        text: 'Expression',
+                                        style: new TextStyle(
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.teal,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+                              ),
+                            ])
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Customers Review",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star_half,
+                          color: Colors.yellow,
+                        ),
+                      ],
+                    ),
+
+                    SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          const SizedBox(height: 20.0),
+                          Container(
+                            height: 300,
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: reviewList1[index],
+                                );
+                              },
+                              itemWidth: 300,
+                              itemCount: authController.reviewList.length,
+                              layout: SwiperLayout.STACK,
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "Kabia Travels has a professional helpful\n team. Last month I booked a trip to Manali\n and Shimla and got struck there due to heavy\n rain and land slides but these guys helped me\n out of their way and helped me to reach Mumbai\n safely. Kudos to the team!! ",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          // const Text(
-                          //   "Kabia Travels has a professional helpful",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "team. Last month I booked a trip to Manali",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "and Shimla and got struck there due to heavy",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "rain and land slides but these guys helped me",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "out of their way and helped me to reach Mumbai",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "safely. Kudos to the team!! ",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          // const Text(
-                          //   "Kabia Travels has a professional helpful team. Last month I booked a trip to Manali and Shimla and got struck there due to heavy rain and land slides but these guys helped me out of their way and helped me to reach Mumbai safely. Kudos to the team!! ",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 11),
-                          // ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Sahil Thakur",
-                                style:
-                                    TextStyle(color: Colors.teal, fontSize: 13),
-                              ),
-                              const SizedBox(
-                                width: 90,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Shimla",
-                                style: TextStyle(fontSize: 10),
-                              ),
-                              const SizedBox(
-                                width: 90,
-                              ),
-                            ],
-                          ),
-                        ])
+                          const SizedBox(height: 20.0),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.swipe,
+                          size: 50,
+                          color: Colors.teal,
+                        ),
                       ],
                     ),
                     const Divider(
@@ -1727,7 +1817,9 @@ class _HomePageState extends State<HomePage> {
                           Text("Login", style: TextStyle(color: Colors.black))),
               // accountEmail: Text(authController.user!["EmailId"].toString()),
               currentAccountPicture: Image.network(
-                  'https://kabiatravels.com/admin/index_images/63ba412eae7aab2b53997550_testimonial-img.png'),
+                "https://kabiatravels.com/admin/uploadss/" +
+                    authController.logoList!["logo"],
+              ),
             ),
             ListTile(
               leading: Icon(
@@ -1770,7 +1862,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.local_offer,
                 color: Colors.red,
               ),
-              shape: Border.all(color: Colors.red),
+              shape: Border.all(color: Colors.teal),
               title: Text('Best Deals'),
               onTap: () {
                 Get.to(BestDeals())!.then((value) => Navigator.pop(context));
@@ -1804,7 +1896,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.flight,
                 color: Colors.red,
               ),
-              shape: Border.all(color: Colors.red),
+              shape: Border.all(color: Colors.teal),
               title: Text('Flights'),
               onTap: () {
                 setState(() {
@@ -1840,7 +1932,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.bus_alert,
                 color: Colors.red,
               ),
-              shape: Border.all(color: Colors.red),
+              shape: Border.all(color: Colors.teal),
               title: Text('Bus'),
               onTap: () {
                 setState(() {
@@ -1866,7 +1958,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.card_giftcard,
                 color: Colors.red,
               ),
-              shape: Border.all(color: Colors.red),
+              shape: Border.all(color: Colors.teal),
               title: Text('Visa'),
               onTap: () {
                 setState(() {
@@ -1874,25 +1966,55 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             ),
+            ListTile(
+              leading: Icon(
+                Icons.train_outlined,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text('Live status'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(live);
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.manage_history,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text('Manage option'),
+              onTap: () {
+                setState(() {
+                  _launched = _launchInWebViewOrVC(manage);
+                });
+              },
+            ),
             // Divider(
             //   thickness: 0.5,
             //   color: Colors.grey,
             // ),
-            // ListTile(
-            //   leading: Icon(Icons.question_answer_outlined),
-            //   title: Text(
-            //     "Privacy Policy",
-            //   ),
-            //   onTap: () {
-            //     Get.to(PrivacyPolicy())!
-            //         .then((value) => Navigator.pop(context));
-            //     // Navigator.pop(context);
-            //   },
-            //   // subtitle: Text('Item description'),
-            //   //trailing: Icon(Icons.more_vert),
-            //   // shape: Border.all(color: Colors.black),
-            //   // title: Text('FAQ'),
-            // ),
+            ListTile(
+              leading: Icon(
+                Icons.policy,
+                color: Colors.teal,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text(
+                "Privacy Policy",
+              ),
+              onTap: () {
+                Get.to(PrivacyPolicy())!
+                    .then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
+              // subtitle: Text('Item description'),
+              //trailing: Icon(Icons.more_vert),
+              // shape: Border.all(color: Colors.black),
+              // title: Text('FAQ'),
+            ),
             // Divider(
             //   thickness: 1,
             //   color: Colors.grey,
@@ -1907,11 +2029,11 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(width: 10),
-                Image.network(
-                    "https://kabiatravels.com/admin/uploadss/" +
-                        authController.logoList!["logo"],
-                    height: 50,
-                    width: 50),
+                // Image.network(
+                //     "https://kabiatravels.com/admin/uploadss/" +
+                //         authController.logoList!["logo"],
+                //     height: 50,
+                //     width: 50),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(authController.indexPageList!["p1"],
@@ -1923,8 +2045,11 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                SizedBox(
+                  width: 10,
+                ),
                 SizedBox(
                   width: 10,
                 ),
@@ -1932,15 +2057,17 @@ class _HomePageState extends State<HomePage> {
                 //   Icons.contact_support,
                 //   color: Colors.grey,
                 // ),
-                Text(
-                  "Contact No:\n" + authController.indexPageList!["p2"],
-                  style: TextStyle(fontSize: 14, color: Colors.teal),
+                Expanded(
+                  child: Text(
+                    "Contact No:\n" + authController.indexPageList!["p2"],
+                    style: TextStyle(fontSize: 14, color: Colors.teal),
+                  ),
                 ),
-                SizedBox(width: 10),
+                //SizedBox(width: 10),
               ],
             ),
             SizedBox(
-              height: 5,
+              height: 15,
             ),
 
             // Center(child: Text("App Version 1.0.0"))

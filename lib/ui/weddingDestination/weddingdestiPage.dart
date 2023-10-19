@@ -54,7 +54,8 @@ class _WeddingDestinationScreenState extends State<WeddingDestinationScreen> {
                       SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Column(children: [
-                            for (var x in authController.destinationWeddingList)
+                            for (var x in authController
+                                .destinationWeddingList.reversed)
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(

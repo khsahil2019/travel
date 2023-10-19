@@ -53,7 +53,8 @@ class _ExoticLocationScreenState extends State<ExoticLocationScreen> {
                       SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Column(children: [
-                            for (var x in authController.exoticplaceList)
+                            for (var x
+                                in authController.exoticplaceList.reversed)
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(

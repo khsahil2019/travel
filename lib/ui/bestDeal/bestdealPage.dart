@@ -187,7 +187,7 @@ class _BestDealsState extends State<BestDeals> {
                                               RichText(
                                                 text: new TextSpan(
                                                   text: "Rs. " +
-                                                      x['PackagePrice'] +
+                                                      x['discprice'] +
                                                       "/",
                                                   style: const TextStyle(
                                                       color: Colors.orange,
@@ -196,7 +196,7 @@ class _BestDealsState extends State<BestDeals> {
                                                           FontWeight.bold),
                                                   children: <TextSpan>[
                                                     new TextSpan(
-                                                        text: x['discprice'],
+                                                        text: x['PackagePrice'],
                                                         style: new TextStyle(
                                                             decoration:
                                                                 TextDecoration

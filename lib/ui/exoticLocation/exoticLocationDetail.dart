@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -21,92 +22,47 @@ class ExoticLocationDetail extends StatefulWidget {
 
 class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
   bool isInclude = false;
+  bool isDay1 = true;
+  bool isDay2 = false;
+  bool isDay3 = false;
+  bool isDay4 = false;
+  bool isDay5 = false;
+  bool isDay6 = false;
+  // List galleryList = [
+  //   for (var x in authController.exoticplaceList)
+  //     Image.network(
+  //       "https://kabiatravels.com/admin/images/" + x!["image"],
+  //     ),
+  // ];
   var data = Get.arguments;
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-
-  void _showFormDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enquiry Form'),
-          content: SingleChildScrollView(
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  FormBuilderTextField(
-                    name: 'email',
-                    decoration: InputDecoration(labelText: 'Email'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    name: 'mobile',
-                    decoration: InputDecoration(labelText: 'Mobile Number'),
-                    // validator: FormBuilderValidators.required(context),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FormBuilderTextField(
-                    maxLines: 4,
-                    autocorrect: true,
-                    name: 'comments',
-                    decoration: InputDecoration(labelText: 'Comments'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.saveAndValidate()) {
-                  // final formData = _formKey.currentState!.value;
-
-                  try {
-                    // Save user data to Firestore
-                    // await FirebaseFirestore.instance
-                    //     .collection('users')
-                    //     .add(formData);
-
-                    // Show a confirmation message to the user
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Data saved successfully!'),
-                      ),
-                    );
-
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  } catch (error) {
-                    print('Error saving data: $error');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Data saved Unsuccessfully!'),
-                    ));
-                  }
-                }
-              },
-              child: Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
+    String gallery = authController.exoticplaceList[data]["image"];
+    List<String> galleryList = gallery.split(",");
+    String day1act = authController.exoticplaceList[data]["day1_activities"];
+    List<String> day1data = day1act.split('%');
+    List<String> updateday1 = day1act.split('","');
+    List<String> selectedData1 = day1act.contains("%") ? day1data : updateday1;
+    String day2act = authController.exoticplaceList[data]["day2_activities"];
+    List<String> day2data = day2act.split('%');
+    List<String> updateday2 = day2act.split('","');
+    List<String> selectedData2 = day2act.contains("%") ? day2data : updateday2;
+    String day3act = authController.exoticplaceList[data]["day3_activities"];
+    List<String> day3data = day3act.split('%');
+    List<String> updateday3 = day3act.split('","');
+    List<String> selectedData3 = day3act.contains("%") ? day3data : updateday3;
+    String day4act = authController.exoticplaceList[data]["day4_activities"];
+    List<String> day4data = day4act.split('%');
+    List<String> updateday4 = day4act.split('","');
+    List<String> selectedData4 = day4act.contains("%") ? day4data : updateday4;
+    String day5act = authController.exoticplaceList[data]["day5_activities"];
+    List<String> day5data = day5act.split('%');
+    List<String> updateday5 = day5act.split('","');
+    List<String> selectedData5 = day5act.contains("%") ? day5data : updateday5;
+
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
       body: Stack(
@@ -115,6 +71,10 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: ListView(
               children: [
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // Text(galleryList.length.toString()),
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
@@ -137,6 +97,11 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                               'https://kabiatravels.com/admin/packageimage/' +
                                   authController.exoticplaceList[data]
                                       ["PackageImage"],
+                              'https://kabiatravels.com/admin/packageimage/' +
+                                  authController.exoticplaceList[data]
+                                      ["hotelimage"],
+                              // 'https://kabiatravels.com/admin/images/' +
+                              //     authController.exoticplaceList[2]["image"],
                             ]
                                 .map((item) => Container(
                                       child: Center(
@@ -213,12 +178,29 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                             height: 10,
                           ),
 
-                          Text(
-                              authController.exoticplaceList[data]
-                                  ['PackageDetails'],
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.teal)),
+                          // Text(
+                          //     authController.exoticplaceList[data]
+                          //         ['PackageDetails'],
+                          //     textAlign: TextAlign.center,
+                          //     style:
+                          //         TextStyle(fontSize: 12, color: Colors.teal)),
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                    authController.exoticplaceList[data]
+                                            ['PackageDetails']
+                                        .toString(),
+                                    // textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.teal)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -978,7 +960,537 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                                         : SizedBox(),
                                   ],
                                 ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              authController.exoticplaceList[data]
+                                          ["day1_activities"] !=
+                                      ""
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDay1 = !isDay1;
+                                          isDay2 = false;
+                                          isDay5 = false;
+                                          isDay3 = false;
+                                          isDay6 = false;
+                                          isDay4 = false;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Day-1",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDay1
+                                              ? Colors.teal
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
+                              authController.exoticplaceList[data]
+                                          ["day2_activities"] !=
+                                      ""
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDay2 = !isDay2;
+                                          isDay1 = false;
+                                          isDay5 = false;
+                                          isDay3 = false;
+                                          isDay6 = false;
+                                          isDay4 = false;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Day-2",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDay2
+                                              ? Colors.teal
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
+                              authController.exoticplaceList[data]
+                                          ["day3_activities"] !=
+                                      ""
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDay3 = !isDay3;
+                                          isDay5 = false;
+                                          isDay6 = false;
+                                          isDay2 = false;
+                                          isDay1 = false;
+                                          isDay4 = false;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Day-3",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDay3
+                                              ? Colors.teal
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
+                              authController.exoticplaceList[data]
+                                          ["day4_activities"] !=
+                                      ""
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDay4 = !isDay4;
+                                          isDay5 = false;
+                                          isDay3 = false;
+                                          isDay6 = false;
+                                          isDay2 = false;
+                                          isDay1 = false;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Day-4",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDay4
+                                              ? Colors.teal
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
+                              authController.exoticplaceList[data]
+                                          ["day5_activities"] !=
+                                      ""
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDay5 = !isDay5;
+                                          isDay6 = false;
+                                          isDay4 = false;
+                                          isDay3 = false;
+                                          isDay2 = false;
+                                          isDay1 = false;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Day-5",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDay5
+                                              ? Colors.teal
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
 
+                          isDay1 == true
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedData1
+                                              .map((item) => Row(
+                                                    children: [
+                                                      Icon(Icons.check,
+                                                          //  size: 5,
+                                                          color: Colors.teal),
+                                                      SizedBox(
+                                                        width: width * .05,
+                                                      ),
+                                                      SizedBox(
+                                                          width: width * .5,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(item),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ))
+                                              .toList(),
+                                        ),
+                                        Container(
+                                          // height: 100,
+                                          width: width * .4,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.teal,
+                                            borderRadius: BorderRadius.circular(
+                                                20.0), // Adjust the radius to change the corner roundness
+                                            // Optional: Add a background color
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://kabiatravels.com/admin/packageimage/' +
+                                                  authController
+                                                          .exoticplaceList[data]
+                                                      ["day1_image"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : SizedBox(),
+                          isDay2 == true
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedData2
+                                              .map((item) => Row(
+                                                    children: [
+                                                      Icon(Icons.check,
+                                                          //  size: 5,
+                                                          color: Colors.teal),
+                                                      SizedBox(
+                                                        width: width * .05,
+                                                      ),
+                                                      SizedBox(
+                                                          width: width * .5,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(item),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ))
+                                              .toList(),
+                                        ),
+                                        Container(
+                                          // height: 100,
+                                          width: width * .4,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.teal,
+                                            borderRadius: BorderRadius.circular(
+                                                20.0), // Adjust the radius to change the corner roundness
+                                            // Optional: Add a background color
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://kabiatravels.com/admin/packageimage/' +
+                                                  authController
+                                                          .exoticplaceList[data]
+                                                      ["day2_image"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : SizedBox(),
+                          isDay3 == true
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedData3
+                                              .map((item) => Row(
+                                                    children: [
+                                                      Icon(Icons.check,
+                                                          //  size: 5,
+                                                          color: Colors.teal),
+                                                      SizedBox(
+                                                        width: width * .05,
+                                                      ),
+                                                      SizedBox(
+                                                          width: width * .5,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(item),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ))
+                                              .toList(),
+                                        ),
+                                        Container(
+                                          // height: 100,
+                                          width: width * .4,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.teal,
+                                            borderRadius: BorderRadius.circular(
+                                                20.0), // Adjust the radius to change the corner roundness
+                                            // Optional: Add a background color
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://kabiatravels.com/admin/packageimage/' +
+                                                  authController
+                                                          .exoticplaceList[data]
+                                                      ["day3_image"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : SizedBox(),
+                          isDay4 == true
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedData4
+                                              .map((item) => Row(
+                                                    children: [
+                                                      Icon(Icons.check,
+                                                          //  size: 5,
+                                                          color: Colors.teal),
+                                                      SizedBox(
+                                                        width: width * .05,
+                                                      ),
+                                                      SizedBox(
+                                                          width: width * .5,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(item),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ))
+                                              .toList(),
+                                        ),
+                                        Container(
+                                          // height: 100,
+                                          width: width * .4,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.teal,
+                                            borderRadius: BorderRadius.circular(
+                                                20.0), // Adjust the radius to change the corner roundness
+                                            // Optional: Add a background color
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://kabiatravels.com/admin/packageimage/' +
+                                                  authController
+                                                          .exoticplaceList[data]
+                                                      ["day4_image"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : SizedBox(),
+                          isDay5 == true
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedData5
+                                              .map((item) => Row(
+                                                    children: [
+                                                      Icon(Icons.check,
+                                                          //  size: 5,
+                                                          color: Colors.teal),
+                                                      SizedBox(
+                                                        width: width * .05,
+                                                      ),
+                                                      SizedBox(
+                                                          width: width * .5,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(item),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ))
+                                              .toList(),
+                                        ),
+                                        Container(
+                                          // height: 100,
+                                          width: width * .4,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.teal,
+                                            borderRadius: BorderRadius.circular(
+                                                20.0), // Adjust the radius to change the corner roundness
+                                            // Optional: Add a background color
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            child: Image.network(
+                                              'https://kabiatravels.com/admin/packageimage/' +
+                                                  authController
+                                                          .exoticplaceList[data]
+                                                      ["day5_image"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : SizedBox(),
+
+                          SizedBox(
+                            height: 30,
+                          ),
+
+                          galleryList.length > 1
+                              ? Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * .1,
+                                        ),
+                                        Text(
+                                          "Gallery",
+                                          style: TextStyle(
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "No of photos  ",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 25,
+                                          width: 25,
+                                          decoration: BoxDecoration(
+                                              color: Colors.teal,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Center(
+                                            child: Text(
+                                              galleryList.length.toString(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: width * .1,
+                                        ),
+                                      ],
+                                    ),
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        children: <Widget>[
+                                          const SizedBox(height: 20.0),
+                                          Container(
+                                            height: 300,
+                                            color: Colors.white,
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Swiper(
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.0),
+                                                  child: Image.network(
+                                                    "https://kabiatravels.com/admin/images/" +
+                                                        galleryList[index],
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                );
+                                              },
+                                              itemWidth: 300,
+                                              itemCount: galleryList.length,
+                                              layout: SwiperLayout.STACK,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20.0),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(),
                           SizedBox(
                             height: 30,
                           ),

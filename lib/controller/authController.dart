@@ -20,19 +20,24 @@ class AuthController extends GetxController {
   List<dynamic> exoticplaceList = [];
   List<dynamic> destinationWeddingList = [];
   List<dynamic> dealsList = [];
+  List<dynamic> reviewList = [];
   Map? indexPageList;
   Map? logoList;
   Map? privacyList;
+  // Map? reviewList;
+  //Map? reviewList;
 // Map? fulldata;
   @override
   void onInit() {
     // TODO: implement onInit
+
     getPrivacy();
     getExoticpalce();
     getIndexPage();
     getDestinationWeeding();
     getDeals();
     getlogo();
+    getReview();
     super.onInit();
     log("AuthController onInit");
   }
@@ -41,8 +46,16 @@ class AuthController extends GetxController {
     ApiService().privacyPolicy().then((value) => privacyList = value);
   }
 
+  // getReview() {
+  //   ApiService().review().then((value) => reviewList = value);
+  // }
+
   getExoticpalce() {
     ApiService().exoticLocation().then((value) => exoticplaceList = value);
+  }
+
+  getReview() {
+    ApiService().Review().then((value) => reviewList = value);
   }
 
   getDestinationWeeding() {
