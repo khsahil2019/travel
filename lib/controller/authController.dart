@@ -30,7 +30,8 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-
+    // getLogout();
+    // deleteAccount();
     getPrivacy();
     getExoticpalce();
     getIndexPage();
@@ -46,6 +47,20 @@ class AuthController extends GetxController {
     ApiService().privacyPolicy().then((value) => privacyList = value);
   }
 
+  getLogout() {
+    ApiService().logout().then((value) => null);
+  }
+
+  getLogout2() {
+    ApiService().logout2().then((value) => null);
+  }
+
+  // deleteAccount() {
+  //   ApiService().deleteAccount().then((value) => null);
+  // }
+  //  void signOut() async {
+  //   ApiService.();
+  // }
   // getReview() {
   //   ApiService().review().then((value) => reviewList = value);
   // }
@@ -122,9 +137,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void logOut() {
-    GoogleSignIn _googleSignIn = GoogleSignIn();
-    _googleSignIn.disconnect();
-    auth.signOut();
-  }
+  // void Signout() {
+  //   authController.user!.remove("user");
+  // }
 }

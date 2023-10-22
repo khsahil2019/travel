@@ -67,7 +67,8 @@ class ApiService {
           //
           //_showFormDialog(context as BuildContext);
           //Get.to(MyFormScreen());
-          Get.to(HomePage());
+          //  Get.to(HomePage());
+          Get.to(() => HomePage());
           showSnakbar("Welcome !", "Login Successful");
         } else {
           log("log in failed");
@@ -89,6 +90,101 @@ class ApiService {
     }
   }
 
+  Future<Map?> deleteAccount(
+    String email,
+    String pass,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool rememberMe = GetStorage().read('remember_me') ?? false;
+    showLoading();
+    if (rememberMe) {
+      await prefs.setString('email', email);
+      await prefs.setString('password', pass);
+    }
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl, 'api/deleteacc.php');
+    log("uri: " + uri.toString());
+
+    try {
+      var _body = json.encode({"email": email, "password": pass});
+      log("body: " + _body);
+      var response = await client.post(uri, headers: _header, body: _body);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          log("Deleted  success");
+          // authController.user = null;
+          // // notifyListeners();
+          // SharedPreferences.getInstance().then((prefs) {
+          //   prefs.setString("EmailId", "");
+          //   //    showSnakbar("Visit Again!", "Logout Successful");
+          // });
+          // authController.user = _res["data"];
+
+          // authController.user!["EmailId"] = null;
+          //
+          //_showFormDialog(context as BuildContext);
+          //Get.to(MyFormScreen());
+          //  Get.to(HomePage());
+          Get.to(() => HomePage());
+          log("Delete Account in success");
+          showSnakbar("Account!", "Deleted successful");
+        } else {
+          log("Deletion  failed");
+          showSnakbar("Error !", "Something went wrong");
+        }
+      }
+
+      return null;
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage("No Internet Connection", Icons.error);
+      log("no internet catch: " + e.toString());
+      return null;
+    } catch (e) {
+      dismissLoadingWidget();
+      // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return null;
+    }
+  }
+  // Future<bool> deleteAccount(String email, String password) async {
+  //   final apiUrl =
+  //       'https://kabiatravels.com/api/deleteacc.php'; // Replace with your API endpoint
+  //   final headers = {'Content-Type': 'application/json'};
+
+  //   final body = json.encode({
+  //     'email': email,
+  //     'password': password,
+  //   });
+
+  //   try {
+  //     final response =
+  //         await http.post(Uri.parse(apiUrl), headers: headers, body: body);
+
+  //     if (response.statusCode == 200) {
+  //       // Successful account deletionlog
+
+  //       log("Body part : " + body.toString());
+  //       log("Account deleted Successful");
+  //       return true;
+  //     } else {
+  //       // Handle errors, e.g., authentication failed or account not found
+  //       final jsonResponse = json.decode(response.body);
+  //       final errorMessage = jsonResponse['message'];
+  //       print('Failed to delete account: $errorMessage');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     // Handle exceptions, e.g., network errors
+  //     print('Error while deleting account: $e');
+  //     return false;
+  //   }
+  // }
+
   Future<Map?> Signup(
       String username, String email, String mobile, String password) async {
     showLoading();
@@ -106,15 +202,18 @@ class ApiService {
       log("body: " + _body);
       var response = await client.post(uri, headers: _header, body: _body);
       Map<String, dynamic> _res = jsonDecode(response.body);
+
       log("response: " + _res.toString());
+
       log("status code" + response.statusCode.toString());
       if (response.statusCode == 200) {
         dismissLoadingWidget();
         if (_res["status"] == 1) {
           log("signup in success");
           showSnakbar("Congratulation !", "Signup successful");
-          //  authController.fulldata = _res["data"];
-          Get.offAll(LoginScreen());
+          // authController.user = _res["data"];
+          //  Get.offAll(LoginScreen());
+          Get.offAll(() => LoginScreen());
         } else {
           log("Mobile Number Or Email already registered");
           showSnakbar(
@@ -139,6 +238,26 @@ class ApiService {
       log("error catch: " + e.toString());
       return null;
     }
+  }
+
+  Future<void> logout() async {
+    authController.user = null;
+    // notifyListeners();
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString("email", "");
+      showSnakbar("Visit Again!", "Logout Successful");
+    });
+    return;
+  }
+
+  Future<void> logout2() async {
+    authController.user = null;
+    // notifyListeners();
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString("email", "");
+      //  showSnakbar("Visit Again!", "Logout Successful");
+    });
+    return;
   }
 
   Future<List<dynamic>> exoticLocation() async {
@@ -348,40 +467,6 @@ class ApiService {
       return {};
     }
   }
-
-  // Future<Map?> review() async {
-  //   //showLoading();
-  //   var client = http.Client();
-  //   Uri uri = Uri.https(baseUrl, 'api/review.php');
-  //   log("uri: " + uri.toString());
-
-  //   try {
-  //     var response = await client.post(uri, headers: _header, body: null);
-  //     Map<String, dynamic> _res = jsonDecode(response.body);
-  //     // log("response: " + _res.toString());
-  //     log("status code" + response.statusCode.toString());
-  //     if (response.statusCode == 200) {
-  //       dismissLoadingWidget();
-  //       if (_res["status"] == 1) {
-  //         return _res['data'];
-  //       } else {
-  //         return {};
-  //       }
-  //     }
-
-  //     return {};
-  //   } on SocketException catch (e) {
-  //     dismissLoadingWidget();
-  //     // showToastMessage("No Internet Connection", Icons.error);
-  //     log("no internet catch: " + e.toString());
-  //     return {};
-  //   } catch (e) {
-  //     dismissLoadingWidget();
-  //     // showToastMessage(e.toString(), Icons.error);
-  //     log("error catch: " + e.toString());
-  //     return {};
-  //   }
-  // }
 
   Future<Map?> requestPackage(String userEmail, String destination, String type,
       String fromDate, String toDate, String noOfGuest, String mobileNo) async {

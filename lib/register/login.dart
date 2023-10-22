@@ -137,8 +137,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   primary: Colors.orange, // Customize the button color here
                 ),
                 onPressed: () {
-                  ApiService().logIn(_emailController.text.trim(),
-                      _passwordController.text.trim());
+                  setState(() {
+                    if (getValidate() == true) {
+                      ApiService().logIn(_emailController.text.trim(),
+                          _passwordController.text.trim());
+                    }
+                  });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20.0),
-              Center(child: Text('OR   D\'not Have Account')),
+              Center(child: Text('OR  create new account')),
               SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -168,33 +172,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: List.generate(
-              //       3,
-              //       (index) => GestureDetector(
-              //             onTap: () {
-              //               if (index == 1) {
-              //                 authController.signInWithGoogle();
-              //               }
-              //             },
-              //             child: Padding(
-              //               padding: const EdgeInsets.all(8.0),
-              //               child: CircleAvatar(
-              //                 backgroundColor: Colors.white,
-              //                 radius: 35,
-              //                 child: Image.asset(
-              //                   socialIconList[index],
-              //                   width: 40,
-              //                 ),
-              //               ),
-              //             ),
-              //           )),
-              // )
             ],
           ),
         ),
       ),
     );
+  }
+
+  getValidate() {
+    if (_emailController.text.isEmpty) {
+      SnackBar(content: Text("Please mention Email"));
+      return false;
+    }
+    if (_passwordController.text.isEmpty) {
+      SnackBar(content: Text("Please mention Password"));
+      return false;
+    }
+    return true;
   }
 }

@@ -6,10 +6,6 @@ import 'dart:convert';
 import '../services/apiservice.dart';
 import 'login.dart';
 
-// import 'package:kt_travel/Register/login.dart';
-// import 'package:kt_travel/controller/authController.dart';
-// import 'package:kt_travel/services/apiservice.dart';
-
 class SignupPage extends StatefulWidget {
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -50,13 +46,6 @@ class _SignupPageState extends State<SignupPage> {
                   labelText: 'First name',
                 ),
               ),
-              // SizedBox(height: 16),
-              // TextField(
-              //   controller: _firstNameController,
-              //   decoration: InputDecoration(
-              //     labelText: 'Last name',
-              //   ),
-              // ),
               SizedBox(height: 16),
               TextField(
                 controller: _emailController,
@@ -85,7 +74,6 @@ class _SignupPageState extends State<SignupPage> {
                   labelText: 'Password',
                 ),
               ),
-
               SizedBox(height: 56),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -8,7 +8,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:travel/helper/snackbar.dart';
 import 'package:travel/services/apiservice.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -93,6 +95,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController commentController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   @override
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
@@ -177,12 +180,22 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               icon: const Icon(
+                Icons.logout,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                setState(() {
+                  authController.getLogout();
+                });
+              },
+            ),
+            IconButton(
+              icon: const Icon(
                 Icons.manage_history,
                 color: Colors.black,
               ),
               onPressed: () {
                 setState(() {
-                  // _showToast(context);
                   _launched = _launchInWebViewOrVC(manage);
                 });
               },
@@ -196,22 +209,6 @@ class _HomePageState extends State<HomePage> {
                 showSearch(context: context, delegate: searchPackage());
               },
             ),
-            // GestureDetector(
-            //   onTap: () {},
-            //   child: IconButton(
-            //     icon: const Icon(
-            //       Icons.settings,
-            //       color: Colors.black,
-            //     ),
-            //     onPressed: () {
-            //       // Navigator.push(
-            //       //   context,
-            //       //   MaterialPageRoute(builder: (context) => SignupPage()),
-            //       // );
-            //       // Do something when the more_vert icon is pressed
-            //     },
-            //   ),
-            // ),
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 255, 254, 254),
@@ -253,33 +250,6 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // Text(authController.reviewList.toString()),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     authController.indexPageList!["p4"] == null
-                    //         ? GestureDetector(
-                    //             onTap: () {
-                    //               Get.to(PlanForMe());
-                    //             },
-                    //             child: Container(
-                    //               decoration: BoxDecoration(
-                    //                   borderRadius: BorderRadius.circular(20),
-                    //                   color: Colors.orange),
-                    //               child: Padding(
-                    //                 padding: const EdgeInsets.all(10.0),
-                    //                 child: Text(
-                    //                   authController.indexPageList!["p4"]
-                    //                       .toString(),
-                    //                   style:
-                    //                       const TextStyle(color: Colors.white),
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           )
-                    //         : SizedBox(),
-                    //   ],
-                    // ),
 
                     const SizedBox(
                       height: 30,
@@ -296,14 +266,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    //   child: search(width),
-                    // ),
-                    // const SizedBox(
-                    //   height: 30,
-                    // ),
+
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
@@ -317,14 +280,6 @@ class _HomePageState extends State<HomePage> {
                               setState(() {
                                 _launched = _launchInWebViewOrVC(flight);
                               });
-                              //  setState(() {
-                              //  _launched = _launchInWebViewOrVC(flight);
-
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const HotelRooms()),
-                              //  );
                             },
                             child: Column(
                               children: [
@@ -823,12 +778,6 @@ class _HomePageState extends State<HomePage> {
                                                           FontWeight.bold,
                                                       fontSize: 16),
                                                 )),
-                                            // Icon(
-                                            //   Icons.star,
-                                            //   color: Colors.teal,
-                                            //   size: 12,
-                                            // ),
-                                            // Text("4.5"),
                                           ],
                                         ),
                                       ),
@@ -921,13 +870,6 @@ class _HomePageState extends State<HomePage> {
                                                               MyFormScreen()),
                                                     );
                                                   }
-                                                  // print(authController.dealsList
-                                                  //     .indexOf(x));
-                                                  // Get.to(() => BestDealsDetail(),
-                                                  //     arguments: authController
-                                                  //         .dealsList
-                                                  //         .indexOf(x));
-                                                  // _showFormDialog(context);
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -978,13 +920,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => ExoticPlace()),
-                            // );
-                          },
+                          onTap: () {},
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 10, right: 30, left: 30),
@@ -1158,18 +1094,6 @@ class _HomePageState extends State<HomePage> {
                                                             MyFormScreen()),
                                                   );
                                                 }
-                                                // Get.to(() => LoginScreen());
-                                                // Get.to(
-                                                //     () => ExoticLocationDetail());
-                                                // print(authController
-                                                //     .exoticplaceList
-                                                //     .indexOf(x));
-                                                // Get.to(
-                                                //     () => ExoticLocationDetail(),
-                                                //     arguments: authController
-                                                //         .exoticplaceList
-                                                //         .indexOf(x));
-                                                //  _showFormDialog(context);
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -1220,13 +1144,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => DestinationWedding()),
-                            // );
-                          },
+                          onTap: () {},
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 10, right: 30, left: 30),
@@ -1583,30 +1501,10 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: Text(authController.indexPageList!["p1"],
-                    //           style: TextStyle(
-                    //               fontSize: 14, color: Colors.orange)),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Row(
-                    //   children: [
-                    //     Text(
-                    //       "Contact No. " + authController.indexPageList!["p2"],
-                    //       style: TextStyle(fontSize: 14, color: Colors.teal),
-                    //     ),
-                    //   ],
-                    // ),
                     SizedBox(
                       height: 50,
                     ),
-                    // Text(authController.user!["EmailId"].toString())
+
                     //comment
                   ],
                 )
@@ -1795,6 +1693,7 @@ class _HomePageState extends State<HomePage> {
               // accountName: Text("skj"),
 
               accountName:
+
                   //  authController.user != null &&
                   //         authController.user!["Name"] != "null"
                   //     ? Text(authController.user!["Name"].toString()):
@@ -1803,6 +1702,8 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.black),
               ),
               accountEmail: authController.user != null
+                  // ||
+                  //         authController.user!["EmailId"] == ""
                   ? Text(authController.user!["EmailId"].toString(),
                       style: TextStyle(color: Colors.black))
                   : GestureDetector(
@@ -1837,6 +1738,8 @@ class _HomePageState extends State<HomePage> {
             //   thickness: 1,
             //   color: Colors.grey,
             // ),
+            // Text(authController.user!["Password"].toString(),
+            //     style: TextStyle(color: Colors.black)),
 
             ListTile(
               leading: Icon(
@@ -2015,6 +1918,41 @@ class _HomePageState extends State<HomePage> {
               // shape: Border.all(color: Colors.black),
               // title: Text('FAQ'),
             ),
+            ListTile(
+              leading: Icon(
+                Icons.delete_sharp,
+                color: Colors.red,
+              ),
+              shape: Border.all(color: Colors.teal),
+              title: Text(
+                "Delete Account",
+              ),
+
+              onTap: () {
+                // ApiService()
+                //     .deleteAccount(emailController.text, passController.text);
+                if (authController.user != null) {
+                  ApiService().deleteAccount(
+                      authController.user!["EmailId"].toString(),
+                      authController.user!["Password"].toString());
+
+                  authController.getLogout2();
+
+                  log("Deleted Successful");
+                } else {
+                  log("Account Deletion failed");
+                  showSnakbar(
+                      "Account Deletion failed", "Something went wrong");
+                }
+                // Get.to(PrivacyPolicy())!
+                //     .then((value) => Navigator.pop(context));
+                // Navigator.pop(context);
+              },
+              // subtitle: Text('Item description'),
+              //trailing: Icon(Icons.more_vert),
+              // shape: Border.all(color: Colors.black),
+              // title: Text('FAQ'),
+            ),
             // Divider(
             //   thickness: 1,
             //   color: Colors.grey,
@@ -2024,7 +1962,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-
+            // Expanded(child: Text(authController.user!["Password"].toString())),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
