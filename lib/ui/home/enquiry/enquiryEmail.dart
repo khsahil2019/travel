@@ -19,6 +19,7 @@ class _MyFormScreenState extends State<MyFormScreen> {
   Widget build(BuildContext context) {
     _emailController.text = "kabiatravels@gmail.com";
     return Scaffold(
+      appBar: AppBar(),
       // appBar: AppBar(
       //   actions: [],
       //   title: Text('Form Example'),
