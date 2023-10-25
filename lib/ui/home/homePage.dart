@@ -1718,8 +1718,10 @@ class _HomePageState extends State<HomePage> {
                           Text("Login", style: TextStyle(color: Colors.black))),
               // accountEmail: Text(authController.user!["EmailId"].toString()),
               currentAccountPicture: Image.network(
-                "https://kabiatravels.com/admin/uploadss/" +
-                    authController.logoList!["logo"],
+                authController.logoList != null
+                    ? "https://kabiatravels.com/admin/uploadss/" +
+                        authController.logoList!["logo"]
+                    : "",
               ),
             ),
             ListTile(
