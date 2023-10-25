@@ -65,6 +65,7 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
 
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(
         children: [
           Container(
