@@ -38,6 +38,8 @@ class _WeddingDestinationDetailScreenState
     // ignore: unused_local_variable
     String gallery = authController.destinationWeddingList[data]["image"];
     List<String> galleryList = gallery.split(",");
+    String hotelName = authController.destinationWeddingList[data]["hotelname"];
+    List<String> hotelNameList = hotelName.split(",");
     String day1act =
         authController.destinationWeddingList[data]["day1_activities"];
     List<String> day1data = day1act.split('%');
@@ -161,7 +163,7 @@ class _WeddingDestinationDetailScreenState
                                 size: 14,
                               ),
                               SizedBox(
-                                  //width: width * .28,
+                                  // width: width * .9,
                                   child: Text(
                                 authController.destinationWeddingList[data]
                                     ['PackageLocation'],
@@ -244,23 +246,23 @@ class _WeddingDestinationDetailScreenState
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: width * .99,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    authController.destinationWeddingList[data]
-                                        ["hotelname"],
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.orange),
+                          for (var x in hotelNameList)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: width * .99,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      x.toString(),
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.orange),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                           SizedBox(
                             height: 20,
                           ),

@@ -40,6 +40,8 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
+    String hotelName = authController.exoticplaceList[data]["hotelname"];
+    List<String> hotelNameList = hotelName.split(",");
     String gallery = authController.exoticplaceList[data]["image"];
     List<String> galleryList = gallery.split(",");
     String day1act = authController.exoticplaceList[data]["day1_activities"];
@@ -239,23 +241,23 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: width * .99,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    authController.exoticplaceList[data]
-                                        ["hotelname"],
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.orange),
+                          for (var x in hotelNameList)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: width * .99,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      x.toString(),
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.orange),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                           SizedBox(
                             height: 20,
                           ),

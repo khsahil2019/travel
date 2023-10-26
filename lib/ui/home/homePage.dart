@@ -1,5 +1,7 @@
 // import 'dart:html';
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'dart:developer';
@@ -13,7 +15,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:travel/helper/snackbar.dart';
 import 'package:travel/services/apiservice.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:device_info_plus/device_info_plus.dart';
 import '../../controller/authController.dart';
 
 import 'package:http/http.dart' as http;
@@ -791,7 +793,7 @@ class _HomePageState extends State<HomePage> {
                                           //mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             // SizedBox(
-                                            //   width: 0,
+                                            //   width: 10,
                                             // ),
                                             const Icon(
                                               Icons.location_on,
@@ -799,12 +801,12 @@ class _HomePageState extends State<HomePage> {
                                               size: 14,
                                             ),
                                             SizedBox(
-                                                //width: width * .28,
+                                                width: width * .5,
                                                 child: Text(
-                                              x['PackageLocation'],
-                                              style:
-                                                  const TextStyle(fontSize: 10),
-                                            )),
+                                                  x['PackageLocation'],
+                                                  style: const TextStyle(
+                                                      fontSize: 10),
+                                                )),
                                           ],
                                         ),
                                       ),
@@ -1039,7 +1041,7 @@ class _HomePageState extends State<HomePage> {
                                             size: 14,
                                           ),
                                           SizedBox(
-                                              width: width * .35,
+                                              width: width * .5,
                                               child: Text(
                                                 x['PackageLocation'],
                                                 style: const TextStyle(
@@ -1262,7 +1264,7 @@ class _HomePageState extends State<HomePage> {
                                             size: 14,
                                           ),
                                           SizedBox(
-                                              width: width * .35,
+                                              width: width * .5,
                                               child: Text(
                                                 x['PackageLocation'],
                                                 style: const TextStyle(
@@ -2012,7 +2014,7 @@ class _HomePageState extends State<HomePage> {
               height: 15,
             ),
 
-            // Center(child: Text("App Version 1.0.0"))
+            // Center(child: Text(Platform.isAndroid.toString()))
           ],
         ),
       ),

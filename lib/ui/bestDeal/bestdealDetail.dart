@@ -36,6 +36,8 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
   Widget build(BuildContext context) {
     String gallery = authController.dealsList[data]["image"];
     List<String> galleryList = gallery.split(",");
+    String hotelName = authController.dealsList[data]["hotelname"];
+    List<String> hotelNameList = hotelName.split(",");
     String day1act = authController.dealsList[data]["day1_activities"];
     List<String> day1data = day1act.split('%');
     List<String> updateday1 = day1act.split('","');
@@ -161,13 +163,16 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                                 size: 14,
                               ),
                               SizedBox(
-                                  //width: width * .28,
-                                  child: Text(
-                                authController.dealsList[data]
-                                        ["PackageLocation"]
-                                    .toString(),
-                                style: const TextStyle(fontSize: 12),
-                              )),
+                                  width: width * .9,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      authController.dealsList[data]
+                                              ["PackageLocation"]
+                                          .toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  )),
                             ],
                           ),
                           SizedBox(
@@ -219,6 +224,7 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           SizedBox(
                             height: 20,
                           ),
+                          // Text(hotelNameList.toString()),
                           Row(
                             children: [
                               SizedBox(
@@ -253,23 +259,40 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: width * .99,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    authController.dealsList[data]["hotelname"]
-                                        .toString(),
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.orange),
+                          for (var x in hotelNameList)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: width * .99,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      x.toString(),
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.orange),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     SizedBox(
+                          //       width: width * .99,
+                          //       child: Align(
+                          //         alignment: Alignment.center,
+                          //         child: Text(
+                          //           authController.dealsList[data]["hotelname"]
+                          //               .toString(),
+                          //           style: TextStyle(
+                          //               fontSize: 18, color: Colors.orange),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 20,
                           ),
