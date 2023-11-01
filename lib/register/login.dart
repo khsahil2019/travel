@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 // import 'forgetpass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:travel/register/resetPass.dart';
 import 'package:travel/register/signup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/authController.dart';
 import '../services/apiservice.dart';
@@ -31,6 +33,19 @@ class _LoginScreenState extends State<LoginScreen> {
     "assets/img/google_logo.png",
     "assets/img/twitter_logo.png"
   ];
+  Future<void> _launchInWebViewOrVC(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.inAppWebView,
+      webViewConfiguration: const WebViewConfiguration(
+          headers: <String, String>{'my_header_key': 'my_header_value'}),
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  final Uri manage = Uri(
+      scheme: 'https', host: 'kabiatravels.com', path: '/customer-login.php');
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20.0),
-              Center(child: Text('OR  create new account')),
+              Center(child: Text('or  create new account')),
               SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -172,6 +187,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     GestureDetector(
+              //         onTap: () {
+              //           Get.to(() => ResetPassScreen());
+              //         },
+              //         child: Text("Reset Password"))
+              //   ],
+              // )
             ],
           ),
         ),
