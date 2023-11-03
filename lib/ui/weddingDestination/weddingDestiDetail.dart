@@ -68,7 +68,13 @@ class _WeddingDestinationDetailScreenState
 
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          // authController.dealsList[data]["PackageName"].toString()
+          authController.destinationWeddingList[data]["PackageName"].toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
       body: Stack(
         children: [
           Container(

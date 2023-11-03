@@ -67,7 +67,13 @@ class _ExoticLocationDetailState extends State<ExoticLocationDetail> {
 
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          // authController.dealsList[data]["PackageName"].toString()
+          authController.exoticplaceList[data]["PackageName"].toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
       body: Stack(
         children: [
           Container(

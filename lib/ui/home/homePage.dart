@@ -22,6 +22,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../../register/login.dart';
+import '../WebServices/bus.dart';
+import '../WebServices/flight.dart';
+import '../WebServices/hotel.dart';
+import '../WebServices/liveTrainStatus.dart';
+import '../WebServices/manage.dart';
+import '../WebServices/train.dart';
+import '../WebServices/visa.dart';
+import '../WebServices/webCheckIn.dart';
 import '../bestDeal/bestdealDetail.dart';
 import '../bestDeal/bestdealPage.dart';
 import '../designPackage/planForMe.dart';
@@ -197,9 +205,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(manage);
-                });
+                Get.to(() => ManageScreen());
               },
             ),
             IconButton(
@@ -278,10 +284,7 @@ class _HomePageState extends State<HomePage> {
                           //flight//
                           GestureDetector(
                             onTap: () {
-                              // _showToast(context);
-                              setState(() {
-                                _launched = _launchInWebViewOrVC(flight);
-                              });
+                              Get.to(() => FlightScreen());
                             },
                             child: Column(
                               children: [
@@ -308,10 +311,7 @@ class _HomePageState extends State<HomePage> {
                           //hotel
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                // _showToast(context);
-                                _launched = _launchInWebViewOrVC(hotel);
-                              });
+                              Get.to(() => HotelScreen());
                             },
                             child: Column(
                               children: [
@@ -423,9 +423,7 @@ class _HomePageState extends State<HomePage> {
                           //train
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                _launched = _launchInWebViewOrVC(train);
-                              });
+                              Get.to(() => TrainScreen());
                             },
                             child: Column(
                               children: [
@@ -464,10 +462,7 @@ class _HomePageState extends State<HomePage> {
                           //bus
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                // _showToast(context);
-                                _launched = _launchInWebViewOrVC(bus);
-                              });
+                              Get.to(() => BusScreen());
                             },
                             child: Column(
                               children: [
@@ -495,10 +490,11 @@ class _HomePageState extends State<HomePage> {
                           //visa
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                //_showToast(context);
-                                _launched = _launchInWebViewOrVC(visa);
-                              });
+                              Get.to(() => VisaScreen());
+                              // setState(() {
+                              //   //_showToast(context);
+                              //   _launched = _launchInWebViewOrVC(visa);
+                              // });
                             },
                             child: Column(
                               children: [
@@ -526,10 +522,11 @@ class _HomePageState extends State<HomePage> {
                           //web-checkin
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                // _showToast(context);
-                                _launched = _launchInWebViewOrVC(webcheck);
-                              });
+                              Get.to(() => WebCheckInScreen());
+                              // setState(() {
+                              //   // _showToast(context);
+                              //   _launched = _launchInWebViewOrVC(webcheck);
+                              // });
                             },
                             child: Column(
                               children: [
@@ -557,10 +554,11 @@ class _HomePageState extends State<HomePage> {
                           /*live status*/
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                // _showToast(context);
-                                _launched = _launchInWebViewOrVC(live);
-                              });
+                              Get.to(() => LiveTrainStatusScreen());
+                              // setState(() {
+                              //   // _showToast(context);
+                              //   _launched = _launchInWebViewOrVC(live);
+                              // });
                             },
                             child: Column(
                               children: [
@@ -1806,9 +1804,10 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Flights'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(flight);
-                });
+                Get.to(() => FlightScreen());
+                // setState(() {
+                //   _launched = _launchInWebViewOrVC(flight);
+                // });
               },
             ),
             // Divider(
@@ -1824,9 +1823,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Hotels'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(hotel);
-                });
+                Get.to(() => HotelScreen());
               },
             ),
             // Divider(
@@ -1842,9 +1839,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Bus'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(bus);
-                });
+                Get.to(() => BusScreen());
               },
             ),
             ListTile(
@@ -1855,9 +1850,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Train'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(train);
-                });
+                Get.to(() => TrainScreen());
               },
             ),
             ListTile(
@@ -1868,9 +1861,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Visa'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(visa);
-                });
+                Get.to(() => VisaScreen());
               },
             ),
             ListTile(
@@ -1881,9 +1872,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Live status'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(live);
-                });
+                Get.to(() => LiveTrainStatusScreen());
               },
             ),
             ListTile(
@@ -1894,9 +1883,7 @@ class _HomePageState extends State<HomePage> {
               shape: Border.all(color: Colors.teal),
               title: Text('Manage option'),
               onTap: () {
-                setState(() {
-                  _launched = _launchInWebViewOrVC(manage);
-                });
+                Get.to(() => ManageScreen());
               },
             ),
             // Divider(
@@ -1917,10 +1904,6 @@ class _HomePageState extends State<HomePage> {
                     .then((value) => Navigator.pop(context));
                 // Navigator.pop(context);
               },
-              // subtitle: Text('Item description'),
-              //trailing: Icon(Icons.more_vert),
-              // shape: Border.all(color: Colors.black),
-              // title: Text('FAQ'),
             ),
             ListTile(
               leading: Icon(

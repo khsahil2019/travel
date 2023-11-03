@@ -77,7 +77,13 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
     // log("hello : ---" + itemWidgets.toString());
     double width = MediaQuery.of(context).size.width - 40;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          // authController.dealsList[data]["PackageName"].toString()
+          authController.dealsList[data]["PackageName"].toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -151,6 +157,7 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                           SizedBox(
                             height: 10,
                           ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -163,16 +170,12 @@ class _BestDealsDetailState extends State<BestDealsDetail> {
                                 size: 14,
                               ),
                               SizedBox(
-                                  width: width * .9,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      authController.dealsList[data]
-                                              ["PackageLocation"]
-                                          .toString(),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                  )),
+                                  //width: width * .28,
+                                  child: Text(
+                                authController.dealsList[data]
+                                    ['PackageLocation'],
+                                style: const TextStyle(fontSize: 12),
+                              )),
                             ],
                           ),
                           SizedBox(
