@@ -65,6 +65,8 @@ dependencies:
   flutter_swiper_null_safety: ^1.0.2
   crypto: ^3.0.3
   device_info_plus: ^9.1.0
+  flutter_local_notifications: ^16.1.0
+  permission_handler: ^11.0.1
  
 
 dev_dependencies:
