@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel/services/notification.dart';
 
 import 'package:travel/ui/splash/splashScreen.dart';
 
 import 'controller/allbindings.dart';
+import 'firebase_options.dart';
 import 'helper/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 // void main() => runApp(const MyApp());
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  NotificationService().init();
   runApp(MyApp());
 }
 
