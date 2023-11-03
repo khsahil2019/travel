@@ -1,19 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:travel/ui/bestDeal/bestdealPage.dart';
 import 'package:travel/ui/home/enquiry/enquiryEmail.dart';
 import 'package:travel/ui/home/homePage.dart';
 import 'dart:io';
-
 import '../controller/authController.dart';
 import '../helper/show_loading.dart';
 import '../helper/snackbar.dart';
@@ -23,8 +19,6 @@ import '../ui/bookingReviewPage/bookingReviewScreen.dart';
 import '../ui/bookingReviewPage/confirmation.dart';
 
 class ApiService {
-  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-
   BuildContext? get context => null;
 
   final baseUrl = "kabiatravels.com";
@@ -64,10 +58,7 @@ class ApiService {
         if (_res["status"] == 1) {
           log("Log in success");
           authController.user = _res["data"];
-          //
-          //_showFormDialog(context as BuildContext);
-          //Get.to(MyFormScreen());
-          //  Get.to(HomePage());
+
           Get.to(() => HomePage());
           showSnakbar("Welcome !", "Login Successful");
         } else {
@@ -85,6 +76,51 @@ class ApiService {
     } catch (e) {
       dismissLoadingWidget();
       // showToastMessage(e.toString(), Icons.error);
+      log("error catch: " + e.toString());
+      return null;
+    }
+  }
+
+  Future<Map?> resetPass(
+    String email,
+    String pass,
+    String newpass,
+  ) async {
+    var client = http.Client();
+    Uri uri = Uri.https(baseUrl, 'api/changepass.php');
+    log("uri: " + uri.toString());
+
+    try {
+      var _body = json
+          .encode({"email": email, "password": pass, "newpassword": newpass});
+      log("body: " + _body);
+      var response = await client.post(uri, headers: _header, body: _body);
+      Map<String, dynamic> _res = jsonDecode(response.body);
+      log("response: " + _res.toString());
+      log("status code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        dismissLoadingWidget();
+        if (_res["status"] == 1) {
+          log("Pass change successful");
+          authController.user = _res["data"];
+
+          Get.to(() => LoginScreen());
+          showSnakbar("Congratulations!", "Password Updated Successfully");
+        } else {
+          log("pass change failed");
+          showSnakbar("Error !", "Something went wrong");
+        }
+      }
+
+      return null;
+    } on SocketException catch (e) {
+      dismissLoadingWidget();
+
+      log("no internet catch: " + e.toString());
+      return null;
+    } catch (e) {
+      dismissLoadingWidget();
+
       log("error catch: " + e.toString());
       return null;
     }
@@ -116,19 +152,6 @@ class ApiService {
         dismissLoadingWidget();
         if (_res["status"] == 1) {
           log("Deleted  success");
-          // authController.user = null;
-          // // notifyListeners();
-          // SharedPreferences.getInstance().then((prefs) {
-          //   prefs.setString("EmailId", "");
-          //   //    showSnakbar("Visit Again!", "Logout Successful");
-          // });
-          // authController.user = _res["data"];
-
-          // authController.user!["EmailId"] = null;
-          //
-          //_showFormDialog(context as BuildContext);
-          //Get.to(MyFormScreen());
-          //  Get.to(HomePage());
           Get.to(() => HomePage());
           log("Delete Account in success");
           showSnakbar("Account!", "Deleted successful");
@@ -151,39 +174,6 @@ class ApiService {
       return null;
     }
   }
-  // Future<bool> deleteAccount(String email, String password) async {
-  //   final apiUrl =
-  //       'https://kabiatravels.com/api/deleteacc.php'; // Replace with your API endpoint
-  //   final headers = {'Content-Type': 'application/json'};
-
-  //   final body = json.encode({
-  //     'email': email,
-  //     'password': password,
-  //   });
-
-  //   try {
-  //     final response =
-  //         await http.post(Uri.parse(apiUrl), headers: headers, body: body);
-
-  //     if (response.statusCode == 200) {
-  //       // Successful account deletionlog
-
-  //       log("Body part : " + body.toString());
-  //       log("Account deleted Successful");
-  //       return true;
-  //     } else {
-  //       // Handle errors, e.g., authentication failed or account not found
-  //       final jsonResponse = json.decode(response.body);
-  //       final errorMessage = jsonResponse['message'];
-  //       print('Failed to delete account: $errorMessage');
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     // Handle exceptions, e.g., network errors
-  //     print('Error while deleting account: $e');
-  //     return false;
-  //   }
-  // }
 
   Future<Map?> Signup(
       String username, String email, String mobile, String password) async {
@@ -194,9 +184,9 @@ class ApiService {
 
     try {
       var _body = json.encode({
-        'username': username,
+        'fname': username,
         'email': email,
-        'mobile': mobile,
+        'mobilenumber': mobile,
         'password': password,
       });
       log("body: " + _body);
@@ -497,10 +487,6 @@ class ApiService {
           showSnakbar("Congratulation !", "Package Detail Send Successfully");
           //  authController.fulldata = _res["data"];
           Get.offAll(HomePage());
-
-          //    authController.user = _res["data"];
-          // Get.offAll(logIn(
-          //     authController.user.toString(), authController.user.toString()));
         } else {
           dismissLoadingWidget();
           log("package not created");
@@ -508,11 +494,6 @@ class ApiService {
         }
       }
 
-      // showBottomToast("Error", error.msg.toString());
-      // showToastMessage(error.msg, Icons.error);
-
-      // log("error: " + error.msg.toString());
-      // return userdata;
       return null;
     } on SocketException catch (e) {
       dismissLoadingWidget();
